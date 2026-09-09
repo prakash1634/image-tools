@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PNG to JPG Converter - Free Online</title>
+<meta name="description" content="Convert PNG images to JPG online for free. Fast, simple and works directly in your browser.">
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f8fc;
+  color: #172033;
+  line-height: 1.6;
+}
+
+header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: #374151;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  padding: 50px 20px;
+}
+
+.box {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.intro {
+  color: #64748b;
+  margin-bottom: 30px;
+}
+
+.upload-area {
+  border: 2px dashed #2563eb;
+  border-radius: 15px;
+  padding: 35px 15px;
+  background: #f8fbff;
+  margin-bottom: 25px;
+}
+
+.upload-icon {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.choose-btn,
+.download-btn,
+.reset-btn {
+  display: inline-block;
+  border: none;
+  border-radius: 9px;
+  padding: 13px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 6px;
+}
+
+.choose-btn,
+.download-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.reset-btn {
+  background: #e5e7eb;
+  color: #172033;
+}
+
+.download-btn {
+  display: none;
+}
+
+#preview {
+  max-width: 100%;
+  max-height: 400px;
+  margin: 20px auto;
+  border-radius: 10px;
+  display: none;
+}
+
+#status {
+  margin: 15px 0;
+  color: #475569;
+  font-weight: 600;
+}
+
+.info {
+  margin-top: 30px;
+  text-align: left;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #e5e7eb;
+}
+
+.info h2 {
+  margin-bottom: 10px;
+}
+
+.info p {
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+footer {
+  background: #111827;
+  color: #d1d5db;
+  text-align: center;
+  padding: 30px 20px;
+  margin-top: 30px;
+}
+
+footer a {
+  color: #d1d5db;
+  margin: 0 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 29px;
+  }
+
+  .box {
+    padding: 25px 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">ImageTools</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#tools">Tools</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <div class="box">
+
+    <h1>PNG to JPG Converter</h1>
+
+    <p class="intro">
+      Convert PNG images to JPG format online for free.
+      Your image is processed directly in your browser.
+    </p>
+
+    <div class="upload-area">
+
+      <div class="upload-icon">🖼️</div>
+
+      <p>Select a PNG image</p>
+
+      <label for="fileInput" class="choose-btn">
+        Choose Image
+      </label>
+
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/png"
+      >
+
+    </div>
+
+    <img id="preview" alt="Selected PNG image preview">
+
+    <p id="status"></p>
+
+    <a
+      id="downloadBtn"
+      class="download-btn"
+      download="converted-image.jpg"
+    >
+      Download JPG
+    </a>
+
+    <button
+      id="resetBtn"
+      class="reset-btn"
+      style="display:none;"
+    >
+      Convert Another
+    </button>
+
+  </div>
+
+  <section class="info">
+
+    <h2>How to Convert PNG to JPG</h2>
+
+    <p>1. Tap the Choose Image button and select your PNG image.</p>
+
+    <p>2. The image will be converted to JPG directly in your browser.</p>
+
+    <p>3. Tap Download JPG to save your converted image.</p>
+
+    <h2 style="margin-top:20px;">Is this PNG to JPG converter free?</h2>
+
+    <p>
+      Yes. This online PNG to JPG converter is free and easy to use.
+      No software installation is required.
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+
+  <br>
+
+  <a href="index.html">Home</a>
+  <a href="#">Privacy Policy</a>
+  <a href="#">Terms</a>
+  <a href="#">Contact</a>
+
+</footer>
+
+<script>
+
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const downloadBtn = document.getElementById("downloadBtn");
+const resetBtn = document.getElementById("resetBtn");
+const status = document.getElementById("status");
+
+fileInput.addEventListener("change", function () {
+
+  const file = this.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  if (!file.type.match("image/png")) {
+    status.textContent = "Please select a PNG image.";
+    return;
+  }
+
+  status.textContent = "Converting image...";
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+
+    preview.src = event.target.result;
+    preview.style.display = "block";
+
+    const image = new Image();
+
+    image.onload = function () {
+
+      const canvas = document.createElement("canvas");
+
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      const context = canvas.getContext("2d");
+
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      context.drawImage(image, 0, 0);
+
+      canvas.toBlob(function (blob) {
+
+        const jpgUrl = URL.createObjectURL(blob);
+
+        downloadBtn.href = jpgUrl;
+        downloadBtn.style.display = "inline-block";
+
+        resetBtn.style.display = "inline-block";
+
+        status.textContent =
+          "Conversion complete! Your JPG is ready.";
+
+      }, "image/jpeg", 0.92);
+
+    };
+
+    image.src = event.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
+
+resetBtn.addEventListener("click", function () {
+
+  fileInput.value = "";
+  preview.src = "";
+  preview.style.display = "none";
+
+  downloadBtn.style.display = "none";
+  resetBtn.style.display = "none";
+
+  status.textContent = "";
+
+});
+
+</script>
+
+</body>
+</html>
