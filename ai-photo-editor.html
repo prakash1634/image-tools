@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Photo Editor - Free Online</title>
+
+<meta name="description" content="Edit and enhance your photos online for free with brightness, contrast, saturation, blur, grayscale and rotation tools.">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f8fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #374151;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.box {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.intro {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed #2563eb;
+    border-radius: 15px;
+    padding: 35px 15px;
+    background: #f8fbff;
+    margin-bottom: 25px;
+}
+
+.upload-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.choose-btn,
+.auto-btn,
+.download-btn,
+.reset-btn,
+.rotate-btn {
+    display: inline-block;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 6px;
+}
+
+.choose-btn,
+.auto-btn,
+.download-btn,
+.rotate-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.reset-btn {
+    background: #e5e7eb;
+    color: #172033;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 500px;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: none;
+}
+
+.editor {
+    display: none;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.control {
+    margin-bottom: 18px;
+}
+
+.control label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.control input[type="range"] {
+    width: 100%;
+}
+
+.value {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#status {
+    margin: 15px 0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.info {
+    margin-top: 30px;
+    text-align: left;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+.info h2 {
+    margin-bottom: 10px;
+}
+
+.info p {
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #111827;
+    color: #d1d5db;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+}
+
+footer a {
+    color: #d1d5db;
+    margin: 0 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 29px;
+    }
+
+    .box {
+        padding: 25px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a class="logo" href="index.html">ImageTools</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="index.html#tools">Tools</a>
+</nav>
+
+</header>
+
+<main class="container">
+
+<div class="box">
+
+<h1>AI Photo Editor</h1>
+
+<p class="intro">
+Edit and enhance your photos online with powerful photo editing controls.
+Everything works directly in your browser.
+</p>
+
+<div class="upload-area">
+
+<div class="upload-icon">🤖</div>
+
+<p>Select a photo to edit</p>
+
+<label for="fileInput" class="choose-btn">
+Choose Image
+</label>
+
+<input
+type="file"
+id="fileInput"
+accept="image/jpeg,image/png,image/webp"
+>
+
+</div>
+
+<img
+id="preview"
+alt="Photo editor preview"
+>
+
+<div class="editor" id="editor">
+
+<div class="control">
+
+<label for="brightness">
+Brightness:
+<span class="value" id="brightnessValue">100%</span>
+</label>
+
+<input
+type="range"
+id="brightness"
+min="50"
+max="150"
+value="100"
+>
+
+</div>
+
+<div class="control">
+
+<label for="contrast">
+Contrast:
+<span class="value" id="contrastValue">100%</span>
+</label>
+
+<input
+type="range"
+id="contrast"
+min="50"
+max="150"
+value="100"
+>
+
+</div>
+
+<div class="control">
+
+<label for="saturation">
+Saturation:
+<span class="value" id="saturationValue">100%</span>
+</label>
+
+<input
+type="range"
+id="saturation"
+min="0"
+max="200"
+value="100"
+>
+
+</div>
+
+<div class="control">
+
+<label for="blur">
+Blur:
+<span class="value" id="blurValue">0px</span>
+</label>
+
+<input
+type="range"
+id="blur"
+min="0"
+max="8"
+value="0"
+>
+
+</div>
+
+<div class="actions">
+
+<button
+id="autoBtn"
+class="auto-btn">
+✨ Auto Enhance
+</button>
+
+<button
+id="rotateBtn"
+class="rotate-btn">
+↻ Rotate
+</button>
+
+</div>
+
+</div>
+
+<p id="status"></p>
+
+<a
+id="downloadBtn"
+class="download-btn"
+download="edited-photo.jpg"
+style="display:none;">
+Download Edited Photo
+</a>
+
+<button
+id="resetBtn"
+class="reset-btn"
+style="display:none;">
+Edit Another Photo
+</button>
+
+</div>
+
+<section class="info">
+
+<h2>How to Edit a Photo</h2>
+
+<p>
+1. Tap Choose Image and select your photo.
+</p>
+
+<p>
+2. Adjust brightness, contrast, saturation and blur.
+</p>
+
+<p>
+3. Use Auto Enhance for a quick improvement.
+</p>
+
+<p>
+4. Use Rotate if you want to change the photo direction.
+</p>
+
+<p>
+5. Tap Download Edited Photo to save your result.
+</p>
+
+<h2 style="margin-top:20px;">
+Is this photo editor free?
+</h2>
+
+<p>
+Yes. This photo editor is free and processes your image directly in your browser.
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 ImageTools. All rights reserved.</p>
+
+<br>
+
+<a href="index.html">Home</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms</a>
+<a href="#">Contact</a>
+
+</footer>
+
+<script>
+
+const fileInput =
+document.getElementById("fileInput");
+
+const preview =
+document.getElementById("preview");
+
+const editor =
+document.getElementById("editor");
+
+const brightness =
+document.getElementById("brightness");
+
+const contrast =
+document.getElementById("contrast");
+
+const saturation =
+document.getElementById("saturation");
+
+const blur =
+document.getElementById("blur");
+
+const brightnessValue =
+document.getElementById("brightnessValue");
+
+const contrastValue =
+document.getElementById("contrastValue");
+
+const saturationValue =
+document.getElementById("saturationValue");
+
+const blurValue =
+document.getElementById("blurValue");
+
+const autoBtn =
+document.getElementById("autoBtn");
+
+const rotateBtn =
+document.getElementById("rotateBtn");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+const resetBtn =
+document.getElementById("resetBtn");
+
+const status =
+document.getElementById("status");
+
+let selectedImage = null;
+let rotation = 0;
+
+function updatePreview() {
+
+    if (!selectedImage) {
+        return;
+    }
+
+    preview.style.filter =
+        "brightness(" + brightness.value + "%) " +
+        "contrast(" + contrast.value + "%) " +
+        "saturate(" + saturation.value + "%) " +
+        "blur(" + blur.value + "px)";
+
+    preview.style.transform =
+        "rotate(" + rotation + "deg)";
+}
+
+brightness.addEventListener("input", function() {
+
+    brightnessValue.textContent =
+        this.value + "%";
+
+    updatePreview();
+
+});
+
+contrast.addEventListener("input", function() {
+
+    contrastValue.textContent =
+        this.value + "%";
+
+    updatePreview();
+
+});
+
+saturation.addEventListener("input", function() {
+
+    saturationValue.textContent =
+        this.value + "%";
+
+    updatePreview();
+
+});
+
+blur.addEventListener("input", function() {
+
+    blurValue.textContent =
+        this.value + "px";
+
+    updatePreview();
+
+});
+
+fileInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.match("image/(jpeg|png|webp)")) {
+
+        status.textContent =
+            "Please select a JPG, PNG or WebP image.";
+
+        return;
+    }
+
+    status.textContent =
+        "Loading photo...";
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            const image =
+                new Image();
+
+            image.onload =
+                function() {
+
+                    selectedImage = image;
+
+                    preview.src =
+                        event.target.result;
+
+                    preview.style.display =
+                        "block";
+
+                    editor.style.display =
+                        "block";
+
+                    resetBtn.style.display =
+                        "inline-block";
+
+                    rotation = 0;
+
+                    updatePreview();
+
+                    status.textContent =
+                        "Photo loaded. Start editing.";
+
+                };
+
+            image.src =
+                event.target.result;
+
+        };
+
+    reader.readAsDataURL(file);
+
+});
+
+autoBtn.addEventListener("click", function() {
+
+    brightness.value = 108;
+    contrast.value = 112;
+    saturation.value = 108;
+    blur.value = 0;
+
+    brightnessValue.textContent = "108%";
+    contrastValue.textContent = "112%";
+    saturationValue.textContent = "108%";
+    blurValue.textContent = "0px";
+
+    updatePreview();
+
+    status.textContent =
+        "Auto enhancement applied!";
+
+});
+
+rotateBtn.addEventListener("click", function() {
+
+    rotation += 90;
+
+    if (rotation >= 360) {
+        rotation = 0;
+    }
+
+    updatePreview();
+
+    status.textContent =
+        "Photo rotated.";
+
+});
+
+downloadBtn.addEventListener("click", function(event) {
+
+    if (!selectedImage) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const canvas =
+        document.createElement("canvas");
+
+    const context =
+        canvas.getContext("2d");
+
+    const angle =
+        rotation * Math.PI / 180;
+
+    const width =
+        selectedImage.width;
+
+    const height =
+        selectedImage.height;
+
+    if (rotation === 90 || rotation === 270) {
+
+        canvas.width = height;
+        canvas.height = width;
+
+    } else {
+
+        canvas.width = width;
+        canvas.height = height;
+
+    }
+
+    context.translate(
+        canvas.width / 2,
+        canvas.height / 2
+    );
+
+    context.rotate(angle);
+
+    context.filter =
+        "brightness(" + brightness.value + "%) " +
+        "contrast(" + contrast.value + "%) " +
+        "saturate(" + saturation.value + "%) " +
+        "blur(" + blur.value + "px)";
+
+    context.drawImage(
+        selectedImage,
+        -width / 2,
+        -height / 2,
+        width,
+        height
+    );
+
+    canvas.toBlob(function(blob) {
+
+        if (!blob) {
+
+            status.textContent =
+                "Could not create the edited image.";
+
+            return;
+        }
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+            "edited-photo.jpg";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        status.textContent =
+            "Edited photo downloaded!";
+
+        setTimeout(function() {
+            URL.revokeObjectURL(url);
+        }, 1000);
+
+    }, "image/jpeg", 0.92);
+
+});
+
+resetBtn.addEventListener("click", function() {
+
+    fileInput.value = "";
+
+    preview.src = "";
+
+    preview.style.display = "none";
+
+    editor.style.display = "none";
+
+    downloadBtn.style.display = "none";
+
+    resetBtn.style.display = "none";
+
+    status.textContent = "";
+
+    selectedImage = null;
+
+    rotation = 0;
+
+    brightness.value = 100;
+    contrast.value = 100;
+    saturation.value = 100;
+    blur.value = 0;
+
+    brightnessValue.textContent = "100%";
+    contrastValue.textContent = "100%";
+    saturationValue.textContent = "100%";
+    blurValue.textContent = "0px";
+
+});
+
+</script>
+
+</body>
+</html>
