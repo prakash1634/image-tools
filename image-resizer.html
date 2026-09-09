@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Resizer - Free Online</title>
+
+<meta name="description" content="Resize JPG, JPEG and PNG images online for free. Change image width and height quickly and easily.">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f8fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #374151;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.box {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.intro {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed #2563eb;
+    border-radius: 15px;
+    padding: 35px 15px;
+    background: #f8fbff;
+    margin-bottom: 25px;
+}
+
+.upload-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.choose-btn,
+.download-btn,
+.reset-btn {
+    display: inline-block;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 22px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 6px;
+}
+
+.choose-btn,
+.download-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.reset-btn {
+    background: #e5e7eb;
+    color: #172033;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 350px;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: none;
+}
+
+.resize-controls {
+    display: none;
+    margin: 25px 0;
+    text-align: left;
+}
+
+.resize-controls label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.resize-controls input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#status {
+    margin: 15px 0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.info {
+    margin-top: 30px;
+    text-align: left;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+.info h2 {
+    margin-bottom: 10px;
+}
+
+.info p {
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #111827;
+    color: #d1d5db;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+}
+
+footer a {
+    color: #d1d5db;
+    margin: 0 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 29px;
+    }
+
+    .box {
+        padding: 25px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a class="logo" href="index.html">ImageTools</a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#tools">Tools</a>
+    </nav>
+</header>
+
+<main class="container">
+
+<div class="box">
+
+<h1>Image Resizer</h1>
+
+<p class="intro">
+Resize JPG, JPEG and PNG images online for free.
+Change image width and height quickly and easily.
+</p>
+
+<div class="upload-area">
+
+<div class="upload-icon">🖼️</div>
+
+<p>Select an image to resize</p>
+
+<label for="fileInput" class="choose-btn">
+Choose Image
+</label>
+
+<input type="file" id="fileInput" accept="image/jpeg,image/png">
+
+</div>
+
+<img id="preview" alt="Image preview">
+
+<div class="resize-controls" id="resizeControls">
+
+<label for="widthInput">Width (px)</label>
+
+<input type="number" id="widthInput" min="1">
+
+<label for="heightInput">Height (px)</label>
+
+<input type="number" id="heightInput" min="1">
+
+<button id="resizeBtn" class="choose-btn">
+Resize Image
+</button>
+
+</div>
+
+<p id="status"></p>
+
+<a id="downloadBtn"
+class="download-btn"
+download="resized-image.jpg"
+style="display:none;">
+Download Resized Image
+</a>
+
+<button id="resetBtn"
+class="reset-btn"
+style="display:none;">
+Resize Another
+</button>
+
+</div>
+
+<section class="info">
+
+<h2>How to Resize an Image</h2>
+
+<p>
+1. Tap the Choose Image button and select your JPG, JPEG or PNG image.
+</p>
+
+<p>
+2. Enter the new width and height in pixels.
+</p>
+
+<p>
+3. Tap Resize Image to create the resized image.
+</p>
+
+<p>
+4. Tap Download Resized Image to save the image.
+</p>
+
+<h2 style="margin-top:20px;">
+Is this image resizer free?
+</h2>
+
+<p>
+Yes. This online image resizer is free and works directly in your browser.
+Your image does not need to be uploaded to a server.
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 ImageTools. All rights reserved.</p>
+
+<br>
+
+<a href="index.html">Home</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms</a>
+<a href="#">Contact</a>
+
+</footer>
+
+<script>
+
+const fileInput = document.getElementById("fileInput");
+
+const preview = document.getElementById("preview");
+
+const resizeControls =
+document.getElementById("resizeControls");
+
+const widthInput =
+document.getElementById("widthInput");
+
+const heightInput =
+document.getElementById("heightInput");
+
+const resizeBtn =
+document.getElementById("resizeBtn");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+const resetBtn =
+document.getElementById("resetBtn");
+
+const status =
+document.getElementById("status");
+
+let selectedImage = null;
+let selectedFile = null;
+
+fileInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.match("image/(jpeg|png)")) {
+
+        status.textContent =
+        "Please select a JPG, JPEG or PNG image.";
+
+        return;
+    }
+
+    selectedFile = file;
+
+    status.textContent =
+    "Loading image...";
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        const image = new Image();
+
+        image.onload = function() {
+
+            selectedImage = image;
+
+            preview.src = event.target.result;
+
+            preview.style.display = "block";
+
+            widthInput.value = image.width;
+
+            heightInput.value = image.height;
+
+            resizeControls.style.display = "block";
+
+            resetBtn.style.display = "inline-block";
+
+            status.textContent =
+            "Image loaded. Enter new dimensions.";
+
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+resizeBtn.addEventListener("click", function() {
+
+    if (!selectedImage) {
+        return;
+    }
+
+    const newWidth =
+    parseInt(widthInput.value);
+
+    const newHeight =
+    parseInt(heightInput.value);
+
+    if (!newWidth || !newHeight ||
+        newWidth < 1 || newHeight < 1) {
+
+        status.textContent =
+        "Please enter valid width and height.";
+
+        return;
+    }
+
+    status.textContent =
+    "Resizing image...";
+
+    const canvas =
+    document.createElement("canvas");
+
+    const context =
+    canvas.getContext("2d");
+
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+    context.drawImage(
+        selectedImage,
+        0,
+        0,
+        newWidth,
+        newHeight
+    );
+
+    const outputType =
+    selectedFile.type === "image/png"
+    ? "image/png"
+    : "image/jpeg";
+
+    canvas.toBlob(function(blob) {
+
+        const url =
+        URL.createObjectURL(blob);
+
+        preview.src = url;
+
+        downloadBtn.href = url;
+
+        downloadBtn.download =
+        selectedFile.type === "image/png"
+        ? "resized-image.png"
+        : "resized-image.jpg";
+
+        downloadBtn.style.display =
+        "inline-block";
+
+        status.textContent =
+        "Resize complete! " +
+        newWidth + " × " +
+        newHeight + " pixels.";
+
+    }, outputType, 0.92);
+
+});
+
+resetBtn.addEventListener("click", function() {
+
+    fileInput.value = "";
+
+    preview.src = "";
+
+    preview.style.display = "none";
+
+    resizeControls.style.display = "none";
+
+    downloadBtn.style.display = "none";
+
+    resetBtn.style.display = "none";
+
+    status.textContent = "";
+
+    selectedImage = null;
+
+    selectedFile = null;
+
+});
+
+</script>
+
+</body>
+</html>
