@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -82,6 +83,10 @@
       outline: none;
     }
 
+    .search input:focus {
+      border-color: #2563eb;
+    }
+
     .container {
       max-width: 1100px;
       margin: auto;
@@ -147,6 +152,10 @@
       font-size: 14px;
     }
 
+    .tool-card a:hover {
+      opacity: 0.9;
+    }
+
     .info {
       background: white;
       border-radius: 16px;
@@ -203,20 +212,25 @@
       }
     }
   </style>
+
 </head>
 
 <body>
 
 <header>
+
   <div class="logo">ImageTools</div>
 
   <nav>
     <a href="#">Home</a>
     <a href="#tools">Tools</a>
   </nav>
+
 </header>
 
+
 <section class="hero">
+
   <h1>Free <span>Image Tools</span> Online</h1>
 
   <p>
@@ -225,122 +239,318 @@
   </p>
 
   <div class="search">
-    <input type="text" placeholder="Search an image tool...">
+    <input
+      type="text"
+      id="toolSearch"
+      placeholder="Search an image tool..."
+      autocomplete="off"
+    >
   </div>
+
 </section>
+
 
 <main class="container" id="tools">
 
   <div class="section-title">
+
     <h2>Popular Image Tools</h2>
-    <p>Simple and useful tools for your everyday image needs.</p>
+
+    <p>
+      Simple and useful tools for your everyday image needs.
+    </p>
+
   </div>
+
 
   <div class="tools-grid">
 
+
     <div class="tool-card">
+
       <div class="icon">🖼️</div>
+
       <h3>JPG to PNG</h3>
-      <p>Convert JPG images to PNG format quickly.</p>
-  <a href="jpg-to-png.html">Use Tool</a>
+
+      <p>
+        Convert JPG images to PNG format quickly.
+      </p>
+
+      <a href="jpg-to-png.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🔄</div>
+
       <h3>PNG to JPG</h3>
-      <p>Convert PNG images to JPG format easily.</p>
-      <a href="png-to-jpg.html">Use Tool</a>
+
+      <p>
+        Convert PNG images to JPG format easily.
+      </p>
+
+      <a href="png-to-jpg.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🗜️</div>
+
       <h3>Image Compressor</h3>
-      <p>Reduce image file size while keeping good quality.</p>
-<a href="image-compressor.html">Use Tool</a>
+
+      <p>
+        Reduce image file size while keeping good quality.
+      </p>
+
+      <a href="image-compressor.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">📐</div>
+
       <h3>Image Resizer</h3>
-      <p>Resize your images to the exact dimensions you need.</p>
-<a href="image-resizer.html">Use Tool</a>
+
+      <p>
+        Resize your images to the exact dimensions you need.
+      </p>
+
+      <a href="image-resizer.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">✂️</div>
+
       <h3>Image Cropper</h3>
-      <p>Crop your photos to the perfect size.</p>
-  <a href="image-cropper.html">Use Tool</a>
+
+      <p>
+        Crop your photos to the perfect size.
+      </p>
+
+      <a href="image-cropper.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🔁</div>
+
       <h3>Image Converter</h3>
-      <p>Convert images between popular formats.</p>
-      <a href="image-converter.html">Use Tool</a>
+
+      <p>
+        Convert images between popular formats.
+      </p>
+
+      <a href="image-converter.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🌐</div>
+
       <h3>Image to WebP</h3>
-      <p>Convert JPG or PNG images into WebP format.</p>
-      <a href="image-to-webp.html">Use Tool</a>
+
+      <p>
+        Convert JPG or PNG images into WebP format.
+      </p>
+
+      <a href="image-to-webp.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">📷</div>
+
       <h3>WebP to JPG</h3>
-      <p>Convert WebP images to JPG format.</p>
-      <a href="webp-to-jpg.html">Use Tool</a>
+
+      <p>
+        Convert WebP images to JPG format.
+      </p>
+
+      <a href="webp-to-jpg.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🎨</div>
+
       <h3>WebP to PNG</h3>
-      <p>Convert WebP images to PNG format.</p>
-      <a href="webp-to-png.html">Use Tool</a>
+
+      <p>
+        Convert WebP images to PNG format.
+      </p>
+
+      <a href="webp-to-png.html">
+        Use Tool
+      </a>
+
+    </div>
+
 
     <div class="tool-card">
+
       <div class="icon">✨</div>
+
       <h3>Background Remover</h3>
-      <p>Remove unwanted backgrounds from your photos.</p>
-      <a href="background-remover.html">Use Tool</a>
+
+      <p>
+        Remove unwanted backgrounds from your photos.
+      </p>
+
+      <a href="background-remover.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🌟</div>
+
       <h3>Image Enhancer</h3>
-      <p>Improve the quality and appearance of your images.</p>
-      <a href="image-enhancer.html">Use Tool</a>
+
+      <p>
+        Improve the quality and appearance of your images.
+      </p>
+
+      <a href="image-enhancer.html">
+        Use Tool
+      </a>
+
     </div>
 
+
     <div class="tool-card">
+
       <div class="icon">🤖</div>
+
       <h3>AI Photo Editor</h3>
-      <p>Edit and enhance photos with powerful AI features.</p>
-      <a href="ai-photo-editor.html">Use Tool</a>
+
+      <p>
+        Edit and enhance photos with powerful AI features.
+      </p>
+
+      <a href="ai-photo-editor.html">
+        Use Tool
+      </a>
+
     </div>
+
 
   </div>
 
+
   <div class="info">
+
     <h2>Free Online Image Tools</h2>
+
     <p>
       ImageTools provides simple online tools for converting, compressing,
       resizing, cropping and optimizing images. Our goal is to make everyday
       image editing fast and easy for everyone.
     </p>
+
   </div>
 
 </main>
 
+
 <footer>
-  <p>© 2026 ImageTools. All rights reserved.</p>
+
+  <p>
+    © 2026 ImageTools. All rights reserved.
+  </p>
+
   <br>
-  <a href="#">Privacy Policy</a>
-  <a href="#">Terms</a>
-  <a href="#">Contact</a>
+
+  <a href="#">
+    Privacy Policy
+  </a>
+
+  <a href="#">
+    Terms
+  </a>
+
+  <a href="#">
+    Contact
+  </a>
+
 </footer>
 
+
+<script>
+
+  const searchInput = document.getElementById("toolSearch");
+
+  const toolCards = document.querySelectorAll(".tool-card");
+
+
+  searchInput.addEventListener("input", function () {
+
+    const searchText = this.value.toLowerCase().trim();
+
+
+    toolCards.forEach(function (card) {
+
+      const toolName =
+        card.querySelector("h3").textContent.toLowerCase();
+
+      const toolDescription =
+        card.querySelector("p").textContent.toLowerCase();
+
+
+      if (
+        toolName.includes(searchText) ||
+        toolDescription.includes(searchText)
+      ) {
+
+        card.style.display = "";
+
+      } else {
+
+        card.style.display = "none";
+
+      }
+
+    });
+
+  });
+
+</script>
+
+
 </body>
-  </html>
+</html>
