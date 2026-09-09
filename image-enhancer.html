@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Image Enhancer - Free Online</title>
+
+<meta name="description" content="Enhance JPG, JPEG and PNG images online for free. Improve brightness, contrast and sharpness directly in your browser.">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f8fc;
+    color: #172033;
+    line-height: 1.6;
+}
+
+header {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: #374151;
+    margin-left: 18px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.box {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.intro {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.upload-area {
+    border: 2px dashed #2563eb;
+    border-radius: 15px;
+    padding: 35px 15px;
+    background: #f8fbff;
+    margin-bottom: 25px;
+}
+
+.upload-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.choose-btn,
+.enhance-btn,
+.download-btn,
+.reset-btn {
+    display: inline-block;
+    border: none;
+    border-radius: 9px;
+    padding: 13px 22px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 6px;
+}
+
+.choose-btn,
+.enhance-btn,
+.download-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.reset-btn {
+    background: #e5e7eb;
+    color: #172033;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 450px;
+    margin: 20px auto;
+    border-radius: 10px;
+    display: none;
+}
+
+.controls {
+    display: none;
+    margin: 25px 0;
+    text-align: left;
+}
+
+.control {
+    margin-bottom: 18px;
+}
+
+.control label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.control input[type="range"] {
+    width: 100%;
+}
+
+.value {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+#status {
+    margin: 15px 0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.info {
+    margin-top: 30px;
+    text-align: left;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+.info h2 {
+    margin-bottom: 10px;
+}
+
+.info p {
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #111827;
+    color: #d1d5db;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+}
+
+footer a {
+    color: #d1d5db;
+    margin: 0 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 29px;
+    }
+
+    .box {
+        padding: 25px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a class="logo" href="index.html">ImageTools</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="index.html#tools">Tools</a>
+</nav>
+
+</header>
+
+<main class="container">
+
+<div class="box">
+
+<h1>Image Enhancer</h1>
+
+<p class="intro">
+Improve brightness, contrast and sharpness of your images online for free.
+Everything works directly in your browser.
+</p>
+
+<div class="upload-area">
+
+<div class="upload-icon">✨</div>
+
+<p>Select an image to enhance</p>
+
+<label for="fileInput" class="choose-btn">
+Choose Image
+</label>
+
+<input
+type="file"
+id="fileInput"
+accept="image/jpeg,image/png"
+>
+
+</div>
+
+<img
+id="preview"
+alt="Enhanced image preview"
+>
+
+<div class="controls" id="controls">
+
+<div class="control">
+
+<label for="brightnessInput">
+Brightness:
+<span class="value" id="brightnessValue">100%</span>
+</label>
+
+<input
+type="range"
+id="brightnessInput"
+min="50"
+max="150"
+value="100"
+>
+
+</div>
+
+<div class="control">
+
+<label for="contrastInput">
+Contrast:
+<span class="value" id="contrastValue">100%</span>
+</label>
+
+<input
+type="range"
+id="contrastInput"
+min="50"
+max="150"
+value="100"
+>
+
+</div>
+
+<div class="control">
+
+<label for="saturationInput">
+Saturation:
+<span class="value" id="saturationValue">100%</span>
+</label>
+
+<input
+type="range"
+id="saturationInput"
+min="0"
+max="200"
+value="100"
+>
+
+</div>
+
+<button
+id="enhanceBtn"
+class="enhance-btn">
+Enhance Image
+</button>
+
+</div>
+
+<p id="status"></p>
+
+<a
+id="downloadBtn"
+class="download-btn"
+download="enhanced-image.jpg"
+style="display:none;">
+Download Enhanced Image
+</a>
+
+<button
+id="resetBtn"
+class="reset-btn"
+style="display:none;">
+Enhance Another
+</button>
+
+</div>
+
+<section class="info">
+
+<h2>How to Enhance an Image</h2>
+
+<p>
+1. Tap Choose Image and select your JPG, JPEG or PNG image.
+</p>
+
+<p>
+2. Adjust brightness, contrast and saturation.
+</p>
+
+<p>
+3. Tap Enhance Image.
+</p>
+
+<p>
+4. Tap Download Enhanced Image to save the result.
+</p>
+
+<h2 style="margin-top:20px;">
+Is this image enhancer free?
+</h2>
+
+<p>
+Yes. This basic image enhancer is free and works directly in your browser.
+Your image does not need to be uploaded to a server.
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 ImageTools. All rights reserved.</p>
+
+<br>
+
+<a href="index.html">Home</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms</a>
+<a href="#">Contact</a>
+
+</footer>
+
+<script>
+
+const fileInput =
+document.getElementById("fileInput");
+
+const preview =
+document.getElementById("preview");
+
+const controls =
+document.getElementById("controls");
+
+const brightnessInput =
+document.getElementById("brightnessInput");
+
+const contrastInput =
+document.getElementById("contrastInput");
+
+const saturationInput =
+document.getElementById("saturationInput");
+
+const brightnessValue =
+document.getElementById("brightnessValue");
+
+const contrastValue =
+document.getElementById("contrastValue");
+
+const saturationValue =
+document.getElementById("saturationValue");
+
+const enhanceBtn =
+document.getElementById("enhanceBtn");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+const resetBtn =
+document.getElementById("resetBtn");
+
+const status =
+document.getElementById("status");
+
+let selectedImage = null;
+
+brightnessInput.addEventListener("input", function() {
+    brightnessValue.textContent =
+    this.value + "%";
+});
+
+contrastInput.addEventListener("input", function() {
+    contrastValue.textContent =
+    this.value + "%";
+});
+
+saturationInput.addEventListener("input", function() {
+    saturationValue.textContent =
+    this.value + "%";
+});
+
+fileInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.match("image/(jpeg|png)")) {
+
+        status.textContent =
+        "Please select a JPG, JPEG or PNG image.";
+
+        return;
+    }
+
+    status.textContent =
+    "Loading image...";
+
+    const reader =
+    new FileReader();
+
+    reader.onload =
+    function(event) {
+
+        const image =
+        new Image();
+
+        image.onload =
+        function() {
+
+            selectedImage = image;
+
+            preview.src =
+            event.target.result;
+
+            preview.style.display =
+            "block";
+
+            controls.style.display =
+            "block";
+
+            resetBtn.style.display =
+            "inline-block";
+
+            status.textContent =
+            "Image loaded. Adjust the settings.";
+
+        };
+
+        image.src =
+        event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+enhanceBtn.addEventListener("click", function() {
+
+    if (!selectedImage) {
+        return;
+    }
+
+    status.textContent =
+    "Enhancing image...";
+
+    const canvas =
+    document.createElement("canvas");
+
+    const context =
+    canvas.getContext("2d");
+
+    canvas.width =
+    selectedImage.width;
+
+    canvas.height =
+    selectedImage.height;
+
+    const brightness =
+    brightnessInput.value;
+
+    const contrast =
+    contrastInput.value;
+
+    const saturation =
+    saturationInput.value;
+
+    context.filter =
+    "brightness(" + brightness + "%) " +
+    "contrast(" + contrast + "%) " +
+    "saturate(" + saturation + "%)";
+
+    context.drawImage(
+        selectedImage,
+        0,
+        0
+    );
+
+    canvas.toBlob(function(blob) {
+
+        if (!blob) {
+
+            status.textContent =
+            "Enhancement failed. Please try again.";
+
+            return;
+        }
+
+        const url =
+        URL.createObjectURL(blob);
+
+        preview.src =
+        url;
+
+        downloadBtn.href =
+        url;
+
+        downloadBtn.download =
+        "enhanced-image.jpg";
+
+        downloadBtn.style.display =
+        "inline-block";
+
+        status.textContent =
+        "Image enhancement complete!";
+
+    }, "image/jpeg", 0.92);
+
+});
+
+resetBtn.addEventListener("click", function() {
+
+    fileInput.value = "";
+
+    preview.src = "";
+
+    preview.style.display = "none";
+
+    controls.style.display = "none";
+
+    downloadBtn.style.display = "none";
+
+    resetBtn.style.display = "none";
+
+    status.textContent = "";
+
+    selectedImage = null;
+
+    brightnessInput.value = 100;
+    contrastInput.value = 100;
+    saturationInput.value = 100;
+
+    brightnessValue.textContent = "100%";
+    contrastValue.textContent = "100%";
+    saturationValue.textContent = "100%";
+
+});
+
+</script>
+
+</body>
+  </html>
