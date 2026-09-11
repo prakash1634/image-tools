@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Media Image Resizer - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}header{background:#111827;color:white;text-align:center;padding:18px}
+.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+input,select{width:100%;padding:11px;margin:6px 0 12px;border:1px solid #ddd;border-radius:8px}.preview{text-align:center}.preview canvas{max-width:100%;max-height:450px}
+button{width:100%;padding:13px;border:0;border-radius:9px;background:#16a34a;color:white;font-weight:bold}.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Social Media Image Resizer</h1><p>Resize images for common social media sizes</p></header>
+<div class="container"><div class="card">
+<input id="file" type="file" accept="image/*">
+<select id="preset">
+<option value="1080,1080">Instagram Square — 1080×1080</option>
+<option value="1080,1350">Instagram Portrait — 1080×1350</option>
+<option value="1080,1920">Story / Reel — 1080×1920</option>
+<option value="1200,630">Facebook / Link — 1200×630</option>
+<option value="1280,720">YouTube — 1280×720</option>
+<option value="1500,500">Twitter Header — 1500×500</option>
+</select>
+<div class="preview"><canvas id="canvas"></canvas></div>
+<button id="download" disabled>Download Resized Image</button>
+<div class="status" id="status">Choose an image to start.</div>
+</div></div>
+<script>
+const f=document.getElementById("file"),p=document.getElementById("preset"),c=document.getElementById("canvas"),x=c.getContext("2d"),d=document.getElementById("download"),s=document.getElementById("status");let im=new Image(),ok=false;
+f.onchange=()=>{im.onload=()=>{ok=true;draw();d.disabled=false};im.src=URL.createObjectURL(f.files[0])};p.onchange=draw;
+function draw(){if(!ok)return;let [w,h]=p.value.split(",").map(Number);c.width=w;c.height=h;x.fillStyle="#ffffff";x.fillRect(0,0,w,h);let scale=Math.min(w/im.naturalWidth,h/im.naturalHeight);let nw=im.naturalWidth*scale,nh=im.naturalHeight*scale;x.drawImage(im,(w-nw)/2,(h-nh)/2,nw,nh);s.textContent="✅ "+w+" × "+h+" ready."}
+d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="social-media-image.png";a.click()});
+</script>
+</body>
+</html>
