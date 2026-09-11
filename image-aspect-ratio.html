@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Aspect Ratio - ImageTools</title>
+
+  <meta name="description"
+        content="Calculate image width, height and aspect ratio online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .preview {
+      margin-top: 18px;
+      min-height: 220px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 400px;
+      display: none;
+    }
+
+    .results {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 13px;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 14px;
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .value {
+      color: #555;
+      font-family: monospace;
+    }
+
+    .ratioBox {
+      margin-top: 18px;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background: #f3f4f6;
+    }
+
+    .ratioBox .big {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px;
+      background: #e5e7eb;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Aspect Ratio</h1>
+  <p>Check image dimensions and aspect ratio</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="preview">
+      <img id="previewImage" alt="Image Preview">
+    </div>
+
+    <div class="results" id="results">
+
+      <div class="row">
+        <span class="label">Width</span>
+        <span class="value" id="width">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Height</span>
+        <span class="value" id="height">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Dimensions</span>
+        <span class="value" id="dimensions">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Exact Ratio</span>
+        <span class="value" id="exactRatio">-</span>
+      </div>
+
+    </div>
+
+    <div class="ratioBox" id="ratioBox" style="display:none;">
+      <div>Aspect Ratio</div>
+      <div class="big" id="ratio">-</div>
+    </div>
+
+    <button id="clearBtn">
+      Clear Image
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const previewImage =
+    document.getElementById("previewImage");
+
+  const results =
+    document.getElementById("results");
+
+  const ratioBox =
+    document.getElementById("ratioBox");
+
+  const clearBtn =
+    document.getElementById("clearBtn");
+
+  const status =
+    document.getElementById("status");
+
+  const widthEl =
+    document.getElementById("width");
+
+  const heightEl =
+    document.getElementById("height");
+
+  const dimensionsEl =
+    document.getElementById("dimensions");
+
+  const exactRatioEl =
+    document.getElementById("exactRatio");
+
+  const ratioEl =
+    document.getElementById("ratio");
+
+
+  let currentUrl = null;
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+
+
+      currentUrl =
+        URL.createObjectURL(file);
+
+
+      previewImage.src =
+        currentUrl;
+
+      previewImage.style.display =
+        "block";
+
+
+      const image =
+        new Image();
+
+
+      image.onload =
+        function() {
+
+          const width =
+            image.naturalWidth;
+
+          const height =
+            image.naturalHeight;
+
+
+          const divisor =
+            gcd(width, height);
+
+
+          const ratioWidth =
+            width / divisor;
+
+          const ratioHeight =
+            height / divisor;
+
+
+          const exactRatio =
+            ratioWidth +
+            ":" +
+            ratioHeight;
+
+
+          const decimal =
+            (width / height)
+              .toFixed(2);
+
+
+          widthEl.textContent =
+            width + " px";
+
+
+          heightEl.textContent =
+            height + " px";
+
+
+          dimensionsEl.textContent =
+            width +
+            " × " +
+            height +
+            " px";
+
+
+          exactRatioEl.textContent =
+            exactRatio;
+
+
+          ratioEl.textContent =
+            getCommonRatio(
+              width,
+              height,
+              ratioWidth,
+              ratioHeight
+            );
+
+
+          results.style.display =
+            "block";
+
+
+          ratioBox.style.display =
+            "block";
+
+
+          clearBtn.style.display =
+            "block";
+
+
+          status.innerHTML =
+            "<strong>✅ Aspect ratio calculated.</strong><br>" +
+            "Your image information is shown above.";
+
+        };
+
+
+      image.onerror =
+        function() {
+
+          status.textContent =
+            "❌ Could not read this image.";
+
+        };
+
+
+      image.src =
+        currentUrl;
+
+    }
+  );
+
+
+  clearBtn.addEventListener(
+    "click",
+    function() {
+
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+
+
+      currentUrl =
+        null;
+
+
+      fileInput.value =
+        "";
+
+
+      previewImage.src =
+        "";
+
+      previewImage.style.display =
+        "none";
+
+
+      results.style.display =
+        "none";
+
+
+      ratioBox.style.display =
+        "none";
+
+
+      clearBtn.style.display =
+        "none";
+
+
+      status.textContent =
+        "Choose an image to start.";
+
+    }
+  );
+
+
+  function gcd(a, b) {
+
+    while (b !== 0) {
+
+      const temp =
+        b;
+
+      b =
+        a % b;
+
+      a =
+        temp;
+
+    }
+
+    return a;
+
+  }
+
+
+  function getCommonRatio(
+    width,
+    height,
+    rw,
+    rh
+  ) {
+
+    const commonRatios = [
+
+      {
+        w: 1,
+        h: 1,
+        name: "1:1"
+      },
+
+      {
+        w: 4,
+        h: 3,
+        name: "4:3"
+      },
+
+      {
+        w: 3,
+        h: 2,
+        name: "3:2"
+      },
+
+      {
+        w: 16,
+        h: 9,
+        name: "16:9"
+      },
+
+      {
+        w: 16,
+        h: 10,
+        name: "16:10"
+      },
+
+      {
+        w: 9,
+        h: 16,
+        name: "9:16"
+      },
+
+      {
+        w: 4,
+        h: 5,
+        name: "4:5"
+      },
+
+      {
+        w: 5,
+        h: 4,
+        name: "5:4"
+      }
+
+    ];
+
+
+    for (
+      let i = 0;
+      i < commonRatios.length;
+      i++
+    ) {
+
+      if (
+        rw === commonRatios[i].w &&
+        rh === commonRatios[i].h
+      ) {
+
+        return commonRatios[i].name;
+
+      }
+
+
+      if (
+        rw === commonRatios[i].h &&
+        rh === commonRatios[i].w
+      ) {
+
+        return commonRatios[i].h +
+          ":" +
+          commonRatios[i].w;
+
+      }
+
+    }
+
+
+    return rw + ":" + rh;
+
+  }
+
+</script>
+
+</body>
+</html>
