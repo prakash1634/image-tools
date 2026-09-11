@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Metadata Viewer - ImageTools</title>
+
+  <meta name="description"
+        content="View image file information, dimensions, format and size online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .preview {
+      margin-top: 18px;
+      min-height: 220px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 400px;
+      display: none;
+    }
+
+    .info {
+      margin-top: 18px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 13px;
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .value {
+      text-align: right;
+      word-break: break-word;
+      color: #555;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .clear {
+      width: 100%;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px;
+      background: #e5e7eb;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Metadata Viewer</h1>
+  <p>View basic information about your image</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="preview">
+      <img id="previewImage" alt="Image Preview">
+    </div>
+
+    <div class="info" id="info">
+
+      <div class="row">
+        <span class="label">File Name</span>
+        <span class="value" id="fileName">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">File Size</span>
+        <span class="value" id="fileSize">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Format</span>
+        <span class="value" id="format">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">MIME Type</span>
+        <span class="value" id="mime">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Width</span>
+        <span class="value" id="width">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Height</span>
+        <span class="value" id="height">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Aspect Ratio</span>
+        <span class="value" id="ratio">-</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Last Modified</span>
+        <span class="value" id="modified">-</span>
+      </div>
+
+    </div>
+
+    <button class="clear" id="clearBtn">
+      Clear Image
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to view its information.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const previewImage =
+    document.getElementById("previewImage");
+
+  const info =
+    document.getElementById("info");
+
+  const clearBtn =
+    document.getElementById("clearBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  const fileName =
+    document.getElementById("fileName");
+
+  const fileSize =
+    document.getElementById("fileSize");
+
+  const format =
+    document.getElementById("format");
+
+  const mime =
+    document.getElementById("mime");
+
+  const width =
+    document.getElementById("width");
+
+  const height =
+    document.getElementById("height");
+
+  const ratio =
+    document.getElementById("ratio");
+
+  const modified =
+    document.getElementById("modified");
+
+
+  let currentUrl = null;
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+
+
+      currentUrl =
+        URL.createObjectURL(file);
+
+
+      previewImage.src =
+        currentUrl;
+
+      previewImage.style.display =
+        "block";
+
+
+      const img =
+        new Image();
+
+
+      img.onload =
+        function() {
+
+          const w =
+            img.naturalWidth;
+
+          const h =
+            img.naturalHeight;
+
+
+          const gcdValue =
+            gcd(w, h);
+
+
+          const ratioText =
+            (w / gcdValue) +
+            ":" +
+            (h / gcdValue);
+
+
+          fileName.textContent =
+            file.name;
+
+
+          fileSize.textContent =
+            formatBytes(file.size);
+
+
+          format.textContent =
+            getFormat(file.type);
+
+
+          mime.textContent =
+            file.type || "Unknown";
+
+
+          width.textContent =
+            w + " px";
+
+
+          height.textContent =
+            h + " px";
+
+
+          ratio.textContent =
+            ratioText;
+
+
+          modified.textContent =
+            new Date(
+              file.lastModified
+            ).toLocaleString();
+
+
+          info.style.display =
+            "block";
+
+
+          clearBtn.style.display =
+            "block";
+
+
+          status.innerHTML =
+            "<strong>✅ Image information loaded.</strong><br>" +
+            "All basic details are shown above.";
+
+        };
+
+
+      img.onerror =
+        function() {
+
+          status.textContent =
+            "❌ Could not read this image.";
+
+        };
+
+
+      img.src =
+        currentUrl;
+
+    }
+  );
+
+
+  clearBtn.addEventListener(
+    "click",
+    function() {
+
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+
+
+      currentUrl =
+        null;
+
+
+      fileInput.value =
+        "";
+
+
+      previewImage.src =
+        "";
+
+      previewImage.style.display =
+        "none";
+
+
+      info.style.display =
+        "none";
+
+
+      clearBtn.style.display =
+        "none";
+
+
+      status.textContent =
+        "Choose an image to view its information.";
+
+    }
+  );
+
+
+  function formatBytes(bytes) {
+
+    if (bytes === 0) {
+      return "0 Bytes";
+    }
+
+
+    const units = [
+      "Bytes",
+      "KB",
+      "MB",
+      "GB"
+    ];
+
+
+    const i =
+      Math.floor(
+        Math.log(bytes) /
+        Math.log(1024)
+      );
+
+
+    return (
+      parseFloat(
+        (bytes /
+        Math.pow(1024, i))
+        .toFixed(2)
+      ) +
+      " " +
+      units[i]
+    );
+
+  }
+
+
+  function getFormat(type) {
+
+    if (type === "image/jpeg") {
+      return "JPEG / JPG";
+    }
+
+    if (type === "image/png") {
+      return "PNG";
+    }
+
+    if (type === "image/webp") {
+      return "WebP";
+    }
+
+    return "Unknown";
+
+  }
+
+
+  function gcd(a, b) {
+
+    while (b !== 0) {
+
+      const temp = b;
+
+      b = a % b;
+
+      a = temp;
+
+    }
+
+    return a;
+
+  }
+
+</script>
+
+</body>
+</html>
