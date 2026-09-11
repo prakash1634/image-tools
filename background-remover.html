@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>AI Background Remover - ImageTools</title>
-  <meta name="description" content="Remove image backgrounds automatically with AI. Download a clean transparent PNG directly in your browser.">
+
+  <meta name="description"
+        content="Remove image backgrounds automatically with AI and download transparent PNG images.">
 
   <style>
     * {
@@ -22,89 +24,128 @@
     header {
       background: #111827;
       color: white;
-      padding: 18px 15px;
       text-align: center;
+      padding: 17px 12px;
     }
 
     header h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 23px;
     }
 
     header p {
-      margin: 7px 0 0;
-      font-size: 14px;
+      margin: 6px 0 0;
+      font-size: 13px;
       opacity: 0.85;
     }
 
     .container {
       width: 94%;
       max-width: 900px;
-      margin: 25px auto;
+      margin: 22px auto;
     }
 
     .card {
       background: white;
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 17px;
+      box-shadow: 0 5px 22px rgba(0,0,0,0.08);
     }
 
-    .upload-box {
+    .upload {
       border: 2px dashed #9ca3af;
-      border-radius: 15px;
-      padding: 30px 15px;
+      border-radius: 14px;
+      padding: 25px 12px;
       text-align: center;
       cursor: pointer;
       background: #fafafa;
     }
 
-    .upload-box:hover {
-      background: #f3f4f6;
-    }
-
-    .upload-box strong {
+    .upload strong {
       display: block;
-      font-size: 18px;
-      margin-bottom: 8px;
+      font-size: 17px;
+      margin-bottom: 7px;
     }
 
-    .upload-box span {
+    .upload span {
+      font-size: 13px;
       color: #666;
-      font-size: 14px;
     }
 
     #fileInput {
       display: none;
     }
 
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .preview-title {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .preview {
+      width: 100%;
+      min-height: 230px;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      background: #f1f1f1;
+    }
+
+    .checker {
+      background-color: white;
+      background-image:
+        linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
+        linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
+      background-size: 22px 22px;
+      background-position:
+        0 0,
+        0 11px,
+        11px -11px,
+        -11px 0;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 500px;
+      display: block;
+    }
+
     .buttons {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
+      margin-top: 17px;
     }
 
     button {
+      flex: 1;
       border: 0;
       border-radius: 10px;
-      padding: 13px 20px;
+      padding: 13px;
       font-size: 15px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
 
     #removeBtn {
       background: #111827;
       color: white;
-      flex: 1;
     }
 
     #downloadBtn {
       background: #16a34a;
       color: white;
-      flex: 1;
       display: none;
     }
 
@@ -114,28 +155,28 @@
     }
 
     .status {
-      margin-top: 16px;
+      margin-top: 15px;
       padding: 12px;
       border-radius: 10px;
       background: #f3f4f6;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.5;
     }
 
-    .progress-wrap {
-      margin-top: 12px;
+    .progress {
       display: none;
+      margin-top: 13px;
     }
 
-    .progress-bar {
+    .bar {
       width: 100%;
-      height: 10px;
+      height: 9px;
       background: #e5e7eb;
       border-radius: 20px;
       overflow: hidden;
     }
 
-    .progress-fill {
+    .fill {
       width: 0%;
       height: 100%;
       background: #111827;
@@ -143,65 +184,20 @@
     }
 
     .progress-text {
-      margin-top: 7px;
-      font-size: 13px;
+      margin-top: 6px;
+      font-size: 12px;
       color: #666;
     }
 
-    .preview-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .preview-box {
-      min-width: 0;
-    }
-
-    .preview-box h3 {
-      margin: 0 0 10px;
-      font-size: 17px;
-    }
-
-    .preview-area {
-      width: 100%;
-      min-height: 250px;
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f3f4f6;
-      border: 1px solid #e5e7eb;
-    }
-
-    .checker {
-      background-color: #fff;
-      background-image:
-        linear-gradient(45deg, #e5e7eb 25%, transparent 25%),
-        linear-gradient(-45deg, #e5e7eb 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, #e5e7eb 75%),
-        linear-gradient(-45deg, transparent 75%, #e5e7eb 75%);
-      background-size: 22px 22px;
-      background-position: 0 0, 0 11px, 11px -11px, -11px 0;
-    }
-
-    .preview-area img {
-      max-width: 100%;
-      max-height: 520px;
-      display: block;
+    .note {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
     }
 
     .hidden {
       display: none !important;
-    }
-
-    .info {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-      margin-top: 18px;
     }
 
     @media (max-width: 650px) {
@@ -209,12 +205,12 @@
         grid-template-columns: 1fr;
       }
 
-      .preview-area {
-        min-height: 220px;
+      .card {
+        padding: 15px;
       }
 
-      .card {
-        padding: 16px;
+      .preview {
+        min-height: 210px;
       }
 
       header h1 {
@@ -235,7 +231,7 @@
 
   <div class="card">
 
-    <label class="upload-box" for="fileInput">
+    <label class="upload" for="fileInput">
       <strong>📷 Choose an Image</strong>
       <span>JPG, JPEG, PNG or WebP</span>
     </label>
@@ -248,23 +244,39 @@
 
     <div class="preview-grid">
 
-      <div class="preview-box">
-        <h3>Original Image</h3>
+      <div>
+        <div class="preview-title">
+          Original Image
+        </div>
 
-        <div class="preview-area">
-          <img id="originalPreview" class="hidden" alt="Original image">
+        <div class="preview">
+          <img
+            id="originalPreview"
+            class="hidden"
+            alt="Original image"
+          >
         </div>
       </div>
 
-      <div class="preview-box">
-        <h3>Background Removed</h3>
 
-        <div class="preview-area checker">
-          <img id="resultPreview" class="hidden" alt="Background removed image">
+      <div>
+        <div class="preview-title">
+          Background Removed
+        </div>
+
+        <div class="preview checker">
+
+          <img
+            id="resultPreview"
+            class="hidden"
+            alt="Background removed image"
+          >
+
         </div>
       </div>
 
     </div>
+
 
     <div class="buttons">
 
@@ -278,26 +290,30 @@
 
     </div>
 
-    <div class="progress-wrap" id="progressWrap">
 
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+    <div class="progress" id="progressBox">
+
+      <div class="bar">
+        <div class="fill" id="progressFill"></div>
       </div>
 
       <div class="progress-text" id="progressText">
-        Preparing AI...
+        Starting...
       </div>
 
     </div>
+
 
     <div class="status" id="status">
       Choose an image to start.
     </div>
 
-    <div class="info">
-      <strong>Note:</strong> The first AI processing can take longer because
-      the required AI model files need to be downloaded and cached in your browser.
-      After that, processing can be faster.
+
+    <div class="note">
+      <strong>Note:</strong>
+      The first processing may take some time because the AI model
+      needs to load in your browser. After loading, the model can be
+      cached by the browser.
     </div>
 
   </div>
@@ -307,359 +323,366 @@
 
 <script type="module">
 
-  const fileInput = document.getElementById("fileInput");
-  const originalPreview = document.getElementById("originalPreview");
-  const resultPreview = document.getElementById("resultPreview");
+  const fileInput =
+    document.getElementById("fileInput");
 
-  const removeBtn = document.getElementById("removeBtn");
-  const downloadBtn = document.getElementById("downloadBtn");
+  const originalPreview =
+    document.getElementById("originalPreview");
 
-  const status = document.getElementById("status");
+  const resultPreview =
+    document.getElementById("resultPreview");
 
-  const progressWrap = document.getElementById("progressWrap");
-  const progressFill = document.getElementById("progressFill");
-  const progressText = document.getElementById("progressText");
+  const removeBtn =
+    document.getElementById("removeBtn");
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
+
+  const status =
+    document.getElementById("status");
+
+  const progressBox =
+    document.getElementById("progressBox");
+
+  const progressFill =
+    document.getElementById("progressFill");
+
+  const progressText =
+    document.getElementById("progressText");
+
 
   let selectedFile = null;
+
   let resultUrl = null;
 
-  let removeBackgroundFunction = null;
+  let removeBackground = null;
 
 
   /*
-    Load IMG.LY Background Removal AI library.
-    jsDelivr provides the ES module directly.
+    Load AI library only when user actually
+    presses Remove Background.
   */
+
   async function loadAI() {
 
-    if (removeBackgroundFunction) {
-      return removeBackgroundFunction;
+    if (removeBackground) {
+      return removeBackground;
     }
 
-    status.textContent = "Loading AI background remover...";
+    status.textContent =
+      "Loading AI engine...";
 
     const module = await import(
       "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm"
     );
 
-    removeBackgroundFunction =
-      module.default || module.removeBackground;
+    removeBackground =
+      module.default ||
+      module.removeBackground;
 
-    if (!removeBackgroundFunction) {
-      throw new Error("AI background removal module could not be loaded.");
+    if (!removeBackground) {
+      throw new Error(
+        "AI engine could not be loaded."
+      );
     }
 
-    return removeBackgroundFunction;
+    return removeBackground;
   }
 
 
   /*
-    File selected
+    Select image
   */
-  fileInput.addEventListener("change", () => {
 
-    const file = fileInput.files[0];
+  fileInput.addEventListener(
+    "change",
+    function() {
 
-    if (!file) {
-      return;
-    }
+      const file =
+        fileInput.files[0];
 
-    selectedFile = file;
-
-    if (resultUrl) {
-      URL.revokeObjectURL(resultUrl);
-      resultUrl = null;
-    }
-
-    resultPreview.removeAttribute("src");
-    resultPreview.classList.add("hidden");
-
-    downloadBtn.style.display = "none";
-
-    const imageUrl = URL.createObjectURL(file);
-
-    originalPreview.src = imageUrl;
-    originalPreview.classList.remove("hidden");
-
-    removeBtn.disabled = false;
-
-    status.textContent =
-      "Image selected. Tap “Remove Background”.";
-
-  });
-
-
-  /*
-    Extra edge cleanup.
-
-    AI masks can sometimes leave very faint semi-transparent
-    white/gray pixels around hair, ears or shoulders.
-
-    We reduce extremely weak alpha pixels so the final PNG
-    looks cleaner on transparent backgrounds.
-  */
-  async function cleanTransparentEdges(blob) {
-
-    const bitmap = await createImageBitmap(blob);
-
-    const canvas = document.createElement("canvas");
-
-    canvas.width = bitmap.width;
-    canvas.height = bitmap.height;
-
-    const ctx = canvas.getContext("2d", {
-      willReadFrequently: true
-    });
-
-    ctx.drawImage(bitmap, 0, 0);
-
-    const imageData = ctx.getImageData(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    const data = imageData.data;
-
-    /*
-      Alpha cleanup:
-
-      0-24   = completely transparent
-      25-55  = reduced heavily
-      56+    = preserved
-    */
-
-    for (let i = 3; i < data.length; i += 4) {
-
-      const alpha = data[i];
-
-      if (alpha < 25) {
-
-        data[i] = 0;
-
-      } else if (alpha < 56) {
-
-        data[i] = Math.round(
-          (alpha - 25) * 0.35
-        );
-
+      if (!file) {
+        return;
       }
 
-    }
+      selectedFile = file;
 
-    ctx.putImageData(imageData, 0, 0);
 
-    return await new Promise((resolve, reject) => {
+      if (resultUrl) {
 
-      canvas.toBlob(
-        blobResult => {
+        URL.revokeObjectURL(
+          resultUrl
+        );
 
-          if (blobResult) {
-            resolve(blobResult);
-          } else {
-            reject(
-              new Error("Could not create cleaned PNG.")
-            );
-          }
+        resultUrl = null;
+      }
 
-        },
-        "image/png"
+
+      resultPreview.removeAttribute(
+        "src"
       );
 
-    });
+      resultPreview.classList.add(
+        "hidden"
+      );
 
-  }
+
+      downloadBtn.style.display =
+        "none";
+
+
+      const url =
+        URL.createObjectURL(file);
+
+
+      originalPreview.src =
+        url;
+
+      originalPreview.classList.remove(
+        "hidden"
+      );
+
+
+      removeBtn.disabled =
+        false;
+
+
+      status.textContent =
+        "Image selected. Tap Remove Background.";
+
+    }
+  );
 
 
   /*
     Remove Background
   */
-  removeBtn.addEventListener("click", async () => {
 
-    if (!selectedFile) {
-      return;
-    }
+  removeBtn.addEventListener(
+    "click",
+    async function() {
 
-    removeBtn.disabled = true;
-    downloadBtn.style.display = "none";
-
-    progressWrap.style.display = "block";
-
-    progressFill.style.width = "0%";
-
-    progressText.textContent =
-      "Starting AI...";
-
-    status.textContent =
-      "AI is preparing the image. Please wait...";
-
-    try {
-
-      const removeBackground =
-        await loadAI();
+      if (!selectedFile) {
+        return;
+      }
 
 
-      status.textContent =
-        "AI is removing the background...";
+      removeBtn.disabled =
+        true;
 
-
-      /*
-        High-quality model.
-
-        isnet = larger / better quality model.
-        CPU is selected for better compatibility
-        on normal Android phones.
-      */
-      const config = {
-
-        publicPath:
-          "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
-
-        device: "cpu",
-
-        model: "isnet",
-
-        proxyToWorker: true,
-
-        output: {
-
-          format: "image/png",
-
-          quality: 1,
-
-          type: "foreground"
-
-        },
-
-        progress: (key, current, total) => {
-
-          if (total > 0) {
-
-            const percent =
-              Math.round(
-                (current / total) * 100
-              );
-
-            progressFill.style.width =
-              percent + "%";
-
-            progressText.textContent =
-              "Downloading AI files: " +
-              percent +
-              "%";
-
-          }
-
-        }
-
-      };
-
-
-      /*
-        Run AI
-      */
-      const rawBlob =
-        await removeBackground(
-          selectedFile,
-          config
-        );
-
-
-      progressFill.style.width = "90%";
-
-      progressText.textContent =
-        "Cleaning image edges...";
-
-
-      /*
-        Extra cleanup for faint halos.
-      */
-      const cleanBlob =
-        await cleanTransparentEdges(
-          rawBlob
-        );
-
-
-      progressFill.style.width = "100%";
-
-      progressText.textContent =
-        "Done";
-
-
-      /*
-        Show result
-      */
-      resultUrl =
-        URL.createObjectURL(
-          cleanBlob
-        );
-
-      resultPreview.src =
-        resultUrl;
-
-      resultPreview.classList.remove(
-        "hidden"
-      );
-
-
-      /*
-        Download button
-      */
       downloadBtn.style.display =
+        "none";
+
+      progressBox.style.display =
         "block";
 
-      downloadBtn.onclick = () => {
-
-        const link =
-          document.createElement("a");
-
-        link.href =
-          resultUrl;
-
-        link.download =
-          "background-removed.png";
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        link.remove();
-
-      };
-
-
-      status.innerHTML =
-        "<strong>✅ Background removed successfully!</strong><br>" +
-        "Transparent PNG is ready to download.";
-
-
-    } catch (error) {
-
-      console.error(
-        "Background removal error:",
-        error
-      );
-
-      status.innerHTML =
-        "<strong>❌ Error:</strong> " +
-        (error.message ||
-        "Something went wrong. Please try again.");
-
-
-      progressText.textContent =
-        "Processing failed.";
 
       progressFill.style.width =
         "0%";
 
+
+      progressText.textContent =
+        "Starting AI...";
+
+
+      status.textContent =
+        "Preparing image...";
+
+
+      try {
+
+        const ai =
+          await loadAI();
+
+
+        status.textContent =
+          "AI is removing the background...";
+
+
+        /*
+          FAST MOBILE MODEL
+
+          isnet_quint8 is much smaller than
+          the normal isnet model.
+
+          CPU gives better compatibility
+          on Android phones.
+        */
+
+        const config = {
+
+          publicPath:
+            "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
+
+          device:
+            "cpu",
+
+          model:
+            "isnet_quint8",
+
+          proxyToWorker:
+            true,
+
+          output: {
+
+            format:
+              "image/png",
+
+            type:
+              "foreground",
+
+            quality:
+              1
+
+          },
+
+          progress:
+            function(
+              key,
+              current,
+              total
+            ) {
+
+              if (
+                total &&
+                total > 0
+              ) {
+
+                const percent =
+                  Math.round(
+                    (current / total) * 100
+                  );
+
+
+                progressFill.style.width =
+                  percent + "%";
+
+
+                progressText.textContent =
+                  "Loading AI: " +
+                  percent +
+                  "%";
+
+              }
+
+            }
+
+        };
+
+
+        /*
+          Run AI
+        */
+
+        const result =
+          await ai(
+            selectedFile,
+            config
+          );
+
+
+        progressFill.style.width =
+          "100%";
+
+
+        progressText.textContent =
+          "Background removed successfully.";
+
+
+        /*
+          Show result
+        */
+
+        resultUrl =
+          URL.createObjectURL(
+            result
+          );
+
+
+        resultPreview.src =
+          resultUrl;
+
+
+        resultPreview.classList.remove(
+          "hidden"
+        );
+
+
+        /*
+          Download
+        */
+
+        downloadBtn.style.display =
+          "block";
+
+
+        downloadBtn.onclick =
+          function() {
+
+            const link =
+              document.createElement(
+                "a"
+              );
+
+
+            link.href =
+              resultUrl;
+
+
+            link.download =
+              "background-removed.png";
+
+
+            document.body.appendChild(
+              link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+          };
+
+
+        status.innerHTML =
+          "<strong>✅ Done!</strong><br>" +
+          "Background removed. Transparent PNG is ready.";
+
+
+      }
+      catch (error) {
+
+        console.error(
+          "Background remover error:",
+          error
+        );
+
+
+        status.innerHTML =
+          "<strong>❌ Error</strong><br>" +
+          (
+            error.message ||
+            "Unable to remove background. Please try again."
+          );
+
+
+        progressText.textContent =
+          "Processing failed.";
+
+
+        progressFill.style.width =
+          "0%";
+
+      }
+
+
+      removeBtn.disabled =
+        false;
+
     }
-
-
-    removeBtn.disabled = false;
-
-  });
-
+  );
 
 </script>
 
