@@ -4,8 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>JPG to PNG Converter - Free Online</title>
-  <meta name="description" content="Convert JPG and JPEG images to PNG online for free. Fast, simple and works directly in your browser.">
+  <title>JPG to PNG Converter - Free Online | ImageTools</title>
+
+  <meta
+    name="description"
+    content="Convert JPG and JPEG images to PNG online for free. Fast, simple and private JPG to PNG converter that works directly in your browser."
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://prakash1634.github.io/image-tools/jpg-to-png.html"
+  >
+
+  <meta property="og:title" content="JPG to PNG Converter - Free Online">
+  <meta
+    property="og:description"
+    content="Convert JPG and JPEG images to PNG online for free directly in your browser."
+  >
+  <meta
+    property="og:url"
+    content="https://prakash1634.github.io/image-tools/jpg-to-png.html"
+  >
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JPG to PNG Converter",
+    "url": "https://prakash1634.github.io/image-tools/jpg-to-png.html",
+    "description": "Free online tool to convert JPG and JPEG images to PNG directly in a web browser.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -212,15 +251,26 @@
 
     </div>
 
-    <img id="preview" alt="Selected image preview">
+    <img
+      id="preview"
+      alt="JPG image preview before PNG conversion"
+    >
 
     <p id="status"></p>
 
-    <a id="downloadBtn" class="download-btn" download="converted-image.png">
+    <a
+      id="downloadBtn"
+      class="download-btn"
+      download="converted-image.png"
+    >
       Download PNG
     </a>
 
-    <button id="resetBtn" class="reset-btn" style="display:none;">
+    <button
+      id="resetBtn"
+      class="reset-btn"
+      style="display:none;"
+    >
       Convert Another
     </button>
 
@@ -228,25 +278,47 @@
 
   <section class="info">
 
-    <h2>How to Convert JPG to PNG</h2>
+    <h2>How to Convert JPG to PNG Online</h2>
 
     <p>
       1. Tap the Choose Image button and select your JPG or JPEG photo.
     </p>
 
     <p>
-      2. The image will be converted to PNG directly in your browser.
+      2. The image is converted to PNG directly in your browser.
     </p>
 
     <p>
-      3. Tap Download PNG to save your converted image.
+      3. Tap Download PNG to save the converted image to your device.
     </p>
 
-    <h2 style="margin-top:20px;">Is this JPG to PNG converter free?</h2>
+    <h2 style="margin-top:20px;">
+      Is this JPG to PNG converter free?
+    </h2>
 
     <p>
-      Yes. This online JPG to PNG converter is designed to be free and
-      easy to use. No software installation is required.
+      Yes. ImageTools provides this JPG to PNG converter free of charge.
+      No software installation is required.
+    </p>
+
+    <h2 style="margin-top:20px;">
+      Is my image uploaded to a server?
+    </h2>
+
+    <p>
+      The conversion is performed directly in your browser using your
+      device. The tool does not need to upload the image to a server
+      for the conversion.
+    </p>
+
+    <h2 style="margin-top:20px;">
+      JPG vs PNG
+    </h2>
+
+    <p>
+      JPG is commonly used for photographs and usually produces smaller
+      file sizes. PNG supports lossless image storage and is useful when
+      you need better preservation of image details or transparency.
     </p>
 
   </section>
@@ -260,9 +332,9 @@
   <br>
 
   <a href="index.html">Home</a>
-  <a href="#">Privacy Policy</a>
-  <a href="#">Terms</a>
-  <a href="#">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="contact.html">Contact</a>
 
 </footer>
 
@@ -311,6 +383,11 @@
 
         canvas.toBlob(function (blob) {
 
+          if (!blob) {
+            status.textContent = "Conversion failed. Please try another image.";
+            return;
+          }
+
           const pngUrl = URL.createObjectURL(blob);
 
           downloadBtn.href = pngUrl;
@@ -318,7 +395,8 @@
 
           resetBtn.style.display = "inline-block";
 
-          status.textContent = "Conversion complete! Your PNG is ready.";
+          status.textContent =
+            "Conversion complete! Your PNG is ready.";
 
         }, "image/png");
 
@@ -348,4 +426,4 @@
 </script>
 
 </body>
-      </html>
+</html>
