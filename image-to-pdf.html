@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image to PDF - ImageTools</title>
+
+  <meta name="description"
+        content="Convert JPG, PNG and WebP images to PDF online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    #preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .preview-item {
+      position: relative;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f3f4f6;
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .number {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: #111827;
+      color: white;
+      padding: 4px 7px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    button {
+      flex: 1;
+      border: 0;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #convertBtn {
+      background: #111827;
+      color: white;
+    }
+
+    #clearBtn {
+      background: #e5e7eb;
+      color: #222;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #666;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 650px) {
+      #preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .preview-item img {
+        height: 130px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image to PDF</h1>
+  <p>Convert multiple images into one PDF</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose Images</strong>
+      <span>JPG, JPEG, PNG or WebP • Multiple images supported</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+      multiple
+    >
+
+    <div id="preview"></div>
+
+    <div class="buttons">
+
+      <button id="convertBtn" disabled>
+        Create PDF
+      </button>
+
+      <button id="clearBtn">
+        Clear
+      </button>
+
+    </div>
+
+    <div class="status" id="status">
+      Choose one or more images to begin.
+    </div>
+
+    <div class="note">
+      Your images are processed in your browser. They are not uploaded
+      to a server.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const preview =
+    document.getElementById("preview");
+
+  const convertBtn =
+    document.getElementById("convertBtn");
+
+  const clearBtn =
+    document.getElementById("clearBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  let selectedFiles = [];
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      selectedFiles =
+        Array.from(fileInput.files);
+
+      preview.innerHTML = "";
+
+
+      if (selectedFiles.length === 0) {
+
+        convertBtn.disabled = true;
+
+        status.textContent =
+          "Choose one or more images to begin.";
+
+        return;
+      }
+
+
+      selectedFiles.forEach(
+        function(file, index) {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "preview-item";
+
+
+          const number =
+            document.createElement("div");
+
+          number.className =
+            "number";
+
+          number.textContent =
+            "#" + (index + 1);
+
+
+          const img =
+            document.createElement("img");
+
+
+          const url =
+            URL.createObjectURL(file);
+
+          img.src = url;
+
+
+          item.appendChild(number);
+          item.appendChild(img);
+
+          preview.appendChild(item);
+
+        }
+      );
+
+
+      convertBtn.disabled = false;
+
+
+      status.innerHTML =
+        "<strong>✅ " +
+        selectedFiles.length +
+        " image(s) selected.</strong><br>" +
+        "Tap Create PDF.";
+
+    }
+  );
+
+
+  convertBtn.addEventListener(
+    "click",
+    async function() {
+
+      if (selectedFiles.length === 0) {
+        return;
+      }
+
+
+      convertBtn.disabled = true;
+
+      status.textContent =
+        "Creating PDF...";
+
+
+      try {
+
+        const {
+          jsPDF
+        } = window.jspdf;
+
+
+        const pdf =
+          new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4"
+          });
+
+
+        for (
+          let i = 0;
+          i < selectedFiles.length;
+          i++
+        ) {
+
+          status.textContent =
+            "Adding image " +
+            (i + 1) +
+            " of " +
+            selectedFiles.length +
+            "...";
+
+
+          const file =
+            selectedFiles[i];
+
+
+          const dataUrl =
+            await readFile(file);
+
+
+          const img =
+            await loadImage(dataUrl);
+
+
+          const pageWidth =
+            210;
+
+          const pageHeight =
+            297;
+
+          const margin =
+            10;
+
+
+          const maxWidth =
+            pageWidth -
+            margin * 2;
+
+          const maxHeight =
+            pageHeight -
+            margin * 2;
+
+
+          let width =
+            maxWidth;
+
+          let height =
+            (img.height / img.width) *
+            width;
+
+
+          if (height > maxHeight) {
+
+            height =
+              maxHeight;
+
+            width =
+              (img.width / img.height) *
+              height;
+
+          }
+
+
+          const x =
+            (pageWidth - width) / 2;
+
+          const y =
+            (pageHeight - height) / 2;
+
+
+          if (i > 0) {
+            pdf.addPage();
+          }
+
+
+          pdf.addImage(
+            dataUrl,
+            getFormat(file),
+            x,
+            y,
+            width,
+            height,
+            undefined,
+            "FAST"
+          );
+
+        }
+
+
+        pdf.save(
+          "images-to-pdf.pdf"
+        );
+
+
+        status.innerHTML =
+          "<strong>✅ PDF created!</strong><br>" +
+          "Your PDF has been downloaded.";
+
+      }
+      catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "❌ Could not create PDF. Please try again.";
+
+      }
+
+
+      convertBtn.disabled = false;
+
+    }
+  );
+
+
+  clearBtn.addEventListener(
+    "click",
+    function() {
+
+      selectedFiles = [];
+
+      fileInput.value = "";
+
+      preview.innerHTML = "";
+
+      convertBtn.disabled = true;
+
+      status.textContent =
+        "Choose one or more images to begin.";
+
+    }
+  );
+
+
+  function readFile(file) {
+
+    return new Promise(
+      function(resolve, reject) {
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function() {
+            resolve(reader.result);
+          };
+
+
+        reader.onerror =
+          function() {
+            reject(
+              new Error("File read error")
+            );
+          };
+
+
+        reader.readAsDataURL(file);
+
+      }
+    );
+
+  }
+
+
+  function loadImage(src) {
+
+    return new Promise(
+      function(resolve, reject) {
+
+        const img =
+          new Image();
+
+
+        img.onload =
+          function() {
+            resolve(img);
+          };
+
+
+        img.onerror =
+          function() {
+            reject(
+              new Error("Image load error")
+            );
+          };
+
+
+        img.src = src;
+
+      }
+    );
+
+  }
+
+
+  function getFormat(file) {
+
+    if (
+      file.type ===
+      "image/png"
+    ) {
+      return "PNG";
+    }
+
+    return "JPEG";
+
+  }
+
+</script>
+
+</body>
+</html>
