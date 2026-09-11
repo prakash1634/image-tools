@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Resolution - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}
+header{background:#111827;color:white;text-align:center;padding:18px}
+.container{width:94%;max-width:800px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+.upload{display:block;border:2px dashed #999;padding:22px;text-align:center;border-radius:12px;cursor:pointer}
+#file{display:none}.preview{text-align:center;margin:18px}.preview img{max-width:100%;max-height:350px;display:none}
+.row{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #eee}.info{display:none}
+.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Image Resolution</h1><p>Check image resolution and pixel information</p></header>
+<div class="container"><div class="card">
+<label class="upload" for="file"><b>📷 Choose Image</b></label>
+<input id="file" type="file" accept="image/*">
+<div class="preview"><img id="img"></div>
+<div class="info" id="info">
+<div class="row"><b>Width</b><span id="w">-</span></div>
+<div class="row"><b>Height</b><span id="h">-</span></div>
+<div class="row"><b>Total Pixels</b><span id="pixels">-</span></div>
+<div class="row"><b>Megapixels</b><span id="mp">-</span></div>
+<div class="row"><b>File Size</b><span id="size">-</span></div>
+</div>
+<div class="status" id="status">Choose an image to start.</div>
+</div></div>
+<script>
+const file=document.getElementById("file"),img=document.getElementById("img"),info=document.getElementById("info"),status=document.getElementById("status");
+file.onchange=()=>{let f=file.files[0];if(!f)return;img.src=URL.createObjectURL(f);img.style.display="block";img.onload=()=>{let w=img.naturalWidth,h=img.naturalHeight,p=w*h;document.getElementById("w").textContent=w+" px";document.getElementById("h").textContent=h+" px";document.getElementById("pixels").textContent=p.toLocaleString();document.getElementById("mp").textContent=(p/1000000).toFixed(2)+" MP";document.getElementById("size").textContent=(f.size/1024/1024).toFixed(2)+" MB";info.style.display="block";status.textContent="✅ Resolution information ready."}};
+</script>
+</body>
+</html>
