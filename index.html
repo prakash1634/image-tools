@@ -7,9 +7,10 @@
   <title>ImageTools - Free Online Image Tools</title>
 
   <meta name="description"
-        content="Free online image tools to convert, compress, resize, crop, enhance and remove image backgrounds.">
+        content="Free online image tools to convert, compress, resize, crop, edit, optimize and transform images.">
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -30,94 +31,86 @@
 
     header h1 {
       margin: 0;
-      font-size: 25px;
+      font-size: 27px;
+    }
+
+    header h1 span {
+      color: #22c55e;
     }
 
     header p {
-      margin: 7px 0 0;
+      max-width: 650px;
+      margin: 8px auto 0;
       font-size: 14px;
-      opacity: 0.85;
+      line-height: 1.5;
+      opacity: .9;
     }
 
     .hero {
       text-align: center;
-      padding: 40px 15px 30px;
+      padding: 28px 15px 25px;
       background: white;
     }
 
     .hero h2 {
       margin: 0;
-      font-size: 30px;
-      color: #111827;
-    }
-
-    .hero h2 span {
-      color: #2563eb;
+      font-size: 26px;
     }
 
     .hero p {
-      max-width: 650px;
-      margin: 12px auto 20px;
       color: #666;
-      line-height: 1.6;
+      margin: 8px auto 18px;
+      font-size: 13px;
     }
 
     .search {
-      max-width: 550px;
+      max-width: 600px;
       margin: auto;
     }
 
     .search input {
       width: 100%;
-      padding: 14px 17px;
+      padding: 14px 16px;
       border: 1px solid #d1d5db;
-      border-radius: 12px;
-      font-size: 15px;
+      border-radius: 10px;
+      font-size: 14px;
       outline: none;
-    }
-
-    .search input:focus {
-      border-color: #2563eb;
     }
 
     .container {
       width: 94%;
       max-width: 1100px;
-      margin: 30px auto;
+      margin: 25px auto;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .section-title h2 {
       margin: 0;
-      color: #111827;
+      font-size: 23px;
     }
 
     .section-title p {
       color: #666;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 15px;
     }
 
     .tool-card {
       background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-      border: 1px solid #eee;
-      transition: transform 0.2s;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-3px);
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.07);
+      display: flex;
+      flex-direction: column;
     }
 
     .icon {
@@ -126,129 +119,134 @@
     }
 
     .tool-card h3 {
-      margin: 5px 0 7px;
-      font-size: 18px;
-      color: #111827;
+      margin: 0 0 7px;
+      font-size: 17px;
     }
 
     .tool-card p {
       margin: 0 0 15px;
       color: #666;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 1.5;
+      flex: 1;
     }
 
     .tool-card a {
-      display: inline-block;
+      display: block;
+      text-align: center;
       text-decoration: none;
       background: #111827;
       color: white;
-      padding: 10px 15px;
-      border-radius: 9px;
-      font-size: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: bold;
     }
 
     .tool-card a:hover {
-      background: #2563eb;
+      background: #16a34a;
     }
 
-    .no-results {
+    .no-result {
       display: none;
       text-align: center;
-      color: #666;
       padding: 30px;
+      color: #666;
     }
 
     footer {
+      margin-top: 35px;
       background: #111827;
-      color: #cbd5e1;
-      text-align: center;
-      padding: 28px 15px;
-      margin-top: 40px;
-    }
-
-    .footer-links {
-      margin-bottom: 15px;
-    }
-
-    .footer-links a {
       color: white;
-      text-decoration: none;
-      margin: 0 8px;
-      font-size: 14px;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
+      padding: 25px 15px;
+      text-align: center;
     }
 
     footer p {
-      margin: 6px 0;
-      font-size: 13px;
+      margin: 5px 0;
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 7px;
+      font-size: 12px;
     }
 
     @media (max-width: 800px) {
+
       .tools-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
 
     @media (max-width: 550px) {
+
+      header h1 {
+        font-size: 23px;
+      }
+
+      .hero h2 {
+        font-size: 22px;
+      }
+
       .tools-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero h2 {
-        font-size: 25px;
-      }
-
-      .container {
-        width: 92%;
-      }
     }
+
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>ImageTools</h1>
-  <p>Free and simple online image tools</p>
+
+  <h1>Image<span>Tools</span></h1>
+
+  <p>
+    Free online image tools for converting, compressing,
+    resizing, editing and optimizing your images.
+  </p>
+
 </header>
 
 
 <section class="hero">
 
-  <h2>
-    Free <span>Image Tools</span> Online
-  </h2>
+  <h2>Free Image Tools Online</h2>
 
   <p>
-    Convert, compress, resize, crop, enhance and edit your images
-    quickly and easily. No complicated software required.
+    Simple, fast and easy-to-use tools for your everyday image needs.
   </p>
 
   <div class="search">
+
     <input
       type="text"
       id="toolSearch"
       placeholder="Search an image tool..."
-      autocomplete="off"
     >
+
   </div>
 
 </section>
 
 
-<main class="container" id="tools">
+<main class="container">
 
   <div class="section-title">
+
     <h2>Popular Image Tools</h2>
 
     <p>
-      Simple and useful tools for your everyday image needs.
+      Choose a tool below to get started.
     </p>
+
   </div>
 
 
@@ -256,6 +254,7 @@
 
 
     <!-- 1 -->
+
     <div class="tool-card">
 
       <div class="icon">🖼️</div>
@@ -274,6 +273,7 @@
 
 
     <!-- 2 -->
+
     <div class="tool-card">
 
       <div class="icon">🖼️</div>
@@ -292,6 +292,7 @@
 
 
     <!-- 3 -->
+
     <div class="tool-card">
 
       <div class="icon">📦</div>
@@ -310,6 +311,7 @@
 
 
     <!-- 4 -->
+
     <div class="tool-card">
 
       <div class="icon">📐</div>
@@ -328,6 +330,7 @@
 
 
     <!-- 5 -->
+
     <div class="tool-card">
 
       <div class="icon">✂️</div>
@@ -335,7 +338,7 @@
       <h3>Image Cropper</h3>
 
       <p>
-        Crop your images easily to the area you want.
+        Crop your photos to the perfect size.
       </p>
 
       <a href="image-cropper.html">
@@ -346,6 +349,7 @@
 
 
     <!-- 6 -->
+
     <div class="tool-card">
 
       <div class="icon">🔄</div>
@@ -353,7 +357,7 @@
       <h3>Image Converter</h3>
 
       <p>
-        Convert images between different formats.
+        Convert images between popular formats.
       </p>
 
       <a href="image-converter.html">
@@ -364,6 +368,7 @@
 
 
     <!-- 7 -->
+
     <div class="tool-card">
 
       <div class="icon">🌐</div>
@@ -371,7 +376,7 @@
       <h3>Image to WebP</h3>
 
       <p>
-        Convert your images to lightweight WebP format.
+        Convert images to lightweight WebP format.
       </p>
 
       <a href="image-to-webp.html">
@@ -382,6 +387,7 @@
 
 
     <!-- 8 -->
+
     <div class="tool-card">
 
       <div class="icon">🖼️</div>
@@ -389,7 +395,7 @@
       <h3>WebP to JPG</h3>
 
       <p>
-        Convert WebP images into JPG format.
+        Convert WebP images to JPG format.
       </p>
 
       <a href="webp-to-jpg.html">
@@ -400,6 +406,7 @@
 
 
     <!-- 9 -->
+
     <div class="tool-card">
 
       <div class="icon">🖼️</div>
@@ -407,7 +414,7 @@
       <h3>WebP to PNG</h3>
 
       <p>
-        Convert WebP images into PNG format.
+        Convert WebP images to PNG format.
       </p>
 
       <a href="webp-to-png.html">
@@ -418,14 +425,15 @@
 
 
     <!-- 10 -->
+
     <div class="tool-card">
 
-      <div class="icon">✨</div>
+      <div class="icon">✂️</div>
 
       <h3>Background Remover</h3>
 
       <p>
-        Remove image backgrounds automatically with AI.
+        Remove the background from portrait images.
       </p>
 
       <a href="background-remover.html">
@@ -436,6 +444,7 @@
 
 
     <!-- 11 -->
+
     <div class="tool-card">
 
       <div class="icon">✨</div>
@@ -443,7 +452,7 @@
       <h3>Image Enhancer</h3>
 
       <p>
-        Improve brightness, contrast and overall image appearance.
+        Improve brightness, contrast and image appearance.
       </p>
 
       <a href="image-enhancer.html">
@@ -454,6 +463,7 @@
 
 
     <!-- 12 -->
+
     <div class="tool-card">
 
       <div class="icon">🎨</div>
@@ -461,7 +471,7 @@
       <h3>AI Photo Editor</h3>
 
       <p>
-        Edit photos with useful browser-based adjustment tools.
+        Edit photos with brightness, contrast and other controls.
       </p>
 
       <a href="ai-photo-editor.html">
@@ -471,11 +481,355 @@
     </div>
 
 
+    <!-- 13 -->
+
+    <div class="tool-card">
+
+      <div class="icon">📄</div>
+
+      <h3>Image to PDF</h3>
+
+      <p>
+        Convert multiple images into one PDF file.
+      </p>
+
+      <a href="image-to-pdf.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 14 -->
+
+    <div class="tool-card">
+
+      <div class="icon">💧</div>
+
+      <h3>Image Watermark</h3>
+
+      <p>
+        Add custom text watermark to your images.
+      </p>
+
+      <a href="image-watermark.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 15 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🔍</div>
+
+      <h3>Image Metadata Viewer</h3>
+
+      <p>
+        View basic image file and dimension information.
+      </p>
+
+      <a href="image-metadata.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 16 -->
+
+    <div class="tool-card">
+
+      <div class="icon">⚫</div>
+
+      <h3>Image to Grayscale</h3>
+
+      <p>
+        Convert your image to black and white.
+      </p>
+
+      <a href="image-to-grayscale.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 17 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🔄</div>
+
+      <h3>Image Rotate & Flip</h3>
+
+      <p>
+        Rotate or flip your image in different directions.
+      </p>
+
+      <a href="image-rotate-flip.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 18 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🔵</div>
+
+      <h3>Image Blur</h3>
+
+      <p>
+        Blur your image with adjustable blur strength.
+      </p>
+
+      <a href="image-blur.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 19 -->
+
+    <div class="tool-card">
+
+      <div class="icon">📐</div>
+
+      <h3>Image Aspect Ratio</h3>
+
+      <p>
+        Check image dimensions and aspect ratio.
+      </p>
+
+      <a href="image-aspect-ratio.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 20 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🎨</div>
+
+      <h3>Image Color Picker</h3>
+
+      <p>
+        Pick colors from your image and get HEX and RGB codes.
+      </p>
+
+      <a href="image-color-picker.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 21 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🔤</div>
+
+      <h3>Image to Base64</h3>
+
+      <p>
+        Convert an image into Base64 code.
+      </p>
+
+      <a href="image-to-base64.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 22 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🖼️</div>
+
+      <h3>Base64 to Image</h3>
+
+      <p>
+        Convert Base64 image code back into an image.
+      </p>
+
+      <a href="base64-to-image.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 23 -->
+
+    <div class="tool-card">
+
+      <div class="icon">📊</div>
+
+      <h3>Image Resolution</h3>
+
+      <p>
+        Check image width, height, pixels and resolution.
+      </p>
+
+      <a href="image-resolution.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 24 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🌈</div>
+
+      <h3>Image Color Inverter</h3>
+
+      <p>
+        Invert the colors of your image instantly.
+      </p>
+
+      <a href="image-inverter.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 25 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🖼️</div>
+
+      <h3>Image Border</h3>
+
+      <p>
+        Add a custom border around your image.
+      </p>
+
+      <a href="image-border.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 26 -->
+
+    <div class="tool-card">
+
+      <div class="icon">⭕</div>
+
+      <h3>Rounded Corner Image</h3>
+
+      <p>
+        Create images with rounded corners.
+      </p>
+
+      <a href="image-rounded-corners.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 27 -->
+
+    <div class="tool-card">
+
+      <div class="icon">✏️</div>
+
+      <h3>Image Text Generator</h3>
+
+      <p>
+        Add custom text directly to your image.
+      </p>
+
+      <a href="image-text-generator.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 28 -->
+
+    <div class="tool-card">
+
+      <div class="icon">📱</div>
+
+      <h3>Social Media Resizer</h3>
+
+      <p>
+        Resize images for common social media sizes.
+      </p>
+
+      <a href="social-media-resizer.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 29 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🧹</div>
+
+      <h3>Remove Image Metadata</h3>
+
+      <p>
+        Create a clean copy of your image.
+      </p>
+
+      <a href="remove-image-metadata.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
+    <!-- 30 -->
+
+    <div class="tool-card">
+
+      <div class="icon">🔲</div>
+
+      <h3>Image Pixelate</h3>
+
+      <p>
+        Pixelate images for privacy and visual effects.
+      </p>
+
+      <a href="image-pixelate.html">
+        Use Tool
+      </a>
+
+    </div>
+
+
   </div>
 
 
-  <div class="no-results" id="noResults">
+  <div class="no-result" id="noResult">
+
     No image tool found.
+
   </div>
 
 </main>
@@ -483,32 +837,24 @@
 
 <footer>
 
-  <div class="footer-links">
-
-    <a href="about.html">
-      About Us
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
-
-    <a href="privacy-policy.html">
-      Privacy Policy
-    </a>
-
-    <a href="terms.html">
-      Terms & Conditions
-    </a>
-
-  </div>
-
   <p>
     © 2026 ImageTools. All rights reserved.
   </p>
 
   <p>
-    Free online image tools for everyday use.
+    Free online image tools made for everyone.
+  </p>
+
+  <p>
+
+    <a href="about.html">About</a>
+
+    <a href="contact.html">Contact</a>
+
+    <a href="privacy-policy.html">Privacy Policy</a>
+
+    <a href="terms.html">Terms</a>
+
   </p>
 
 </footer>
@@ -516,72 +862,64 @@
 
 <script>
 
-  const searchInput =
+  const search =
     document.getElementById("toolSearch");
 
-  const toolCards =
+  const cards =
     document.querySelectorAll(".tool-card");
 
-  const noResults =
-    document.getElementById("noResults");
+  const noResult =
+    document.getElementById("noResult");
 
 
-  searchInput.addEventListener(
+  search.addEventListener(
     "input",
     function() {
 
-      const searchText =
-        searchInput.value
+      const query =
+        search.value
           .toLowerCase()
           .trim();
 
-      let visibleCount = 0;
+
+      let found =
+        false;
 
 
-      toolCards.forEach(function(card) {
+      cards.forEach(
+        function(card) {
 
-        const title =
-          card.querySelector("h3")
-            .textContent
-            .toLowerCase();
-
-        const description =
-          card.querySelector("p")
-            .textContent
-            .toLowerCase();
+          const text =
+            card.textContent
+              .toLowerCase();
 
 
-        if (
-          title.includes(searchText) ||
-          description.includes(searchText)
-        ) {
+          if (
+            text.includes(query)
+          ) {
 
-          card.style.display =
-            "";
+            card.style.display =
+              "flex";
 
-          visibleCount++;
+            found =
+              true;
 
-        } else {
+          }
+          else {
 
-          card.style.display =
-            "none";
+            card.style.display =
+              "none";
+
+          }
 
         }
+      );
 
-      });
 
-
-      if (visibleCount === 0) {
-
-        noResults.style.display =
-          "block";
-
-      } else {
-
-        noResults.style.display =
-          "none";
-
-      }
+      noResult.style.display =
+        found
+          ? "none"
+          : "block";
 
     }
   );
@@ -589,4 +927,4 @@
 </script>
 
 </body>
-</html>
+                           </html>
