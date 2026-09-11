@@ -4,9 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Resizer - Free Online</title>
+<title>Image Resizer - Resize Images Online Free | ImageTools</title>
 
-<meta name="description" content="Resize JPG, JPEG and PNG images online for free. Change image width and height quickly and easily.">
+<meta name="description" content="Resize JPG, JPEG and PNG images online for free. Change image width and height quickly and easily. Works directly in your browser.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://prakash1634.github.io/image-tools/image-resizer.html">
+
+<meta property="og:title" content="Image Resizer - Resize Images Online Free">
+<meta property="og:description" content="Resize JPG, JPEG and PNG images online for free directly in your browser.">
+<meta property="og:url" content="https://prakash1634.github.io/image-tools/image-resizer.html">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Image Resizer",
+  "url": "https://prakash1634.github.io/image-tools/image-resizer.html",
+  "description": "Free online tool to resize JPG, JPEG and PNG images by changing their width and height directly in a web browser.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 
 <style>
 * {
@@ -211,6 +237,7 @@ footer a {
 <p class="intro">
 Resize JPG, JPEG and PNG images online for free.
 Change image width and height quickly and easily.
+Your image is processed directly in your browser.
 </p>
 
 <div class="upload-area">
@@ -227,7 +254,7 @@ Choose Image
 
 </div>
 
-<img id="preview" alt="Image preview">
+<img id="preview" alt="Image preview before resizing">
 
 <div class="resize-controls" id="resizeControls">
 
@@ -264,7 +291,7 @@ Resize Another
 
 <section class="info">
 
-<h2>How to Resize an Image</h2>
+<h2>How to Resize an Image Online</h2>
 
 <p>
 1. Tap the Choose Image button and select your JPG, JPEG or PNG image.
@@ -279,7 +306,7 @@ Resize Another
 </p>
 
 <p>
-4. Tap Download Resized Image to save the image.
+4. Tap Download Resized Image to save the resized image.
 </p>
 
 <h2 style="margin-top:20px;">
@@ -287,8 +314,26 @@ Is this image resizer free?
 </h2>
 
 <p>
-Yes. This online image resizer is free and works directly in your browser.
-Your image does not need to be uploaded to a server.
+Yes. ImageTools provides this online image resizer free of charge.
+No software installation is required.
+</p>
+
+<h2 style="margin-top:20px;">
+Can I resize an image by pixels?
+</h2>
+
+<p>
+Yes. You can enter the exact width and height in pixels and create
+a resized version of your image.
+</p>
+
+<h2 style="margin-top:20px;">
+Is my image uploaded to a server?
+</h2>
+
+<p>
+The resizing process is performed directly in your browser. The tool
+does not need to upload your image to a server for resizing.
 </p>
 
 </section>
@@ -302,9 +347,9 @@ Your image does not need to be uploaded to a server.
 <br>
 
 <a href="index.html">Home</a>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms</a>
-<a href="#">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="contact.html">Contact</a>
 
 </footer>
 
@@ -440,6 +485,12 @@ resizeBtn.addEventListener("click", function() {
     : "image/jpeg";
 
     canvas.toBlob(function(blob) {
+
+        if (!blob) {
+            status.textContent =
+            "Resize failed. Please try another image.";
+            return;
+        }
 
         const url =
         URL.createObjectURL(blob);
