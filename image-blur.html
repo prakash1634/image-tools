@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Blur Tool - ImageTools</title>
+
+  <meta name="description"
+        content="Blur images online for free with adjustable blur strength.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .control {
+      margin-top: 18px;
+    }
+
+    .control-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .preview {
+      margin-top: 18px;
+      min-height: 280px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 600px;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    button {
+      flex: 1;
+      border: 0;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #downloadBtn {
+      background: #16a34a;
+      color: white;
+    }
+
+    #resetBtn {
+      background: #e5e7eb;
+      color: #222;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Blur Tool</h1>
+  <p>Blur your image with adjustable strength</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="control">
+
+      <div class="control-top">
+        <span>Blur Strength</span>
+        <span id="blurValue">5px</span>
+      </div>
+
+      <input
+        type="range"
+        id="blurRange"
+        min="0"
+        max="30"
+        value="5"
+      >
+
+    </div>
+
+    <div class="preview">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="buttons">
+
+      <button id="downloadBtn" disabled>
+        Download Blurred Image
+      </button>
+
+      <button id="resetBtn">
+        Reset
+      </button>
+
+    </div>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const blurRange =
+    document.getElementById("blurRange");
+
+  const blurValue =
+    document.getElementById("blurValue");
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
+
+  const resetBtn =
+    document.getElementById("resetBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  let image =
+    new Image();
+
+  let imageLoaded =
+    false;
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      const url =
+        URL.createObjectURL(file);
+
+
+      image =
+        new Image();
+
+
+      image.onload =
+        function() {
+
+          imageLoaded =
+            true;
+
+
+          canvas.width =
+            image.naturalWidth;
+
+          canvas.height =
+            image.naturalHeight;
+
+
+          drawBlur();
+
+
+          downloadBtn.disabled =
+            false;
+
+
+          status.textContent =
+            "✅ Image loaded. Adjust the blur strength.";
+
+
+          URL.revokeObjectURL(url);
+
+        };
+
+
+      image.onerror =
+        function() {
+
+          status.textContent =
+            "❌ Could not load this image.";
+
+          URL.revokeObjectURL(url);
+
+        };
+
+
+      image.src =
+        url;
+
+    }
+  );
+
+
+  blurRange.addEventListener(
+    "input",
+    function() {
+
+      blurValue.textContent =
+        blurRange.value + "px";
+
+
+      drawBlur();
+
+    }
+  );
+
+
+  function drawBlur() {
+
+    if (!imageLoaded) {
+      return;
+    }
+
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    const blur =
+      Number(blurRange.value);
+
+
+    ctx.filter =
+      "blur(" + blur + "px)";
+
+
+    /*
+      Draw slightly outside the canvas
+      so blur edges do not get cut.
+    */
+
+    ctx.drawImage(
+      image,
+      -blur,
+      -blur,
+      canvas.width + blur * 2,
+      canvas.height + blur * 2
+    );
+
+
+    ctx.filter =
+      "none";
+
+  }
+
+
+  downloadBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!imageLoaded) {
+        return;
+      }
+
+
+      canvas.toBlob(
+        function(blob) {
+
+          if (!blob) {
+            return;
+          }
+
+
+          const url =
+            URL.createObjectURL(blob);
+
+
+          const link =
+            document.createElement("a");
+
+
+          link.href =
+            url;
+
+          link.download =
+            "blurred-image.png";
+
+
+          document.body.appendChild(
+            link
+          );
+
+          link.click();
+
+          link.remove();
+
+
+          URL.revokeObjectURL(url);
+
+
+          status.textContent =
+            "✅ Blurred image downloaded.";
+
+        },
+        "image/png"
+      );
+
+    }
+  );
+
+
+  resetBtn.addEventListener(
+    "click",
+    function() {
+
+      fileInput.value =
+        "";
+
+      imageLoaded =
+        false;
+
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      blurRange.value =
+        5;
+
+
+      blurValue.textContent =
+        "5px";
+
+
+      downloadBtn.disabled =
+        true;
+
+
+      status.textContent =
+        "Choose an image to start.";
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
