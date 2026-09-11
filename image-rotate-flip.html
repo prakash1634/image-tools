@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Rotate & Flip - ImageTools</title>
+
+  <meta name="description"
+        content="Rotate and flip images online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .preview {
+      margin-top: 18px;
+      min-height: 280px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 550px;
+      display: block;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #111827;
+      color: white;
+    }
+
+    #downloadBtn {
+      margin-top: 10px;
+      width: 100%;
+      background: #16a34a;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Rotate & Flip</h1>
+  <p>Rotate or flip your image easily</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="preview">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="controls">
+
+      <button id="leftBtn">
+        ↺ Rotate Left
+      </button>
+
+      <button id="rightBtn">
+        ↻ Rotate Right
+      </button>
+
+      <button id="horizontalBtn">
+        ↔ Flip Horizontal
+      </button>
+
+      <button id="verticalBtn">
+        ↕ Flip Vertical
+      </button>
+
+    </div>
+
+    <button id="downloadBtn" disabled>
+      Download Image
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const leftBtn =
+    document.getElementById("leftBtn");
+
+  const rightBtn =
+    document.getElementById("rightBtn");
+
+  const horizontalBtn =
+    document.getElementById("horizontalBtn");
+
+  const verticalBtn =
+    document.getElementById("verticalBtn");
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  let image =
+    new Image();
+
+  let loaded =
+    false;
+
+  let rotation =
+    0;
+
+  let flipX =
+    1;
+
+  let flipY =
+    1;
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      const url =
+        URL.createObjectURL(file);
+
+      image =
+        new Image();
+
+      image.onload =
+        function() {
+
+          loaded =
+            true;
+
+          rotation =
+            0;
+
+          flipX =
+            1;
+
+          flipY =
+            1;
+
+          draw();
+
+          downloadBtn.disabled =
+            false;
+
+          status.textContent =
+            "✅ Image loaded. Use the buttons to edit it.";
+
+          URL.revokeObjectURL(url);
+
+        };
+
+      image.src =
+        url;
+
+    }
+  );
+
+
+  function draw() {
+
+    if (!loaded) {
+      return;
+    }
+
+
+    const angle =
+      rotation *
+      Math.PI /
+      180;
+
+
+    const swap =
+      rotation === 90 ||
+      rotation === 270;
+
+
+    const width =
+      swap
+        ? image.naturalHeight
+        : image.naturalWidth;
+
+
+    const height =
+      swap
+        ? image.naturalWidth
+        : image.naturalHeight;
+
+
+    canvas.width =
+      width;
+
+    canvas.height =
+      height;
+
+
+    ctx.save();
+
+
+    ctx.translate(
+      canvas.width / 2,
+      canvas.height / 2
+    );
+
+
+    ctx.rotate(angle);
+
+
+    ctx.scale(
+      flipX,
+      flipY
+    );
+
+
+    ctx.drawImage(
+      image,
+      -image.naturalWidth / 2,
+      -image.naturalHeight / 2
+    );
+
+
+    ctx.restore();
+
+  }
+
+
+  leftBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!loaded) {
+        return;
+      }
+
+      rotation -= 90;
+
+      if (rotation < 0) {
+        rotation += 360;
+      }
+
+      draw();
+
+    }
+  );
+
+
+  rightBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!loaded) {
+        return;
+      }
+
+      rotation += 90;
+
+      if (rotation >= 360) {
+        rotation -= 360;
+      }
+
+      draw();
+
+    }
+  );
+
+
+  horizontalBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!loaded) {
+        return;
+      }
+
+      flipX *= -1;
+
+      draw();
+
+    }
+  );
+
+
+  verticalBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!loaded) {
+        return;
+      }
+
+      flipY *= -1;
+
+      draw();
+
+    }
+  );
+
+
+  downloadBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!loaded) {
+        return;
+      }
+
+      canvas.toBlob(
+        function(blob) {
+
+          if (!blob) {
+            return;
+          }
+
+          const url =
+            URL.createObjectURL(blob);
+
+          const link =
+            document.createElement("a");
+
+          link.href =
+            url;
+
+          link.download =
+            "rotated-flipped-image.png";
+
+          document.body.appendChild(
+            link
+          );
+
+          link.click();
+
+          link.remove();
+
+          URL.revokeObjectURL(url);
+
+          status.textContent =
+            "✅ Image downloaded successfully.";
+
+        },
+        "image/png"
+      );
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
