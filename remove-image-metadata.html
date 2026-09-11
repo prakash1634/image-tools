@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remove Image Metadata - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}header{background:#111827;color:white;text-align:center;padding:18px}
+.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+.upload{display:block;border:2px dashed #999;padding:22px;text-align:center;border-radius:12px;cursor:pointer}#file{display:none}
+.preview{text-align:center;margin:18px}.preview img{max-width:100%;max-height:400px;display:none}
+button{width:100%;padding:13px;border:0;border-radius:9px;background:#16a34a;color:white;font-weight:bold}button:disabled{opacity:.5}
+.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Remove Image Metadata</h1><p>Create a clean copy of your image</p></header>
+<div class="container"><div class="card">
+<label class="upload" for="file"><b>📷 Choose Image</b><br><small>JPG, PNG or WebP</small></label>
+<input id="file" type="file" accept="image/*">
+<div class="preview"><img id="img"></div>
+<button id="download" disabled>Download Clean Image</button>
+<div class="status" id="status">Choose an image to start.</div>
+</div></div>
+<script>
+const f=document.getElementById("file"),img=document.getElementById("img"),d=document.getElementById("download"),s=document.getElementById("status");let c=document.createElement("canvas");
+f.onchange=()=>{let im=new Image();im.onload=()=>{c.width=im.naturalWidth;c.height=im.naturalHeight;c.getContext("2d").drawImage(im,0,0);img.src=c.toDataURL("image/png");img.style.display="block";d.disabled=false;s.textContent="✅ Clean image ready. Basic embedded metadata is not copied to the new PNG."};im.src=URL.createObjectURL(f.files[0])};
+d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="clean-image.png";a.click()},"image/png");
+</script>
+</body>
+</html>
