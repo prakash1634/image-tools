@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Color Picker - ImageTools</title>
+
+  <meta name="description"
+        content="Pick colors from images and get HEX and RGB color codes online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .canvasBox {
+      margin-top: 18px;
+      width: 100%;
+      overflow: auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #eee;
+      text-align: center;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: auto;
+      cursor: crosshair;
+    }
+
+    .result {
+      margin-top: 18px;
+      display: none;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .colorPreview {
+      height: 100px;
+      background: #000000;
+    }
+
+    .info {
+      padding: 14px;
+      background: white;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .row:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .value {
+      font-family: monospace;
+      color: #555;
+    }
+
+    .copyBtn {
+      width: 100%;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px;
+      background: #111827;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Color Picker</h1>
+  <p>Tap anywhere on your image to pick a color</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="canvasBox">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="result" id="result">
+
+      <div
+        class="colorPreview"
+        id="colorPreview">
+      </div>
+
+      <div class="info">
+
+        <div class="row">
+          <span class="label">HEX</span>
+          <span class="value" id="hex">#000000</span>
+        </div>
+
+        <div class="row">
+          <span class="label">RGB</span>
+          <span class="value" id="rgb">rgb(0, 0, 0)</span>
+        </div>
+
+        <button
+          class="copyBtn"
+          id="copyBtn">
+          Copy HEX
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const result =
+    document.getElementById("result");
+
+  const colorPreview =
+    document.getElementById("colorPreview");
+
+  const hex =
+    document.getElementById("hex");
+
+  const rgb =
+    document.getElementById("rgb");
+
+  const copyBtn =
+    document.getElementById("copyBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  let image =
+    new Image();
+
+
+  let currentHex =
+    "#000000";
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      const url =
+        URL.createObjectURL(file);
+
+
+      image =
+        new Image();
+
+
+      image.onload =
+        function() {
+
+          const maxWidth =
+            1000;
+
+
+          let width =
+            image.naturalWidth;
+
+          let height =
+            image.naturalHeight;
+
+
+          if (width > maxWidth) {
+
+            const ratio =
+              maxWidth / width;
+
+            width =
+              Math.round(width * ratio);
+
+            height =
+              Math.round(height * ratio);
+
+          }
+
+
+          canvas.width =
+            width;
+
+          canvas.height =
+            height;
+
+
+          ctx.drawImage(
+            image,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          result.style.display =
+            "block";
+
+
+          status.textContent =
+            "✅ Image loaded. Tap the image to pick a color.";
+
+
+          URL.revokeObjectURL(url);
+
+        };
+
+
+      image.onerror =
+        function() {
+
+          status.textContent =
+            "❌ Could not load this image.";
+
+        };
+
+
+      image.src =
+        url;
+
+    }
+  );
+
+
+  canvas.addEventListener(
+    "click",
+    function(event) {
+
+      if (!canvas.width) {
+        return;
+      }
+
+
+      const rect =
+        canvas.getBoundingClientRect();
+
+
+      const scaleX =
+        canvas.width /
+        rect.width;
+
+
+      const scaleY =
+        canvas.height /
+        rect.height;
+
+
+      const x =
+        Math.floor(
+          (event.clientX - rect.left) *
+          scaleX
+        );
+
+
+      const y =
+        Math.floor(
+          (event.clientY - rect.top) *
+          scaleY
+        );
+
+
+      const pixel =
+        ctx.getImageData(
+          x,
+          y,
+          1,
+          1
+        ).data;
+
+
+      const r =
+        pixel[0];
+
+      const g =
+        pixel[1];
+
+      const b =
+        pixel[2];
+
+
+      currentHex =
+        rgbToHex(r, g, b);
+
+
+      hex.textContent =
+        currentHex;
+
+
+      rgb.textContent =
+        "rgb(" +
+        r +
+        ", " +
+        g +
+        ", " +
+        b +
+        ")";
+
+
+      colorPreview.style.background =
+        currentHex;
+
+
+      status.innerHTML =
+        "<strong>🎨 Color selected!</strong><br>" +
+        "Tap another point to choose a different color.";
+
+    }
+  );
+
+
+  copyBtn.addEventListener(
+    "click",
+    async function() {
+
+      try {
+
+        await navigator.clipboard.writeText(
+          currentHex
+        );
+
+
+        copyBtn.textContent =
+          "✅ HEX Copied!";
+
+
+        setTimeout(
+          function() {
+
+            copyBtn.textContent =
+              "Copy HEX";
+
+          },
+          1500
+        );
+
+      }
+      catch (error) {
+
+        status.textContent =
+          "HEX: " + currentHex;
+
+      }
+
+    }
+  );
+
+
+  function rgbToHex(r, g, b) {
+
+    return "#" +
+      componentToHex(r) +
+      componentToHex(g) +
+      componentToHex(b);
+
+  }
+
+
+  function componentToHex(value) {
+
+    const hexValue =
+      value.toString(16);
+
+    return hexValue.length === 1
+      ? "0" + hexValue
+      : hexValue;
+
+  }
+
+</script>
+
+</body>
+</html>
