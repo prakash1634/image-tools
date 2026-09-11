@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prakash1634.github.io/image-tools/sitemap.xml
