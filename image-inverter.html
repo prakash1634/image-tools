@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Color Inverter - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}
+header{background:#111827;color:white;text-align:center;padding:18px}
+.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+.upload{display:block;border:2px dashed #999;padding:22px;text-align:center;border-radius:12px}#file{display:none}
+.preview{text-align:center;margin:18px}.preview canvas{max-width:100%;max-height:500px}
+button{width:100%;padding:13px;border:0;border-radius:9px;background:#111827;color:white;font-weight:bold}
+.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Image Color Inverter</h1><p>Invert image colors instantly</p></header>
+<div class="container"><div class="card">
+<label class="upload" for="file"><b>📷 Choose Image</b></label>
+<input id="file" type="file" accept="image/*">
+<div class="preview"><canvas id="canvas"></canvas></div>
+<button id="download" disabled>Download Inverted Image</button>
+<div class="status" id="status">Choose an image to start.</div>
+</div></div>
+<script>
+const file=document.getElementById("file"),c=document.getElementById("canvas"),x=c.getContext("2d"),d=document.getElementById("download"),s=document.getElementById("status");
+file.onchange=()=>{let f=file.files[0],im=new Image();im.onload=()=>{c.width=im.naturalWidth;c.height=im.naturalHeight;x.drawImage(im,0,0);let a=x.getImageData(0,0,c.width,c.height),p=a.data;for(let i=0;i<p.length;i+=4){p[i]=255-p[i];p[i+1]=255-p[i+1];p[i+2]=255-p[i+2]}x.putImageData(a,0,0);d.disabled=false;s.textContent="✅ Colors inverted successfully."};im.src=URL.createObjectURL(f)};
+d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="inverted-image.png";a.click()});
+</script>
+</body>
+</html>
