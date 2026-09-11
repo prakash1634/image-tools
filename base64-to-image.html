@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Base64 to Image - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}
+header{background:#111827;color:white;text-align:center;padding:18px}header h1{margin:0}
+.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+textarea{width:100%;height:180px;padding:10px;border:1px solid #ddd;border-radius:8px;font-family:monospace}
+button{width:100%;padding:13px;margin-top:10px;border:0;border-radius:9px;background:#111827;color:white;font-weight:bold}
+.preview{text-align:center;margin-top:18px}.preview img{max-width:100%;max-height:400px;display:none}
+.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Base64 to Image</h1><p>Convert Base64 code back to an image</p></header>
+<div class="container"><div class="card">
+<textarea id="input" placeholder="Paste Base64 image code here..."></textarea>
+<button id="convert">Convert to Image</button>
+<div class="preview"><img id="img"></div>
+<button id="download" style="display:none;background:#16a34a">Download Image</button>
+<div class="status" id="status">Paste Base64 code to start.</div>
+</div></div>
+<script>
+const input=document.getElementById("input"),convert=document.getElementById("convert"),img=document.getElementById("img"),download=document.getElementById("download"),status=document.getElementById("status");
+convert.onclick=()=>{let x=input.value.trim();if(!x){status.textContent="❌ Please paste Base64 code.";return}if(!x.startsWith("data:image/")){status.textContent="❌ Please enter a valid image Base64 data URL.";return}img.src=x;img.onload=()=>{img.style.display="block";download.style.display="block";status.textContent="✅ Image created successfully."};img.onerror=()=>status.textContent="❌ Invalid image data."};
+download.onclick=()=>{let a=document.createElement("a");a.href=img.src;a.download="base64-image.png";a.click()};
+</script>
+</body>
+</html>
