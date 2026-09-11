@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Image Compressor - Free Online</title>
-<meta name="description" content="Compress JPG, JPEG and PNG images online for free. Reduce image file size quickly and easily.">
+  <title>Image Compressor - Compress Images Online Free | ImageTools</title>
+
+  <meta
+    name="description"
+    content="Compress JPG, JPEG and PNG images online for free. Reduce image file size quickly while keeping good quality. Works directly in your browser."
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://prakash1634.github.io/image-tools/image-compressor.html"
+  >
+
+  <meta property="og:title" content="Image Compressor - Compress Images Online Free">
+  <meta
+    property="og:description"
+    content="Compress JPG, JPEG and PNG images online for free directly in your browser."
+  >
+  <meta
+    property="og:url"
+    content="https://prakash1634.github.io/image-tools/image-compressor.html"
+  >
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Compressor",
+    "url": "https://prakash1634.github.io/image-tools/image-compressor.html",
+    "description": "Free online image compressor for reducing JPG, JPEG and PNG file sizes directly in a web browser.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
 <style>
 * {
@@ -209,20 +248,27 @@ accept="image/jpeg,image/png"
 
 </div>
 
-<img id="preview" alt="Compressed image preview">
+<img
+id="preview"
+alt="Compressed image preview"
+>
 
 <p id="status"></p>
 
-<a id="downloadBtn"
+<a
+id="downloadBtn"
 class="download-btn"
 download="compressed-image.jpg"
-style="display:none;">
+style="display:none;"
+>
 Download Compressed Image
 </a>
 
-<button id="resetBtn"
+<button
+id="resetBtn"
 class="reset-btn"
-style="display:none;">
+style="display:none;"
+>
 Compress Another
 </button>
 
@@ -230,18 +276,45 @@ Compress Another
 
 <section class="info">
 
-<h2>How to Compress an Image</h2>
-
-<p>1. Tap the Choose Image button and select your JPG, JPEG or PNG image.</p>
-
-<p>2. The image will be compressed directly in your browser.</p>
-
-<p>3. Tap Download Compressed Image to save the smaller file.</p>
-
-<h2 style="margin-top:20px;">Is this image compressor free?</h2>
+<h2>How to Compress an Image Online</h2>
 
 <p>
-Yes. This online image compressor is free and works directly in your browser.
+1. Tap the Choose Image button and select your JPG, JPEG or PNG image.
+</p>
+
+<p>
+2. The image is compressed directly in your browser.
+</p>
+
+<p>
+3. Tap Download Compressed Image to save the smaller file.
+</p>
+
+<h2 style="margin-top:20px;">
+Is this image compressor free?
+</h2>
+
+<p>
+Yes. ImageTools provides this online image compressor free of charge.
+No software installation is required.
+</p>
+
+<h2 style="margin-top:20px;">
+Does image compression reduce file size?
+</h2>
+
+<p>
+Yes. Image compression can reduce the file size of an image, making it
+easier to store, share and upload online.
+</p>
+
+<h2 style="margin-top:20px;">
+Is my image uploaded to a server?
+</h2>
+
+<p>
+The compression is performed directly in your browser. The tool does not
+need to upload your image to a server for the compression process.
 </p>
 
 </section>
@@ -255,9 +328,9 @@ Yes. This online image compressor is free and works directly in your browser.
 <br>
 
 <a href="index.html">Home</a>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms</a>
-<a href="#">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="contact.html">Contact</a>
 
 </footer>
 
@@ -276,7 +349,8 @@ fileInput.addEventListener("change", function() {
   if (!file) return;
 
   if (!file.type.match("image/(jpeg|png)")) {
-    status.textContent = "Please select a JPG, JPEG or PNG image.";
+    status.textContent =
+      "Please select a JPG, JPEG or PNG image.";
     return;
   }
 
@@ -312,9 +386,21 @@ fileInput.addEventListener("change", function() {
       canvas.width = width;
       canvas.height = height;
 
-      context.drawImage(image, 0, 0, width, height);
+      context.drawImage(
+        image,
+        0,
+        0,
+        width,
+        height
+      );
 
       canvas.toBlob(function(blob) {
+
+        if (!blob) {
+          status.textContent =
+            "Compression failed. Please try another image.";
+          return;
+        }
 
         const url = URL.createObjectURL(blob);
 
@@ -326,8 +412,11 @@ fileInput.addEventListener("change", function() {
 
         resetBtn.style.display = "inline-block";
 
-        const oldSize = (file.size / 1024).toFixed(1);
-        const newSize = (blob.size / 1024).toFixed(1);
+        const oldSize =
+          (file.size / 1024).toFixed(1);
+
+        const newSize =
+          (blob.size / 1024).toFixed(1);
 
         status.textContent =
           "Compression complete! " +
@@ -362,4 +451,4 @@ resetBtn.addEventListener("click", function() {
 </script>
 
 </body>
-  </html>
+</html>
