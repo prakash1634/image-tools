@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PNG to JPG Converter - Free Online</title>
-<meta name="description" content="Convert PNG images to JPG online for free. Fast, simple and works directly in your browser.">
+  <title>PNG to JPG Converter - Free Online | ImageTools</title>
+
+  <meta
+    name="description"
+    content="Convert PNG images to JPG online for free. Fast, simple and private PNG to JPG converter that works directly in your browser."
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://prakash1634.github.io/image-tools/png-to-jpg.html"
+  >
+
+  <meta property="og:title" content="PNG to JPG Converter - Free Online">
+  <meta
+    property="og:description"
+    content="Convert PNG images to JPG online for free directly in your browser."
+  >
+  <meta
+    property="og:url"
+    content="https://prakash1634.github.io/image-tools/png-to-jpg.html"
+  >
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PNG to JPG Converter",
+    "url": "https://prakash1634.github.io/image-tools/png-to-jpg.html",
+    "description": "Free online tool to convert PNG images to JPG directly in a web browser.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
 <style>
 * {
@@ -213,7 +252,10 @@ footer a {
 
     </div>
 
-    <img id="preview" alt="Selected PNG image preview">
+    <img
+      id="preview"
+      alt="PNG image preview before JPG conversion"
+    >
 
     <p id="status"></p>
 
@@ -237,19 +279,48 @@ footer a {
 
   <section class="info">
 
-    <h2>How to Convert PNG to JPG</h2>
-
-    <p>1. Tap the Choose Image button and select your PNG image.</p>
-
-    <p>2. The image will be converted to JPG directly in your browser.</p>
-
-    <p>3. Tap Download JPG to save your converted image.</p>
-
-    <h2 style="margin-top:20px;">Is this PNG to JPG converter free?</h2>
+    <h2>How to Convert PNG to JPG Online</h2>
 
     <p>
-      Yes. This online PNG to JPG converter is free and easy to use.
+      1. Tap the Choose Image button and select your PNG image.
+    </p>
+
+    <p>
+      2. The image is converted to JPG directly in your browser.
+    </p>
+
+    <p>
+      3. Tap Download JPG to save your converted image.
+    </p>
+
+    <h2 style="margin-top:20px;">
+      Is this PNG to JPG converter free?
+    </h2>
+
+    <p>
+      Yes. ImageTools provides this PNG to JPG converter free of charge.
       No software installation is required.
+    </p>
+
+    <h2 style="margin-top:20px;">
+      Is my image uploaded to a server?
+    </h2>
+
+    <p>
+      The conversion is performed directly in your browser using your
+      device. The tool does not need to upload the image to a server
+      for the conversion.
+    </p>
+
+    <h2 style="margin-top:20px;">
+      PNG vs JPG
+    </h2>
+
+    <p>
+      PNG supports lossless image storage and transparency, while JPG
+      is commonly used for photographs and usually produces smaller
+      file sizes. Converting PNG to JPG can be useful when you need
+      a smaller image file or wider JPG compatibility.
     </p>
 
   </section>
@@ -263,9 +334,9 @@ footer a {
   <br>
 
   <a href="index.html">Home</a>
-  <a href="#">Privacy Policy</a>
-  <a href="#">Terms</a>
-  <a href="#">Contact</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="contact.html">Contact</a>
 
 </footer>
 
@@ -316,6 +387,12 @@ fileInput.addEventListener("change", function () {
       context.drawImage(image, 0, 0);
 
       canvas.toBlob(function (blob) {
+
+        if (!blob) {
+          status.textContent =
+            "Conversion failed. Please try another image.";
+          return;
+        }
 
         const jpgUrl = URL.createObjectURL(blob);
 
