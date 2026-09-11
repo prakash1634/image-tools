@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Text Generator - ImageTools</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}header{background:#111827;color:white;text-align:center;padding:18px}
+.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
+input{width:100%;padding:11px;margin:5px 0 12px;border:1px solid #ddd;border-radius:8px}.preview{text-align:center}.preview canvas{max-width:100%;max-height:500px}
+button{width:100%;padding:13px;margin-top:12px;border:0;border-radius:9px;background:#16a34a;color:white;font-weight:bold}.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+</style>
+</head>
+<body>
+<header><h1>Image Text Generator</h1><p>Add text to your image</p></header>
+<div class="container"><div class="card">
+<label>Choose Image</label><input id="file" type="file" accept="image/*">
+<label>Text</label><input id="text" value="Your Text" placeholder="Enter text">
+<label>Font Size</label><input id="size" type="number" value="50">
+<label>Text Color</label><input id="color" type="color" value="#ffffff">
+<div class="preview"><canvas id="canvas"></canvas></div>
+<button id="download" disabled>Download Image</button><div class="status" id="status">Choose an image to start.</div>
+</div></div>
+<script>
+const f=file,c=canvas,x=c.getContext("2d"),t=text,z=size,co=color,d=download,s=status;let im=new Image(),ok=false;
+f.onchange=()=>{im.onload=()=>{ok=true;draw();d.disabled=false;s.textContent="✅ Image loaded."};im.src=URL.createObjectURL(f.files[0])};
+function draw(){if(!ok)return;c.width=im.naturalWidth;c.height=im.naturalHeight;x.drawImage(im,0,0);x.font="bold "+z.value+"px Arial";x.fillStyle=co.value;x.textAlign="center";x.textBaseline="middle";x.fillText(t.value,c.width/2,c.height/2)}
+t.oninput=draw;z.oninput=draw;co.oninput=draw;d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="text-image.png";a.click()});
+</script>
+</body>
+</html>
