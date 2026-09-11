@@ -1,85 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Free Image Tools - Convert, Compress & Resize Images</title>
-  <meta name="description" content="Free online image tools to convert, compress, resize, crop and optimize JPG, PNG and WebP images.">
+  <title>ImageTools - Free Online Image Tools</title>
+
+  <meta name="description"
+        content="Free online image tools to convert, compress, resize, crop, enhance and remove image backgrounds.">
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f6f8fc;
-      color: #172033;
-      line-height: 1.6;
+      background: #f5f7fb;
+      color: #222;
     }
 
     header {
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
-      padding: 16px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background: #111827;
+      color: white;
+      padding: 18px 15px;
+      text-align: center;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: #2563eb;
+    header h1 {
+      margin: 0;
+      font-size: 25px;
     }
 
-    nav a {
-      text-decoration: none;
-      color: #374151;
-      margin-left: 18px;
+    header p {
+      margin: 7px 0 0;
       font-size: 14px;
+      opacity: 0.85;
     }
 
     .hero {
       text-align: center;
-      padding: 70px 20px 50px;
+      padding: 40px 15px 30px;
       background: white;
     }
 
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 15px;
+    .hero h2 {
+      margin: 0;
+      font-size: 30px;
+      color: #111827;
     }
 
-    .hero h1 span {
+    .hero h2 span {
       color: #2563eb;
     }
 
     .hero p {
       max-width: 650px;
-      margin: auto;
-      color: #64748b;
-      font-size: 17px;
+      margin: 12px auto 20px;
+      color: #666;
+      line-height: 1.6;
     }
 
     .search {
       max-width: 550px;
-      margin: 30px auto 0;
+      margin: auto;
     }
 
     .search input {
       width: 100%;
-      padding: 16px 20px;
+      padding: 14px 17px;
       border: 1px solid #d1d5db;
       border-radius: 12px;
-      font-size: 16px;
+      font-size: 15px;
       outline: none;
     }
 
@@ -88,154 +81,152 @@
     }
 
     .container {
+      width: 94%;
       max-width: 1100px;
-      margin: auto;
-      padding: 50px 20px;
+      margin: 30px auto;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 22px;
     }
 
     .section-title h2 {
-      font-size: 30px;
-      margin-bottom: 8px;
+      margin: 0;
+      color: #111827;
     }
 
     .section-title p {
-      color: #64748b;
+      color: #666;
+      font-size: 14px;
     }
 
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
 
     .tool-card {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 25px;
-      transition: 0.2s;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      border: 1px solid #eee;
+      transition: transform 0.2s;
     }
 
     .tool-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
 
     .icon {
-      font-size: 32px;
-      margin-bottom: 12px;
+      font-size: 30px;
+      margin-bottom: 8px;
     }
 
     .tool-card h3 {
-      margin-bottom: 8px;
-      font-size: 20px;
+      margin: 5px 0 7px;
+      font-size: 18px;
+      color: #111827;
     }
 
     .tool-card p {
-      color: #64748b;
+      margin: 0 0 15px;
+      color: #666;
       font-size: 14px;
-      margin-bottom: 18px;
+      line-height: 1.5;
     }
 
     .tool-card a {
       display: inline-block;
       text-decoration: none;
-      background: #2563eb;
+      background: #111827;
       color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
+      padding: 10px 15px;
+      border-radius: 9px;
       font-size: 14px;
+      font-weight: bold;
     }
 
     .tool-card a:hover {
-      opacity: 0.9;
+      background: #2563eb;
     }
 
-    .info {
-      background: white;
-      border-radius: 16px;
+    .no-results {
+      display: none;
+      text-align: center;
+      color: #666;
       padding: 30px;
-      margin-top: 50px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .info h2 {
-      margin-bottom: 12px;
-    }
-
-    .info p {
-      color: #64748b;
     }
 
     footer {
       background: #111827;
-      color: #d1d5db;
+      color: #cbd5e1;
       text-align: center;
-      padding: 30px 20px;
-      margin-top: 30px;
+      padding: 28px 15px;
+      margin-top: 40px;
     }
 
-    footer a {
-      color: #d1d5db;
+    .footer-links {
+      margin-bottom: 15px;
+    }
+
+    .footer-links a {
+      color: white;
       text-decoration: none;
       margin: 0 8px;
       font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    footer p {
+      margin: 6px 0;
+      font-size: 13px;
     }
 
     @media (max-width: 800px) {
       .tools-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-
-      .hero h1 {
-        font-size: 32px;
-      }
     }
 
     @media (max-width: 550px) {
-      nav a {
-        margin-left: 8px;
-        font-size: 12px;
-      }
-
       .tools-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 50px;
+      .hero h2 {
+        font-size: 25px;
+      }
+
+      .container {
+        width: 92%;
       }
     }
   </style>
-
 </head>
 
 <body>
 
 <header>
-
-  <div class="logo">ImageTools</div>
-
-  <nav>
-    <a href="#">Home</a>
-    <a href="#tools">Tools</a>
-  </nav>
-
+  <h1>ImageTools</h1>
+  <p>Free and simple online image tools</p>
 </header>
 
 
 <section class="hero">
 
-  <h1>Free <span>Image Tools</span> Online</h1>
+  <h2>
+    Free <span>Image Tools</span> Online
+  </h2>
 
   <p>
-    Convert, compress, resize, crop and optimize your images quickly and easily.
-    No complicated software required.
+    Convert, compress, resize, crop, enhance and edit your images
+    quickly and easily. No complicated software required.
   </p>
 
   <div class="search">
@@ -253,19 +244,18 @@
 <main class="container" id="tools">
 
   <div class="section-title">
-
     <h2>Popular Image Tools</h2>
 
     <p>
       Simple and useful tools for your everyday image needs.
     </p>
-
   </div>
 
 
-  <div class="tools-grid">
+  <div class="tools-grid" id="toolsGrid">
 
 
+    <!-- 1 -->
     <div class="tool-card">
 
       <div class="icon">🖼️</div>
@@ -283,9 +273,10 @@
     </div>
 
 
+    <!-- 2 -->
     <div class="tool-card">
 
-      <div class="icon">🔄</div>
+      <div class="icon">🖼️</div>
 
       <h3>PNG to JPG</h3>
 
@@ -300,9 +291,10 @@
     </div>
 
 
+    <!-- 3 -->
     <div class="tool-card">
 
-      <div class="icon">🗜️</div>
+      <div class="icon">📦</div>
 
       <h3>Image Compressor</h3>
 
@@ -317,6 +309,7 @@
     </div>
 
 
+    <!-- 4 -->
     <div class="tool-card">
 
       <div class="icon">📐</div>
@@ -334,6 +327,7 @@
     </div>
 
 
+    <!-- 5 -->
     <div class="tool-card">
 
       <div class="icon">✂️</div>
@@ -341,7 +335,7 @@
       <h3>Image Cropper</h3>
 
       <p>
-        Crop your photos to the perfect size.
+        Crop your images easily to the area you want.
       </p>
 
       <a href="image-cropper.html">
@@ -351,14 +345,15 @@
     </div>
 
 
+    <!-- 6 -->
     <div class="tool-card">
 
-      <div class="icon">🔁</div>
+      <div class="icon">🔄</div>
 
       <h3>Image Converter</h3>
 
       <p>
-        Convert images between popular formats.
+        Convert images between different formats.
       </p>
 
       <a href="image-converter.html">
@@ -368,6 +363,7 @@
     </div>
 
 
+    <!-- 7 -->
     <div class="tool-card">
 
       <div class="icon">🌐</div>
@@ -375,7 +371,7 @@
       <h3>Image to WebP</h3>
 
       <p>
-        Convert JPG or PNG images into WebP format.
+        Convert your images to lightweight WebP format.
       </p>
 
       <a href="image-to-webp.html">
@@ -385,14 +381,15 @@
     </div>
 
 
+    <!-- 8 -->
     <div class="tool-card">
 
-      <div class="icon">📷</div>
+      <div class="icon">🖼️</div>
 
       <h3>WebP to JPG</h3>
 
       <p>
-        Convert WebP images to JPG format.
+        Convert WebP images into JPG format.
       </p>
 
       <a href="webp-to-jpg.html">
@@ -402,14 +399,15 @@
     </div>
 
 
+    <!-- 9 -->
     <div class="tool-card">
 
-      <div class="icon">🎨</div>
+      <div class="icon">🖼️</div>
 
       <h3>WebP to PNG</h3>
 
       <p>
-        Convert WebP images to PNG format.
+        Convert WebP images into PNG format.
       </p>
 
       <a href="webp-to-png.html">
@@ -419,6 +417,7 @@
     </div>
 
 
+    <!-- 10 -->
     <div class="tool-card">
 
       <div class="icon">✨</div>
@@ -426,7 +425,7 @@
       <h3>Background Remover</h3>
 
       <p>
-        Remove unwanted backgrounds from your photos.
+        Remove image backgrounds automatically with AI.
       </p>
 
       <a href="background-remover.html">
@@ -436,14 +435,15 @@
     </div>
 
 
+    <!-- 11 -->
     <div class="tool-card">
 
-      <div class="icon">🌟</div>
+      <div class="icon">✨</div>
 
       <h3>Image Enhancer</h3>
 
       <p>
-        Improve the quality and appearance of your images.
+        Improve brightness, contrast and overall image appearance.
       </p>
 
       <a href="image-enhancer.html">
@@ -453,14 +453,15 @@
     </div>
 
 
+    <!-- 12 -->
     <div class="tool-card">
 
-      <div class="icon">🤖</div>
+      <div class="icon">🎨</div>
 
       <h3>AI Photo Editor</h3>
 
       <p>
-        Edit and enhance photos with powerful AI features.
+        Edit photos with useful browser-based adjustment tools.
       </p>
 
       <a href="ai-photo-editor.html">
@@ -473,16 +474,8 @@
   </div>
 
 
-  <div class="info">
-
-    <h2>Free Online Image Tools</h2>
-
-    <p>
-      ImageTools provides simple online tools for converting, compressing,
-      resizing, cropping and optimizing images. Our goal is to make everyday
-      image editing fast and easy for everyone.
-    </p>
-
+  <div class="no-results" id="noResults">
+    No image tool found.
   </div>
 
 </main>
@@ -490,67 +483,110 @@
 
 <footer>
 
+  <div class="footer-links">
+
+    <a href="about.html">
+      About Us
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+    <a href="privacy-policy.html">
+      Privacy Policy
+    </a>
+
+    <a href="terms.html">
+      Terms & Conditions
+    </a>
+
+  </div>
+
   <p>
     © 2026 ImageTools. All rights reserved.
   </p>
 
-  <br>
-
-  <a href="#">
-    Privacy Policy
-  </a>
-
-  <a href="#">
-    Terms
-  </a>
-
-  <a href="#">
-    Contact
-  </a>
+  <p>
+    Free online image tools for everyday use.
+  </p>
 
 </footer>
 
 
 <script>
 
-  const searchInput = document.getElementById("toolSearch");
+  const searchInput =
+    document.getElementById("toolSearch");
 
-  const toolCards = document.querySelectorAll(".tool-card");
+  const toolCards =
+    document.querySelectorAll(".tool-card");
 
-
-  searchInput.addEventListener("input", function () {
-
-    const searchText = this.value.toLowerCase().trim();
-
-
-    toolCards.forEach(function (card) {
-
-      const toolName =
-        card.querySelector("h3").textContent.toLowerCase();
-
-      const toolDescription =
-        card.querySelector("p").textContent.toLowerCase();
+  const noResults =
+    document.getElementById("noResults");
 
 
-      if (
-        toolName.includes(searchText) ||
-        toolDescription.includes(searchText)
-      ) {
+  searchInput.addEventListener(
+    "input",
+    function() {
 
-        card.style.display = "";
+      const searchText =
+        searchInput.value
+          .toLowerCase()
+          .trim();
+
+      let visibleCount = 0;
+
+
+      toolCards.forEach(function(card) {
+
+        const title =
+          card.querySelector("h3")
+            .textContent
+            .toLowerCase();
+
+        const description =
+          card.querySelector("p")
+            .textContent
+            .toLowerCase();
+
+
+        if (
+          title.includes(searchText) ||
+          description.includes(searchText)
+        ) {
+
+          card.style.display =
+            "";
+
+          visibleCount++;
+
+        } else {
+
+          card.style.display =
+            "none";
+
+        }
+
+      });
+
+
+      if (visibleCount === 0) {
+
+        noResults.style.display =
+          "block";
 
       } else {
 
-        card.style.display = "none";
+        noResults.style.display =
+          "none";
 
       }
 
-    });
-
-  });
+    }
+  );
 
 </script>
-
 
 </body>
 </html>
