@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image Watermark - ImageTools</title>
+
+  <meta name="description"
+        content="Add text watermark to images online for free.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .controls {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control label {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+    }
+
+    input[type="range"] {
+      padding: 0;
+    }
+
+    .preview {
+      margin-top: 18px;
+      width: 100%;
+      min-height: 250px;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 600px;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    button {
+      flex: 1;
+      border: 0;
+      border-radius: 9px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #downloadBtn {
+      background: #16a34a;
+      color: white;
+    }
+
+    #resetBtn {
+      background: #e5e7eb;
+      color: #222;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      border-radius: 9px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Image Watermark</h1>
+  <p>Add text watermark to your images</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="fileInput">
+      <strong>📷 Choose an Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <div class="controls">
+
+      <div class="control">
+        <label for="textInput">Watermark Text</label>
+
+        <input
+          type="text"
+          id="textInput"
+          placeholder="Your Name"
+          value="ImageTools"
+        >
+      </div>
+
+      <div class="control">
+        <label for="position">Position</label>
+
+        <select id="position">
+          <option value="bottom-right">Bottom Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="top-right">Top Right</option>
+          <option value="top-left">Top Left</option>
+          <option value="center">Center</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="size">Text Size</label>
+
+        <input
+          type="range"
+          id="size"
+          min="10"
+          max="100"
+          value="35"
+        >
+      </div>
+
+      <div class="control">
+        <label for="opacity">Opacity</label>
+
+        <input
+          type="range"
+          id="opacity"
+          min="10"
+          max="100"
+          value="65"
+        >
+      </div>
+
+      <div class="control">
+        <label for="textColor">Text Color</label>
+
+        <input
+          type="color"
+          id="textColor"
+          value="#ffffff"
+        >
+      </div>
+
+    </div>
+
+    <div class="preview">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="buttons">
+
+      <button id="downloadBtn" disabled>
+        Download Image
+      </button>
+
+      <button id="resetBtn">
+        Reset
+      </button>
+
+    </div>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const fileInput =
+    document.getElementById("fileInput");
+
+  const textInput =
+    document.getElementById("textInput");
+
+  const position =
+    document.getElementById("position");
+
+  const size =
+    document.getElementById("size");
+
+  const opacity =
+    document.getElementById("opacity");
+
+  const textColor =
+    document.getElementById("textColor");
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
+
+  const resetBtn =
+    document.getElementById("resetBtn");
+
+  const status =
+    document.getElementById("status");
+
+
+  let image =
+    new Image();
+
+
+  let imageLoaded =
+    false;
+
+
+  fileInput.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        fileInput.files[0];
+
+      if (!file) {
+        return;
+      }
+
+
+      const url =
+        URL.createObjectURL(file);
+
+
+      image =
+        new Image();
+
+
+      image.onload =
+        function() {
+
+          imageLoaded =
+            true;
+
+          draw();
+
+          downloadBtn.disabled =
+            false;
+
+          status.textContent =
+            "Image loaded. Your watermark is ready.";
+
+          URL.revokeObjectURL(url);
+
+        };
+
+
+      image.src =
+        url;
+
+    }
+  );
+
+
+  function draw() {
+
+    if (!imageLoaded) {
+      return;
+    }
+
+
+    canvas.width =
+      image.naturalWidth;
+
+    canvas.height =
+      image.naturalHeight;
+
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    ctx.drawImage(
+      image,
+      0,
+      0
+    );
+
+
+    const text =
+      textInput.value.trim();
+
+
+    if (!text) {
+      return;
+    }
+
+
+    const fontSize =
+      Math.max(
+        10,
+        Math.round(
+          canvas.width *
+          (Number(size.value) / 1000)
+        )
+      );
+
+
+    ctx.font =
+      "bold " +
+      fontSize +
+      "px Arial";
+
+
+    ctx.fillStyle =
+      textColor.value;
+
+
+    ctx.globalAlpha =
+      Number(opacity.value) / 100;
+
+
+    ctx.textBaseline =
+      "middle";
+
+
+    const padding =
+      fontSize;
+
+
+    const textWidth =
+      ctx.measureText(text).width;
+
+
+    let x;
+    let y;
+
+
+    if (position.value === "top-left") {
+
+      x =
+        padding;
+
+      y =
+        padding;
+
+      ctx.textAlign =
+        "left";
+
+    }
+
+    else if (position.value === "top-right") {
+
+      x =
+        canvas.width -
+        padding;
+
+      y =
+        padding;
+
+      ctx.textAlign =
+        "right";
+
+    }
+
+    else if (position.value === "bottom-left") {
+
+      x =
+        padding;
+
+      y =
+        canvas.height -
+        padding;
+
+      ctx.textAlign =
+        "left";
+
+    }
+
+    else if (position.value === "center") {
+
+      x =
+        canvas.width / 2;
+
+      y =
+        canvas.height / 2;
+
+      ctx.textAlign =
+        "center";
+
+    }
+
+    else {
+
+      x =
+        canvas.width -
+        padding;
+
+      y =
+        canvas.height -
+        padding;
+
+      ctx.textAlign =
+        "right";
+
+    }
+
+
+    ctx.fillText(
+      text,
+      x,
+      y
+    );
+
+
+    ctx.globalAlpha =
+      1;
+
+  }
+
+
+  textInput.addEventListener(
+    "input",
+    draw
+  );
+
+
+  position.addEventListener(
+    "change",
+    draw
+  );
+
+
+  size.addEventListener(
+    "input",
+    draw
+  );
+
+
+  opacity.addEventListener(
+    "input",
+    draw
+  );
+
+
+  textColor.addEventListener(
+    "input",
+    draw
+  );
+
+
+  downloadBtn.addEventListener(
+    "click",
+    function() {
+
+      if (!imageLoaded) {
+        return;
+      }
+
+
+      canvas.toBlob(
+        function(blob) {
+
+          if (!blob) {
+            return;
+          }
+
+
+          const url =
+            URL.createObjectURL(blob);
+
+
+          const link =
+            document.createElement("a");
+
+
+          link.href =
+            url;
+
+          link.download =
+            "watermarked-image.png";
+
+
+          document.body.appendChild(
+            link
+          );
+
+          link.click();
+
+          link.remove();
+
+
+          URL.revokeObjectURL(
+            url
+          );
+
+
+          status.textContent =
+            "✅ Watermarked image downloaded.";
+
+        },
+        "image/png"
+      );
+
+    }
+  );
+
+
+  resetBtn.addEventListener(
+    "click",
+    function() {
+
+      fileInput.value = "";
+
+      imageLoaded =
+        false;
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      downloadBtn.disabled =
+        true;
+
+      textInput.value =
+        "ImageTools";
+
+      position.value =
+        "bottom-right";
+
+      size.value =
+        "35";
+
+      opacity.value =
+        "65";
+
+      textColor.value =
+        "#ffffff";
+
+
+      status.textContent =
+        "Choose an image to start.";
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
