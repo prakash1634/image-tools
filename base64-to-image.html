@@ -1,32 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Base64 to Image - ImageTools</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}
-header{background:#111827;color:white;text-align:center;padding:18px}header h1{margin:0}
-.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
-textarea{width:100%;height:180px;padding:10px;border:1px solid #ddd;border-radius:8px;font-family:monospace}
-button{width:100%;padding:13px;margin-top:10px;border:0;border-radius:9px;background:#111827;color:white;font-weight:bold}
-.preview{text-align:center;margin-top:18px}.preview img{max-width:100%;max-height:400px;display:none}
-.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Base64 to Image Converter Online - Free | ImageTools</title>
+
+  <meta name="description"
+        content="Convert Base64 image code to an image online for free. Paste a Base64 data URL, preview the image and download it directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/base64-to-image.html">
+
+  <meta property="og:title"
+        content="Base64 to Image Converter Online - Free | ImageTools">
+
+  <meta property="og:description"
+        content="Convert Base64 image code back to an image online for free. Preview and download your image directly in your browser.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/base64-to-image.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Base64 to Image Converter",
+    "url": "https://prakash1634.github.io/image-tools/base64-to-image.html",
+    "description": "Free online tool to convert Base64 image data URLs back into images.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    nav {
+      background: #1f2937;
+      text-align: center;
+      padding: 9px 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 9px;
+      background: #111827;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    #download {
+      background: #16a34a;
+      display: none;
+    }
+
+    .preview {
+      text-align: center;
+      margin-top: 18px;
+      min-height: 150px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #eee;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 400px;
+      display: none;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 10px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .info h2 {
+      font-size: 19px;
+      margin-top: 0;
+    }
+
+    .info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .info p,
+    .info li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
-<header><h1>Base64 to Image</h1><p>Convert Base64 code back to an image</p></header>
-<div class="container"><div class="card">
-<textarea id="input" placeholder="Paste Base64 image code here..."></textarea>
-<button id="convert">Convert to Image</button>
-<div class="preview"><img id="img"></div>
-<button id="download" style="display:none;background:#16a34a">Download Image</button>
-<div class="status" id="status">Paste Base64 code to start.</div>
-</div></div>
+
+<header>
+  <h1>Base64 to Image Converter</h1>
+  <p>Convert Base64 image code back to an image for free</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="image-to-base64.html">Image to Base64</a>
+  <a href="image-converter.html">Image Converter</a>
+  <a href="image-metadata.html">Image Metadata</a>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+
+    <textarea
+      id="input"
+      placeholder="Paste Base64 image code here..."
+    ></textarea>
+
+    <button id="convert">
+      Convert to Image
+    </button>
+
+    <div class="preview">
+      <img
+        id="img"
+        alt="Converted Base64 image preview"
+      >
+    </div>
+
+    <button id="download">
+      Download Image
+    </button>
+
+    <div class="status" id="status">
+      Paste Base64 code to start.
+    </div>
+
+  </div>
+
+  <div class="info">
+
+    <h2>Free Base64 to Image Converter</h2>
+
+    <p>
+      ImageTools Base64 to Image Converter lets you turn a Base64 image
+      data URL back into a viewable image. Paste your Base64 image code,
+      convert it, preview the result and download the image.
+    </p>
+
+    <h3>What Is a Base64 Image?</h3>
+
+    <p>
+      A Base64 image represents image data as text. A data URL normally
+      contains information about the image format followed by encoded
+      image data. It can be used in HTML, CSS and JavaScript applications.
+    </p>
+
+    <h3>How to Convert Base64 to Image</h3>
+
+    <ol>
+      <li>Copy your Base64 image data URL.</li>
+      <li>Paste it into the text box above.</li>
+      <li>Tap <strong>Convert to Image</strong>.</li>
+      <li>Preview the converted image.</li>
+      <li>Tap <strong>Download Image</strong> to save it.</li>
+    </ol>
+
+    <h3>Supported Base64 Image Data</h3>
+
+    <p>
+      The converter accepts Base64 image data URLs beginning with
+      <strong>data:image/</strong>, such as common JPEG, PNG and WebP
+      image data.
+    </p>
+
+    <h3>Browser-Based Conversion</h3>
+
+    <p>
+      The image is decoded and displayed directly in your browser.
+      No separate image conversion server is required.
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
+
 <script>
-const input=document.getElementById("input"),convert=document.getElementById("convert"),img=document.getElementById("img"),download=document.getElementById("download"),status=document.getElementById("status");
-convert.onclick=()=>{let x=input.value.trim();if(!x){status.textContent="❌ Please paste Base64 code.";return}if(!x.startsWith("data:image/")){status.textContent="❌ Please enter a valid image Base64 data URL.";return}img.src=x;img.onload=()=>{img.style.display="block";download.style.display="block";status.textContent="✅ Image created successfully."};img.onerror=()=>status.textContent="❌ Invalid image data."};
-download.onclick=()=>{let a=document.createElement("a");a.href=img.src;a.download="base64-image.png";a.click()};
+
+  const input =
+    document.getElementById("input");
+
+  const convert =
+    document.getElementById("convert");
+
+  const img =
+    document.getElementById("img");
+
+  const download =
+    document.getElementById("download");
+
+  const status =
+    document.getElementById("status");
+
+
+  let imageUrl =
+    null;
+
+
+  convert.onclick =
+    function() {
+
+      const x =
+        input.value.trim();
+
+      if (!x) {
+
+        status.textContent =
+          "❌ Please paste Base64 code.";
+
+        return;
+
+      }
+
+
+      if (!x.startsWith("data:image/")) {
+
+        status.textContent =
+          "❌ Please enter a valid image Base64 data URL.";
+
+        return;
+
+      }
+
+
+      if (imageUrl) {
+
+        URL.revokeObjectURL(
+          imageUrl
+        );
+
+        imageUrl =
+          null;
+
+      }
+
+
+      img.style.display =
+        "none";
+
+      download.style.display =
+        "none";
+
+
+      img.onload =
+        function() {
+
+          img.style.display =
+            "block";
+
+          download.style.display =
+            "block";
+
+          status.innerHTML =
+            "<strong>✅ Image created successfully.</strong><br>" +
+            "Your Base64 data has been converted into an image.";
+
+        };
+
+
+      img.onerror =
+        function() {
+
+          img.style.display =
+            "none";
+
+          download.style.display =
+            "none";
+
+          status.textContent =
+            "❌ Invalid image data.";
+
+        };
+
+
+      img.src =
+        x;
+
+    };
+
+
+  download.onclick =
+    function() {
+
+      if (!img.src) {
+        return;
+      }
+
+
+      try {
+
+        const link =
+          document.createElement("a");
+
+        link.href =
+          img.src;
+
+        link.download =
+          "base64-image.png";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        status.textContent =
+          "✅ Image downloaded successfully.";
+
+      }
+
+      catch (error) {
+
+        status.textContent =
+          "❌ Could not download the image.";
+
+      }
+
+    };
+
 </script>
+
 </body>
 </html>
