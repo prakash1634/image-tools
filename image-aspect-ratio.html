@@ -4,10 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Image Aspect Ratio - ImageTools</title>
+  <title>Image Aspect Ratio Calculator Online - Free | ImageTools</title>
 
   <meta name="description"
-        content="Calculate image width, height and aspect ratio online for free.">
+        content="Calculate image width, height and aspect ratio online for free. Check exact and common aspect ratios for JPG, PNG and WebP images directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/image-aspect-ratio.html">
+
+  <meta property="og:title"
+        content="Image Aspect Ratio Calculator Online - Free | ImageTools">
+
+  <meta property="og:description"
+        content="Check image dimensions and calculate exact aspect ratio online for free. Supports JPG, PNG and WebP images.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/image-aspect-ratio.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Aspect Ratio Calculator",
+    "url": "https://prakash1634.github.io/image-tools/image-aspect-ratio.html",
+    "description": "Free online tool to calculate image dimensions and aspect ratio.",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -37,6 +70,23 @@
       margin: 5px 0 0;
       font-size: 12px;
       opacity: .85;
+    }
+
+    nav {
+      background: #1f2937;
+      text-align: center;
+      padding: 9px 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
     }
 
     .container {
@@ -158,6 +208,48 @@
       display: none;
     }
 
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .info h2 {
+      font-size: 19px;
+      margin-top: 0;
+    }
+
+    .info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .info p,
+    .info li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 600px) {
       .row {
         flex-direction: column;
@@ -170,9 +262,16 @@
 <body>
 
 <header>
-  <h1>Image Aspect Ratio</h1>
-  <p>Check image dimensions and aspect ratio</p>
+  <h1>Image Aspect Ratio Calculator</h1>
+  <p>Check image dimensions and aspect ratio online for free</p>
 </header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="image-resizer.html">Image Resizer</a>
+  <a href="image-cropper.html">Image Cropper</a>
+  <a href="image-resolution.html">Image Resolution</a>
+</nav>
 
 <div class="container">
 
@@ -232,7 +331,67 @@
 
   </div>
 
+  <div class="info">
+
+    <h2>Free Image Aspect Ratio Calculator</h2>
+
+    <p>
+      ImageTools Image Aspect Ratio Calculator helps you find the exact
+      width, height and aspect ratio of an image. Upload a JPG, JPEG,
+      PNG or WebP image and the tool automatically calculates its
+      dimensions and ratio.
+    </p>
+
+    <h3>What Is Image Aspect Ratio?</h3>
+
+    <p>
+      Aspect ratio describes the proportional relationship between an
+      image's width and height. Common ratios include 1:1, 4:3, 3:2,
+      16:9, 4:5 and 9:16.
+    </p>
+
+    <h3>How to Check an Image Aspect Ratio</h3>
+
+    <ol>
+      <li>Tap <strong>Choose an Image</strong>.</li>
+      <li>Select the image from your device.</li>
+      <li>The width and height will be calculated automatically.</li>
+      <li>View the exact and common aspect ratio.</li>
+      <li>Tap <strong>Clear Image</strong> when finished.</li>
+    </ol>
+
+    <h3>Common Image Aspect Ratios</h3>
+
+    <ul>
+      <li><strong>1:1</strong> — Square images</li>
+      <li><strong>4:3</strong> — Common photo and display ratio</li>
+      <li><strong>3:2</strong> — Common photography ratio</li>
+      <li><strong>16:9</strong> — Widescreen images and video</li>
+      <li><strong>9:16</strong> — Vertical mobile content</li>
+      <li><strong>4:5</strong> — Common portrait format</li>
+    </ul>
+
+    <h3>Browser-Based Processing</h3>
+
+    <p>
+      Image dimensions and aspect ratio are calculated directly in your
+      browser. No image-processing server is required for this tool.
+    </p>
+
+  </div>
+
 </div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
 
 <script>
 
@@ -284,15 +443,12 @@
         return;
       }
 
-
       if (currentUrl) {
         URL.revokeObjectURL(currentUrl);
       }
 
-
       currentUrl =
         URL.createObjectURL(file);
-
 
       previewImage.src =
         currentUrl;
@@ -300,10 +456,8 @@
       previewImage.style.display =
         "block";
 
-
       const image =
         new Image();
-
 
       image.onload =
         function() {
@@ -314,10 +468,8 @@
           const height =
             image.naturalHeight;
 
-
           const divisor =
             gcd(width, height);
-
 
           const ratioWidth =
             width / divisor;
@@ -325,25 +477,16 @@
           const ratioHeight =
             height / divisor;
 
-
           const exactRatio =
             ratioWidth +
             ":" +
             ratioHeight;
 
-
-          const decimal =
-            (width / height)
-              .toFixed(2);
-
-
           widthEl.textContent =
             width + " px";
 
-
           heightEl.textContent =
             height + " px";
-
 
           dimensionsEl.textContent =
             width +
@@ -351,10 +494,8 @@
             height +
             " px";
 
-
           exactRatioEl.textContent =
             exactRatio;
-
 
           ratioEl.textContent =
             getCommonRatio(
@@ -364,25 +505,20 @@
               ratioHeight
             );
 
-
           results.style.display =
             "block";
-
 
           ratioBox.style.display =
             "block";
 
-
           clearBtn.style.display =
             "block";
-
 
           status.innerHTML =
             "<strong>✅ Aspect ratio calculated.</strong><br>" +
             "Your image information is shown above.";
 
         };
-
 
       image.onerror =
         function() {
@@ -391,7 +527,6 @@
             "❌ Could not read this image.";
 
         };
-
 
       image.src =
         currentUrl;
@@ -408,14 +543,11 @@
         URL.revokeObjectURL(currentUrl);
       }
 
-
       currentUrl =
         null;
 
-
       fileInput.value =
         "";
-
 
       previewImage.src =
         "";
@@ -423,18 +555,14 @@
       previewImage.style.display =
         "none";
 
-
       results.style.display =
         "none";
-
 
       ratioBox.style.display =
         "none";
 
-
       clearBtn.style.display =
         "none";
-
 
       status.textContent =
         "Choose an image to start.";
@@ -538,7 +666,6 @@
 
       }
 
-
       if (
         rw === commonRatios[i].h &&
         rh === commonRatios[i].w
@@ -551,7 +678,6 @@
       }
 
     }
-
 
     return rw + ":" + rh;
 
