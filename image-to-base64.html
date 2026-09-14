@@ -1,34 +1,463 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Image to Base64 - ImageTools</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb;color:#222}
-header{background:#111827;color:white;text-align:center;padding:18px}header h1{margin:0;font-size:23px}header p{font-size:12px}
-.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px;box-shadow:0 5px 20px #0001}
-.upload{display:block;border:2px dashed #9ca3af;border-radius:12px;padding:22px;text-align:center;cursor:pointer}
-#file{display:none}img{max-width:100%;max-height:300px;margin-top:18px;display:none}
-textarea{width:100%;height:180px;margin-top:15px;padding:10px;border:1px solid #ddd;border-radius:8px;font-family:monospace}
-button{width:100%;border:0;border-radius:9px;padding:13px;margin-top:10px;background:#111827;color:white;font-weight:bold}
-.status{margin-top:12px;background:#f3f4f6;padding:10px;border-radius:8px;font-size:12px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Image to Base64 Converter Online - Free | ImageTools</title>
+
+  <meta name="description"
+        content="Convert JPG, PNG and WebP images to Base64 online for free. Generate image Base64 data instantly and copy the code directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/image-to-base64.html">
+
+  <meta property="og:title"
+        content="Image to Base64 Converter Online - Free | ImageTools">
+
+  <meta property="og:description"
+        content="Convert images to Base64 code online for free and copy the generated Base64 data instantly.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/image-to-base64.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image to Base64 Converter",
+    "url": "https://prakash1634.github.io/image-tools/image-to-base64.html",
+    "description": "Free online tool to convert images into Base64 data URLs.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: .85;
+    }
+
+    nav {
+      background: #1f2937;
+      text-align: center;
+      padding: 9px 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 850px;
+      margin: 20px auto;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .upload {
+      display: block;
+      border: 2px dashed #9ca3af;
+      border-radius: 12px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      background: #fafafa;
+    }
+
+    .upload strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .upload span {
+      font-size: 12px;
+      color: #666;
+    }
+
+    #file {
+      display: none;
+    }
+
+    #preview {
+      max-width: 100%;
+      max-height: 300px;
+      margin: 18px auto 0;
+      display: none;
+      border-radius: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 13px;
+      margin-top: 10px;
+      background: #111827;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 12px;
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .info h2 {
+      font-size: 19px;
+      margin-top: 0;
+    }
+
+    .info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .info p,
+    .info li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
-<header><h1>Image to Base64</h1><p>Convert image to Base64 code</p></header>
-<div class="container"><div class="card">
-<label class="upload" for="file"><b>📷 Choose Image</b><br><small>JPG, PNG or WebP</small></label>
-<input id="file" type="file" accept="image/*">
-<img id="preview">
-<textarea id="output" placeholder="Base64 code will appear here..." readonly></textarea>
-<button id="copy">Copy Base64</button>
-<div class="status" id="status">Choose an image to start.</div>
-</div></div>
+
+<header>
+  <h1>Image to Base64 Converter</h1>
+  <p>Convert images to Base64 code online for free</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="base64-to-image.html">Base64 to Image</a>
+  <a href="image-converter.html">Image Converter</a>
+  <a href="image-metadata.html">Image Metadata</a>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="file">
+      <strong>📷 Choose Image</strong>
+      <span>JPG, JPEG, PNG or WebP</span>
+    </label>
+
+    <input
+      id="file"
+      type="file"
+      accept="image/jpeg,image/png,image/webp"
+    >
+
+    <img
+      id="preview"
+      alt="Selected image preview"
+    >
+
+    <textarea
+      id="output"
+      placeholder="Base64 code will appear here..."
+      readonly
+    ></textarea>
+
+    <button id="copy" disabled>
+      Copy Base64
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+  </div>
+
+  <div class="info">
+
+    <h2>Free Image to Base64 Converter</h2>
+
+    <p>
+      ImageTools Image to Base64 Converter lets you convert an image
+      into a Base64 data URL directly in your browser. Upload a JPG,
+      JPEG, PNG or WebP image and the complete Base64 code will be
+      generated automatically.
+    </p>
+
+    <h3>What Is Base64 Image Encoding?</h3>
+
+    <p>
+      Base64 encoding represents binary image data as text. A Base64
+      data URL can be used in HTML, CSS, JavaScript and other
+      applications where image data needs to be represented as text.
+    </p>
+
+    <h3>How to Convert an Image to Base64</h3>
+
+    <ol>
+      <li>Tap <strong>Choose Image</strong>.</li>
+      <li>Select a JPG, PNG or WebP image.</li>
+      <li>Wait for the Base64 code to be generated.</li>
+      <li>Tap <strong>Copy Base64</strong> to copy the result.</li>
+    </ol>
+
+    <h3>Supported Image Formats</h3>
+
+    <p>
+      JPG, JPEG, PNG and WebP images are supported by this converter.
+    </p>
+
+    <h3>Browser-Based Conversion</h3>
+
+    <p>
+      The conversion uses the browser's built-in FileReader API.
+      Your image is processed directly in the browser without requiring
+      a separate image conversion server.
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
+
 <script>
-const file=document.getElementById("file"),preview=document.getElementById("preview"),output=document.getElementById("output"),copy=document.getElementById("copy"),status=document.getElementById("status");
-file.onchange=()=>{let f=file.files[0];if(!f)return;preview.src=URL.createObjectURL(f);preview.style.display="block";let r=new FileReader();r.onload=()=>{output.value=r.result;status.textContent="✅ Base64 created successfully."};r.readAsDataURL(f)};
-copy.onclick=async()=>{if(!output.value)return;await navigator.clipboard.writeText(output.value);copy.textContent="✅ Copied!";setTimeout(()=>copy.textContent="Copy Base64",1500)};
+
+  const file =
+    document.getElementById("file");
+
+  const preview =
+    document.getElementById("preview");
+
+  const output =
+    document.getElementById("output");
+
+  const copy =
+    document.getElementById("copy");
+
+  const status =
+    document.getElementById("status");
+
+
+  let currentPreviewUrl =
+    null;
+
+
+  file.addEventListener(
+    "change",
+    function() {
+
+      const selectedFile =
+        file.files[0];
+
+      if (!selectedFile) {
+        return;
+      }
+
+      if (currentPreviewUrl) {
+        URL.revokeObjectURL(
+          currentPreviewUrl
+        );
+      }
+
+      currentPreviewUrl =
+        URL.createObjectURL(
+          selectedFile
+        );
+
+      preview.src =
+        currentPreviewUrl;
+
+      preview.style.display =
+        "block";
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function() {
+
+          output.value =
+            reader.result;
+
+          copy.disabled =
+            false;
+
+          status.innerHTML =
+            "<strong>✅ Base64 created successfully.</strong><br>" +
+            "Your image has been converted to Base64.";
+
+        };
+
+
+      reader.onerror =
+        function() {
+
+          output.value =
+            "";
+
+          copy.disabled =
+            true;
+
+          status.textContent =
+            "❌ Could not convert this image.";
+
+        };
+
+
+      reader.readAsDataURL(
+        selectedFile
+      );
+
+    }
+  );
+
+
+  copy.addEventListener(
+    "click",
+    async function() {
+
+      if (!output.value) {
+        return;
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(
+          output.value
+        );
+
+        copy.textContent =
+          "✅ Copied!";
+
+        status.textContent =
+          "✅ Base64 code copied to clipboard.";
+
+        setTimeout(
+          function() {
+
+            copy.textContent =
+              "Copy Base64";
+
+          },
+          1500
+        );
+
+      }
+      catch (error) {
+
+        status.textContent =
+          "❌ Could not copy automatically. Select and copy the Base64 code.";
+
+      }
+
+    }
+  );
+
 </script>
+
 </body>
 </html>
