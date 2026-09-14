@@ -3,30 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Image Color Inverter - ImageTools</title>
+
+<title>Image Color Inverter Online Free - ImageTools</title>
+
+<meta name="description" content="Invert image colors online for free with ImageTools. Quickly create a negative or inverted version of your image directly in your browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://prakash1634.github.io/image-tools/image-inverter.html">
+
+<meta property="og:title" content="Image Color Inverter Online Free - ImageTools">
+<meta property="og:description" content="Invert image colors online for free directly in your browser with ImageTools.">
+<meta property="og:url" content="https://prakash1634.github.io/image-tools/image-inverter.html">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Image Color Inverter",
+  "url": "https://prakash1634.github.io/image-tools/image-inverter.html",
+  "description": "Free online image color inverter for creating inverted or negative-style images directly in the browser.",
+  "applicationCategory": "PhotoEditingApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}
-header{background:#111827;color:white;text-align:center;padding:18px}
-.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
-.upload{display:block;border:2px dashed #999;padding:22px;text-align:center;border-radius:12px}#file{display:none}
-.preview{text-align:center;margin:18px}.preview canvas{max-width:100%;max-height:500px}
-button{width:100%;padding:13px;border:0;border-radius:9px;background:#111827;color:white;font-weight:bold}
-.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f5f7fb;
+  color:#111827
+}
+header{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:18px
+}
+header h1{
+  margin:0 0 6px
+}
+header p{
+  margin:0;
+  opacity:.9
+}
+.container{
+  width:94%;
+  max-width:850px;
+  margin:20px auto
+}
+.card{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06)
+}
+.upload{
+  display:block;
+  border:2px dashed #999;
+  padding:22px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer
+}
+#file{
+  display:none
+}
+.preview{
+  text-align:center;
+  margin:18px
+}
+.preview canvas{
+  max-width:100%;
+  max-height:500px
+}
+button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  background:#111827;
+  color:white;
+  font-weight:bold;
+  cursor:pointer
+}
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed
+}
+.status{
+  margin-top:12px;
+  padding:10px;
+  background:#f3f4f6;
+  font-size:12px;
+  border-radius:8px
+}
+.info{
+  margin-top:22px;
+  line-height:1.6;
+  font-size:15px
+}
+.info h2{
+  font-size:21px;
+  margin-top:24px
+}
+.info h3{
+  font-size:17px;
+  margin-top:20px
+}
+nav{
+  margin-top:18px;
+  text-align:center
+}
+nav a{
+  color:#111827;
+  text-decoration:none;
+  margin:0 8px;
+  font-size:14px
+}
+footer{
+  text-align:center;
+  padding:25px 10px;
+  font-size:13px;
+  color:#666
+}
+footer a{
+  color:#111827;
+  text-decoration:none;
+  margin:0 6px
+}
 </style>
 </head>
+
 <body>
-<header><h1>Image Color Inverter</h1><p>Invert image colors instantly</p></header>
-<div class="container"><div class="card">
-<label class="upload" for="file"><b>📷 Choose Image</b></label>
-<input id="file" type="file" accept="image/*">
-<div class="preview"><canvas id="canvas"></canvas></div>
-<button id="download" disabled>Download Inverted Image</button>
-<div class="status" id="status">Choose an image to start.</div>
-</div></div>
+
+<header>
+  <h1>Image Color Inverter</h1>
+  <p>Invert image colors instantly</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="file">
+      <b>📷 Choose Image</b>
+    </label>
+
+    <input id="file" type="file" accept="image/*">
+
+    <div class="preview">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <button id="download" disabled>
+      Download Inverted Image
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="image-converter.html">Image Converter</a>
+      <a href="image-compressor.html">Image Compressor</a>
+      <a href="image-resizer.html">Image Resizer</a>
+    </nav>
+
+    <div class="info">
+
+      <h2>Free Image Color Inverter Online</h2>
+
+      <p>
+        ImageTools Image Color Inverter lets you invert the colors of an image
+        quickly and easily. Upload an image and the tool creates an inverted
+        version directly in your browser.
+      </p>
+
+      <h2>How to Invert Image Colors</h2>
+
+      <ol>
+        <li>Tap <b>Choose Image</b> and select your image.</li>
+        <li>The image colors will be inverted automatically.</li>
+        <li>Preview the inverted image.</li>
+        <li>Tap <b>Download Inverted Image</b> to save the result.</li>
+      </ol>
+
+      <h2>What Is an Inverted Image?</h2>
+
+      <p>
+        An inverted image replaces each color with its opposite value.
+        Bright areas become dark and dark areas become bright, creating a
+        negative-style visual effect.
+      </p>
+
+      <h2>Why Use an Image Color Inverter?</h2>
+
+      <p>
+        Color inversion can be useful for creative photo effects, graphic
+        design experiments, visual testing, and creating negative-style
+        images.
+      </p>
+
+      <h2>Private Browser-Based Image Processing</h2>
+
+      <p>
+        The image is processed in your browser using HTML5 Canvas. No
+        server-side image processing is required for the color inversion.
+      </p>
+
+      <h2>Supported Images</h2>
+
+      <p>
+        The tool accepts common browser-supported image formats such as
+        JPG, JPEG, PNG, GIF, WebP and other supported image types.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
+
 <script>
-const file=document.getElementById("file"),c=document.getElementById("canvas"),x=c.getContext("2d"),d=document.getElementById("download"),s=document.getElementById("status");
-file.onchange=()=>{let f=file.files[0],im=new Image();im.onload=()=>{c.width=im.naturalWidth;c.height=im.naturalHeight;x.drawImage(im,0,0);let a=x.getImageData(0,0,c.width,c.height),p=a.data;for(let i=0;i<p.length;i+=4){p[i]=255-p[i];p[i+1]=255-p[i+1];p[i+2]=255-p[i+2]}x.putImageData(a,0,0);d.disabled=false;s.textContent="✅ Colors inverted successfully."};im.src=URL.createObjectURL(f)};
-d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="inverted-image.png";a.click()});
+const file=document.getElementById("file"),
+      c=document.getElementById("canvas"),
+      x=c.getContext("2d"),
+      d=document.getElementById("download"),
+      s=document.getElementById("status");
+
+file.onchange=()=>{
+  let f=file.files[0];
+
+  if(!f){
+    return;
+  }
+
+  let im=new Image();
+
+  im.onload=()=>{
+    c.width=im.naturalWidth;
+    c.height=im.naturalHeight;
+
+    x.drawImage(im,0,0);
+
+    let a=x.getImageData(0,0,c.width,c.height),
+        p=a.data;
+
+    for(let i=0;i<p.length;i+=4){
+      p[i]=255-p[i];
+      p[i+1]=255-p[i+1];
+      p[i+2]=255-p[i+2];
+    }
+
+    x.putImageData(a,0,0);
+
+    d.disabled=false;
+    s.textContent="✅ Colors inverted successfully.";
+
+    URL.revokeObjectURL(im.src);
+  };
+
+  im.src=URL.createObjectURL(f);
+};
+
+d.onclick=()=>{
+  c.toBlob(b=>{
+    let a=document.createElement("a");
+
+    a.href=URL.createObjectURL(b);
+    a.download="inverted-image.png";
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+  },"image/png");
+};
 </script>
+
 </body>
 </html>
