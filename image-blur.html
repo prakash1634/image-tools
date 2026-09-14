@@ -4,10 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Image Blur Tool - ImageTools</title>
+  <title>Image Blur Tool Online - Free Image Blur | ImageTools</title>
 
   <meta name="description"
-        content="Blur images online for free with adjustable blur strength.">
+        content="Blur images online for free with adjustable blur strength. Upload JPG, PNG or WebP images and create a blurred image directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/image-blur.html">
+
+  <meta property="og:title"
+        content="Image Blur Tool Online - Free Image Blur | ImageTools">
+
+  <meta property="og:description"
+        content="Blur JPG, PNG and WebP images online for free with adjustable blur strength.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/image-blur.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Blur Tool",
+    "url": "https://prakash1634.github.io/image-tools/image-blur.html",
+    "description": "Free online tool to blur images with adjustable blur strength.",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -37,6 +70,23 @@
       margin: 5px 0 0;
       font-size: 12px;
       opacity: .85;
+    }
+
+    nav {
+      background: #1f2937;
+      text-align: center;
+      padding: 9px 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
     }
 
     .container {
@@ -140,6 +190,7 @@
 
     button:disabled {
       opacity: .5;
+      cursor: not-allowed;
     }
 
     .status {
@@ -149,6 +200,48 @@
       padding: 10px;
       font-size: 12px;
     }
+
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .info h2 {
+      font-size: 19px;
+      margin-top: 0;
+    }
+
+    .info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .info p,
+    .info li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -156,8 +249,15 @@
 
 <header>
   <h1>Image Blur Tool</h1>
-  <p>Blur your image with adjustable strength</p>
+  <p>Blur your image online with adjustable strength</p>
 </header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="image-compressor.html">Image Compressor</a>
+  <a href="image-resizer.html">Image Resizer</a>
+  <a href="image-cropper.html">Image Cropper</a>
+</nav>
 
 <div class="container">
 
@@ -213,7 +313,63 @@
 
   </div>
 
+  <div class="info">
+
+    <h2>Free Online Image Blur Tool</h2>
+
+    <p>
+      ImageTools Image Blur is a free online tool that lets you blur
+      photos and images quickly. Upload a JPG, JPEG, PNG or WebP image,
+      choose the blur strength, preview the result and download the
+      blurred image as a PNG file.
+    </p>
+
+    <h3>How to Blur an Image</h3>
+
+    <ol>
+      <li>Tap <strong>Choose an Image</strong>.</li>
+      <li>Select a JPG, PNG or WebP image.</li>
+      <li>Adjust the <strong>Blur Strength</strong> slider.</li>
+      <li>Preview the blurred image.</li>
+      <li>Tap <strong>Download Blurred Image</strong>.</li>
+    </ol>
+
+    <h3>Adjustable Blur Strength</h3>
+
+    <p>
+      Use the blur slider to control the effect from 0px to 30px.
+      A lower value creates a lighter blur, while a higher value
+      creates a stronger blur effect.
+    </p>
+
+    <h3>Supported Image Formats</h3>
+
+    <p>
+      The tool supports JPG, JPEG, PNG and WebP images. The processed
+      result is downloaded in PNG format.
+    </p>
+
+    <h3>Browser-Based Image Processing</h3>
+
+    <p>
+      Image blurring is performed directly in your browser using
+      HTML5 Canvas. No separate image-editing software is required.
+    </p>
+
+  </div>
+
 </div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
 
 <script>
 
@@ -260,14 +416,11 @@
         return;
       }
 
-
       const url =
         URL.createObjectURL(file);
 
-
       image =
         new Image();
-
 
       image.onload =
         function() {
@@ -275,29 +428,23 @@
           imageLoaded =
             true;
 
-
           canvas.width =
             image.naturalWidth;
 
           canvas.height =
             image.naturalHeight;
 
-
           drawBlur();
-
 
           downloadBtn.disabled =
             false;
 
-
           status.textContent =
             "✅ Image loaded. Adjust the blur strength.";
-
 
           URL.revokeObjectURL(url);
 
         };
-
 
       image.onerror =
         function() {
@@ -308,7 +455,6 @@
           URL.revokeObjectURL(url);
 
         };
-
 
       image.src =
         url;
@@ -324,7 +470,6 @@
       blurValue.textContent =
         blurRange.value + "px";
 
-
       drawBlur();
 
     }
@@ -337,7 +482,6 @@
       return;
     }
 
-
     ctx.clearRect(
       0,
       0,
@@ -345,19 +489,11 @@
       canvas.height
     );
 
-
     const blur =
       Number(blurRange.value);
 
-
     ctx.filter =
       "blur(" + blur + "px)";
-
-
-    /*
-      Draw slightly outside the canvas
-      so blur edges do not get cut.
-    */
 
     ctx.drawImage(
       image,
@@ -366,7 +502,6 @@
       canvas.width + blur * 2,
       canvas.height + blur * 2
     );
-
 
     ctx.filter =
       "none";
@@ -382,7 +517,6 @@
         return;
       }
 
-
       canvas.toBlob(
         function(blob) {
 
@@ -390,21 +524,17 @@
             return;
           }
 
-
           const url =
             URL.createObjectURL(blob);
 
-
           const link =
             document.createElement("a");
-
 
           link.href =
             url;
 
           link.download =
             "blurred-image.png";
-
 
           document.body.appendChild(
             link
@@ -414,9 +544,7 @@
 
           link.remove();
 
-
           URL.revokeObjectURL(url);
-
 
           status.textContent =
             "✅ Blurred image downloaded.";
@@ -439,7 +567,6 @@
       imageLoaded =
         false;
 
-
       ctx.clearRect(
         0,
         0,
@@ -447,18 +574,14 @@
         canvas.height
       );
 
-
       blurRange.value =
         5;
-
 
       blurValue.textContent =
         "5px";
 
-
       downloadBtn.disabled =
         true;
-
 
       status.textContent =
         "Choose an image to start.";
