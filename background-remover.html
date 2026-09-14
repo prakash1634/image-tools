@@ -4,10 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AI Background Remover - ImageTools</title>
+  <title>AI Background Remover - Remove Image Background Free | ImageTools</title>
 
   <meta name="description"
-        content="Remove image backgrounds automatically with AI and download transparent PNG images.">
+        content="Remove image backgrounds automatically with AI for free. Create transparent PNG images directly in your browser without uploading your image to a server.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/background-remover.html">
+
+  <meta property="og:title"
+        content="AI Background Remover - Remove Image Background Free | ImageTools">
+
+  <meta property="og:description"
+        content="Free AI background remover for JPG, PNG and WebP images. Remove backgrounds and download transparent PNG images directly in your browser.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/background-remover.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI Background Remover",
+    "url": "https://prakash1634.github.io/image-tools/background-remover.html",
+    "description": "Free browser-based AI tool for removing backgrounds from images and creating transparent PNG files.",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -19,6 +52,7 @@
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #222;
+      line-height: 1.6;
     }
 
     header {
@@ -196,8 +230,46 @@
       line-height: 1.5;
     }
 
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 17px;
+      box-shadow: 0 5px 22px rgba(0,0,0,0.06);
+    }
+
+    .info h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 21px;
+    }
+
+    .info h2:not(:first-child) {
+      margin-top: 24px;
+    }
+
+    .info p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
     .hidden {
       display: none !important;
+    }
+
+    footer {
+      background: #111827;
+      color: #d1d5db;
+      text-align: center;
+      padding: 25px 15px;
+      margin-top: 25px;
+    }
+
+    footer a {
+      color: #d1d5db;
+      margin: 0 8px;
+      text-decoration: none;
+      font-size: 14px;
     }
 
     @media (max-width: 650px) {
@@ -215,6 +287,10 @@
 
       header h1 {
         font-size: 21px;
+      }
+
+      .buttons {
+        flex-direction: column;
       }
     }
   </style>
@@ -253,11 +329,10 @@
           <img
             id="originalPreview"
             class="hidden"
-            alt="Original image"
+            alt="Original image before background removal"
           >
         </div>
       </div>
-
 
       <div>
         <div class="preview-title">
@@ -269,14 +344,13 @@
           <img
             id="resultPreview"
             class="hidden"
-            alt="Background removed image"
+            alt="Image with background removed and transparent background"
           >
 
         </div>
       </div>
 
     </div>
-
 
     <div class="buttons">
 
@@ -290,7 +364,6 @@
 
     </div>
 
-
     <div class="progress" id="progressBox">
 
       <div class="bar">
@@ -303,23 +376,84 @@
 
     </div>
 
-
     <div class="status" id="status">
       Choose an image to start.
     </div>
 
-
     <div class="note">
       <strong>Note:</strong>
       The first processing may take some time because the AI model
-      needs to load in your browser. After loading, the model can be
-      cached by the browser.
+      needs to load in your browser. After loading, the model can
+      be cached by the browser.
     </div>
 
   </div>
 
+  <section class="info">
+
+    <h2>How to Remove an Image Background</h2>
+
+    <p>
+      1. Tap Choose an Image and select a JPG, JPEG, PNG or WebP image.
+    </p>
+
+    <p>
+      2. Tap Remove Background and wait while the AI processes your image.
+    </p>
+
+    <p>
+      3. Preview the image with the background removed.
+    </p>
+
+    <p>
+      4. Tap Download PNG to save the transparent image.
+    </p>
+
+    <h2>Is this AI background remover free?</h2>
+
+    <p>
+      Yes. ImageTools provides this background remover free of charge.
+      The tool runs in your browser and creates a transparent PNG image.
+    </p>
+
+    <h2>Are my images uploaded to a server?</h2>
+
+    <p>
+      The image processing is designed to run in your browser. Your selected
+      image does not need to be uploaded to an ImageTools server.
+    </p>
+
+    <h2>Which image formats are supported?</h2>
+
+    <p>
+      You can select JPG, JPEG, PNG and WebP images for background removal.
+      The result is provided as a PNG image with transparency.
+    </p>
+
+    <h2>Why use a transparent PNG?</h2>
+
+    <p>
+      A transparent PNG can be useful for product images, profile pictures,
+      logos, thumbnails, designs and other graphics where you want to remove
+      the original background.
+    </p>
+
+  </section>
+
 </div>
 
+<footer>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+
+  <br>
+
+  <a href="index.html">Home</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="contact.html">Contact</a>
+
+</footer>
 
 <script type="module">
 
@@ -350,18 +484,12 @@
   const progressText =
     document.getElementById("progressText");
 
-
   let selectedFile = null;
 
   let resultUrl = null;
 
   let removeBackground = null;
 
-
-  /*
-    Load AI library only when user actually
-    presses Remove Background.
-  */
 
   async function loadAI() {
 
@@ -389,10 +517,6 @@
     return removeBackground;
   }
 
-
-  /*
-    Select image
-  */
 
   fileInput.addEventListener(
     "change",
@@ -454,10 +578,6 @@
   );
 
 
-  /*
-    Remove Background
-  */
-
   removeBtn.addEventListener(
     "click",
     async function() {
@@ -498,16 +618,6 @@
         status.textContent =
           "AI is removing the background...";
 
-
-        /*
-          FAST MOBILE MODEL
-
-          isnet_quint8 is much smaller than
-          the normal isnet model.
-
-          CPU gives better compatibility
-          on Android phones.
-        */
 
         const config = {
 
@@ -570,10 +680,6 @@
         };
 
 
-        /*
-          Run AI
-        */
-
         const result =
           await ai(
             selectedFile,
@@ -589,10 +695,6 @@
           "Background removed successfully.";
 
 
-        /*
-          Show result
-        */
-
         resultUrl =
           URL.createObjectURL(
             result
@@ -607,10 +709,6 @@
           "hidden"
         );
 
-
-        /*
-          Download
-        */
 
         downloadBtn.style.display =
           "block";
