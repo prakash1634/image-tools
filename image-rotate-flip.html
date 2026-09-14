@@ -4,10 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Image Rotate & Flip - ImageTools</title>
+  <title>Image Rotate & Flip Online - Free Image Rotator | ImageTools</title>
 
   <meta name="description"
-        content="Rotate and flip images online for free.">
+        content="Rotate and flip images online for free. Rotate JPG, PNG and WebP images left or right, or flip them horizontally and vertically directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/image-rotate-flip.html">
+
+  <meta property="og:title"
+        content="Image Rotate & Flip Online - Free Image Rotator | ImageTools">
+
+  <meta property="og:description"
+        content="Rotate and flip JPG, PNG and WebP images online for free.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/image-rotate-flip.html">
+
+  <meta property="og:type" content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Rotate & Flip",
+    "url": "https://prakash1634.github.io/image-tools/image-rotate-flip.html",
+    "description": "Free online tool to rotate and flip images.",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -37,6 +70,23 @@
       margin: 5px 0 0;
       font-size: 12px;
       opacity: .85;
+    }
+
+    nav {
+      background: #1f2937;
+      text-align: center;
+      padding: 9px 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
     }
 
     .container {
@@ -120,6 +170,7 @@
 
     button:disabled {
       opacity: .5;
+      cursor: not-allowed;
     }
 
     .status {
@@ -128,6 +179,48 @@
       border-radius: 9px;
       padding: 10px;
       font-size: 12px;
+    }
+
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 18px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.06);
+    }
+
+    .info h2 {
+      font-size: 19px;
+      margin-top: 0;
+    }
+
+    .info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .info p,
+    .info li {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    footer a {
+      color: #374151;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
@@ -142,8 +235,15 @@
 
 <header>
   <h1>Image Rotate & Flip</h1>
-  <p>Rotate or flip your image easily</p>
+  <p>Rotate or flip your image online for free</p>
 </header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="image-resizer.html">Image Resizer</a>
+  <a href="image-cropper.html">Image Cropper</a>
+  <a href="image-converter.html">Image Converter</a>
+</nav>
 
 <div class="container">
 
@@ -194,7 +294,62 @@
 
   </div>
 
+  <div class="info">
+
+    <h2>Free Image Rotate & Flip Tool</h2>
+
+    <p>
+      ImageTools Image Rotate & Flip is a free online image editing tool
+      that lets you rotate pictures left or right and flip them
+      horizontally or vertically. You can edit JPG, JPEG, PNG and WebP
+      images directly in your browser.
+    </p>
+
+    <h3>How to Rotate an Image</h3>
+
+    <ol>
+      <li>Tap <strong>Choose an Image</strong>.</li>
+      <li>Select the image you want to edit.</li>
+      <li>Use <strong>Rotate Left</strong> or <strong>Rotate Right</strong>.</li>
+      <li>Tap <strong>Download Image</strong> to save the result.</li>
+    </ol>
+
+    <h3>How to Flip an Image</h3>
+
+    <p>
+      Use <strong>Flip Horizontal</strong> to create a left-to-right
+      mirror effect. Use <strong>Flip Vertical</strong> to turn the image
+      upside down.
+    </p>
+
+    <h3>Supported Image Formats</h3>
+
+    <p>
+      JPG, JPEG, PNG and WebP images are supported. The edited image is
+      downloaded as a PNG file.
+    </p>
+
+    <h3>Browser-Based Image Processing</h3>
+
+    <p>
+      The image is processed directly in your browser using HTML5 Canvas.
+      No separate image-editing software is required.
+    </p>
+
+  </div>
+
 </div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+</footer>
 
 <script>
 
@@ -286,6 +441,16 @@
 
         };
 
+      image.onerror =
+        function() {
+
+          status.textContent =
+            "❌ Could not load this image.";
+
+          URL.revokeObjectURL(url);
+
+        };
+
       image.src =
         url;
 
@@ -299,29 +464,24 @@
       return;
     }
 
-
     const angle =
       rotation *
       Math.PI /
       180;
 
-
     const swap =
       rotation === 90 ||
       rotation === 270;
-
 
     const width =
       swap
         ? image.naturalHeight
         : image.naturalWidth;
 
-
     const height =
       swap
         ? image.naturalWidth
         : image.naturalHeight;
-
 
     canvas.width =
       width;
@@ -329,31 +489,25 @@
     canvas.height =
       height;
 
-
     ctx.save();
-
 
     ctx.translate(
       canvas.width / 2,
       canvas.height / 2
     );
 
-
     ctx.rotate(angle);
-
 
     ctx.scale(
       flipX,
       flipY
     );
 
-
     ctx.drawImage(
       image,
       -image.naturalWidth / 2,
       -image.naturalHeight / 2
     );
-
 
     ctx.restore();
 
@@ -376,6 +530,9 @@
 
       draw();
 
+      status.textContent =
+        "↺ Image rotated left.";
+
     }
   );
 
@@ -396,6 +553,9 @@
 
       draw();
 
+      status.textContent =
+        "↻ Image rotated right.";
+
     }
   );
 
@@ -412,6 +572,9 @@
 
       draw();
 
+      status.textContent =
+        "↔ Image flipped horizontally.";
+
     }
   );
 
@@ -427,6 +590,9 @@
       flipY *= -1;
 
       draw();
+
+      status.textContent =
+        "↕ Image flipped vertically.";
 
     }
   );
