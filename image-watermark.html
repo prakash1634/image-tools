@@ -4,10 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Image Watermark - ImageTools</title>
+  <title>Free Image Watermark Tool - Add Text Watermark Online | ImageTools</title>
 
   <meta name="description"
-        content="Add text watermark to images online for free.">
+        content="Add a text watermark to JPG, JPEG, PNG and WebP images online for free. Choose watermark position, size, opacity and color directly in your browser.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical"
+        href="https://prakash1634.github.io/image-tools/image-watermark.html">
+
+  <meta property="og:title"
+        content="Free Image Watermark Tool | ImageTools">
+
+  <meta property="og:description"
+        content="Add customizable text watermarks to your images for free. Choose position, size, opacity and color directly in your browser.">
+
+  <meta property="og:url"
+        content="https://prakash1634.github.io/image-tools/image-watermark.html">
+
+  <meta property="og:type"
+        content="website">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Watermark Tool",
+    "url": "https://prakash1634.github.io/image-tools/image-watermark.html",
+    "description": "Free online tool for adding customizable text watermarks to JPG, JPEG, PNG and WebP images directly in the browser.",
+    "applicationCategory": "PhotoEditingApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 
   <style>
     * {
@@ -24,19 +58,24 @@
     header {
       background: #111827;
       color: white;
-      text-align: center;
-      padding: 18px 12px;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 23px;
+    .logo {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    header p {
-      margin: 5px 0 0;
-      font-size: 12px;
-      opacity: .85;
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 16px;
+      font-size: 14px;
     }
 
     .container {
@@ -50,6 +89,20 @@
       padding: 18px;
       border-radius: 16px;
       box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    h1 {
+      margin: 5px 0 8px;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .intro {
+      text-align: center;
+      color: #64748b;
+      max-width: 720px;
+      margin: 0 auto 22px;
+      line-height: 1.6;
     }
 
     .upload {
@@ -165,9 +218,61 @@
       font-size: 12px;
     }
 
+    .info {
+      margin-top: 20px;
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.05);
+    }
+
+    .info h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .info p {
+      color: #64748b;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #111827;
+      color: #d1d5db;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: #d1d5db;
+      margin: 0 8px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
     @media (max-width: 650px) {
+
+      header {
+        padding: 15px;
+      }
+
+      nav a {
+        margin-left: 8px;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
       .controls {
         grid-template-columns: 1fr;
+      }
+
+      .buttons {
+        flex-direction: column;
       }
     }
   </style>
@@ -176,17 +281,34 @@
 <body>
 
 <header>
-  <h1>Image Watermark</h1>
-  <p>Add text watermark to your images</p>
+
+  <a class="logo" href="index.html">ImageTools</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#tools">Tools</a>
+  </nav>
+
 </header>
 
-<div class="container">
+<main class="container">
 
   <div class="card">
 
+    <h1>Free Image Watermark Tool</h1>
+
+    <p class="intro">
+      Add a customizable text watermark to your JPG, JPEG, PNG or WebP images online for free. Choose the watermark position, text size, opacity and color directly in your browser.
+    </p>
+
     <label class="upload" for="fileInput">
+
       <strong>📷 Choose an Image</strong>
-      <span>JPG, JPEG, PNG or WebP</span>
+
+      <span>
+        JPG, JPEG, PNG or WebP
+      </span>
+
     </label>
 
     <input
@@ -198,7 +320,10 @@
     <div class="controls">
 
       <div class="control">
-        <label for="textInput">Watermark Text</label>
+
+        <label for="textInput">
+          Watermark Text
+        </label>
 
         <input
           type="text"
@@ -206,22 +331,46 @@
           placeholder="Your Name"
           value="ImageTools"
         >
+
       </div>
 
       <div class="control">
-        <label for="position">Position</label>
+
+        <label for="position">
+          Position
+        </label>
 
         <select id="position">
-          <option value="bottom-right">Bottom Right</option>
-          <option value="bottom-left">Bottom Left</option>
-          <option value="top-right">Top Right</option>
-          <option value="top-left">Top Left</option>
-          <option value="center">Center</option>
+
+          <option value="bottom-right">
+            Bottom Right
+          </option>
+
+          <option value="bottom-left">
+            Bottom Left
+          </option>
+
+          <option value="top-right">
+            Top Right
+          </option>
+
+          <option value="top-left">
+            Top Left
+          </option>
+
+          <option value="center">
+            Center
+          </option>
+
         </select>
+
       </div>
 
       <div class="control">
-        <label for="size">Text Size</label>
+
+        <label for="size">
+          Text Size
+        </label>
 
         <input
           type="range"
@@ -230,10 +379,14 @@
           max="100"
           value="35"
         >
+
       </div>
 
       <div class="control">
-        <label for="opacity">Opacity</label>
+
+        <label for="opacity">
+          Opacity
+        </label>
 
         <input
           type="range"
@@ -242,28 +395,35 @@
           max="100"
           value="65"
         >
+
       </div>
 
       <div class="control">
-        <label for="textColor">Text Color</label>
+
+        <label for="textColor">
+          Text Color
+        </label>
 
         <input
           type="color"
           id="textColor"
           value="#ffffff"
         >
+
       </div>
 
     </div>
 
     <div class="preview">
+
       <canvas id="canvas"></canvas>
+
     </div>
 
     <div class="buttons">
 
       <button id="downloadBtn" disabled>
-        Download Image
+        Download Watermarked Image
       </button>
 
       <button id="resetBtn">
@@ -278,112 +438,417 @@
 
   </div>
 
-</div>
+  <section class="info">
 
+    <h2>How to Add a Watermark to an Image</h2>
+
+    <p>
+      1. Tap Choose an Image and select your JPG, JPEG, PNG or WebP image.
+    </p>
+
+    <p>
+      2. Enter the text you want to use as your watermark.
+    </p>
+
+    <p>
+      3. Select the watermark position, text size, opacity and color.
+    </p>
+
+    <p>
+      4. Check the preview and tap Download Watermarked Image.
+    </p>
+
+    <h2 style="margin-top:22px;">
+      What is an image watermark?
+    </h2>
+
+    <p>
+      A watermark is text or a visual mark placed over an image to identify the owner, creator, brand or source of the image. Watermarks can also help discourage unauthorized use.
+    </p>
+
+    <h2 style="margin-top:22px;">
+      Is this watermark tool free?
+    </h2>
+
+    <p>
+      Yes. This image watermark tool is free to use. You can add text watermarks without installing additional software.
+    </p>
+
+    <h2 style="margin-top:22px;">
+      Which image formats are supported?
+    </h2>
+
+    <p>
+      The tool supports JPG, JPEG, PNG and WebP images. The watermarked result is downloaded as a PNG image.
+    </p>
+
+    <h2 style="margin-top:22px;">
+      Are my images uploaded?
+    </h2>
+
+    <p>
+      No. The watermark is created directly in your browser. Your image does not need to be uploaded to a server.
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+
+  <p>
+    © 2026 ImageTools. All rights reserved.
+  </p>
+
+  <br>
+
+  <a href="index.html">Home</a>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="contact.html">Contact</a>
+
+</footer>
 
 <script>
 
-  const fileInput =
-    document.getElementById("fileInput");
+const fileInput =
+  document.getElementById("fileInput");
 
-  const textInput =
-    document.getElementById("textInput");
+const textInput =
+  document.getElementById("textInput");
 
-  const position =
-    document.getElementById("position");
+const position =
+  document.getElementById("position");
 
-  const size =
-    document.getElementById("size");
+const size =
+  document.getElementById("size");
 
-  const opacity =
-    document.getElementById("opacity");
+const opacity =
+  document.getElementById("opacity");
 
-  const textColor =
-    document.getElementById("textColor");
+const textColor =
+  document.getElementById("textColor");
 
-  const canvas =
-    document.getElementById("canvas");
+const canvas =
+  document.getElementById("canvas");
 
-  const ctx =
-    canvas.getContext("2d");
+const ctx =
+  canvas.getContext("2d");
 
-  const downloadBtn =
-    document.getElementById("downloadBtn");
+const downloadBtn =
+  document.getElementById("downloadBtn");
 
-  const resetBtn =
-    document.getElementById("resetBtn");
+const resetBtn =
+  document.getElementById("resetBtn");
 
-  const status =
-    document.getElementById("status");
+const status =
+  document.getElementById("status");
 
+let image =
+  new Image();
 
-  let image =
-    new Image();
-
-
-  let imageLoaded =
-    false;
+let imageLoaded =
+  false;
 
 
-  fileInput.addEventListener(
-    "change",
-    function() {
+fileInput.addEventListener(
+  "change",
+  function() {
 
-      const file =
-        fileInput.files[0];
+    const file =
+      fileInput.files[0];
 
-      if (!file) {
-        return;
-      }
-
-
-      const url =
-        URL.createObjectURL(file);
-
-
-      image =
-        new Image();
-
-
-      image.onload =
-        function() {
-
-          imageLoaded =
-            true;
-
-          draw();
-
-          downloadBtn.disabled =
-            false;
-
-          status.textContent =
-            "Image loaded. Your watermark is ready.";
-
-          URL.revokeObjectURL(url);
-
-        };
-
-
-      image.src =
-        url;
-
+    if (!file) {
+      return;
     }
+
+    if (
+      !file.type.match(
+        "image/(jpeg|png|webp)"
+      )
+    ) {
+
+      status.textContent =
+        "Please select a JPG, PNG or WebP image.";
+
+      return;
+    }
+
+    const url =
+      URL.createObjectURL(file);
+
+    image =
+      new Image();
+
+    image.onload =
+      function() {
+
+        imageLoaded =
+          true;
+
+        draw();
+
+        downloadBtn.disabled =
+          false;
+
+        status.textContent =
+          "Image loaded. Your watermark is ready.";
+
+        URL.revokeObjectURL(url);
+
+      };
+
+    image.onerror =
+      function() {
+
+        imageLoaded =
+          false;
+
+        status.textContent =
+          "Could not load the selected image.";
+
+        URL.revokeObjectURL(url);
+
+      };
+
+    image.src =
+      url;
+
+  }
+);
+
+
+function draw() {
+
+  if (!imageLoaded) {
+    return;
+  }
+
+  canvas.width =
+    image.naturalWidth;
+
+  canvas.height =
+    image.naturalHeight;
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
   );
 
+  ctx.drawImage(
+    image,
+    0,
+    0
+  );
 
-  function draw() {
+  const text =
+    textInput.value.trim();
+
+  if (!text) {
+    return;
+  }
+
+  const fontSize =
+    Math.max(
+      10,
+      Math.round(
+        canvas.width *
+        (Number(size.value) / 1000)
+      )
+    );
+
+  ctx.font =
+    "bold " +
+    fontSize +
+    "px Arial";
+
+  ctx.fillStyle =
+    textColor.value;
+
+  ctx.globalAlpha =
+    Number(opacity.value) / 100;
+
+  ctx.textBaseline =
+    "middle";
+
+  const padding =
+    fontSize;
+
+  let x;
+  let y;
+
+  if (position.value === "top-left") {
+
+    x =
+      padding;
+
+    y =
+      padding;
+
+    ctx.textAlign =
+      "left";
+
+  }
+
+  else if (position.value === "top-right") {
+
+    x =
+      canvas.width -
+      padding;
+
+    y =
+      padding;
+
+    ctx.textAlign =
+      "right";
+
+  }
+
+  else if (position.value === "bottom-left") {
+
+    x =
+      padding;
+
+    y =
+      canvas.height -
+      padding;
+
+    ctx.textAlign =
+      "left";
+
+  }
+
+  else if (position.value === "center") {
+
+    x =
+      canvas.width / 2;
+
+    y =
+      canvas.height / 2;
+
+    ctx.textAlign =
+      "center";
+
+  }
+
+  else {
+
+    x =
+      canvas.width -
+      padding;
+
+    y =
+      canvas.height -
+      padding;
+
+    ctx.textAlign =
+      "right";
+
+  }
+
+  ctx.fillText(
+    text,
+    x,
+    y
+  );
+
+  ctx.globalAlpha =
+    1;
+
+}
+
+
+textInput.addEventListener(
+  "input",
+  draw
+);
+
+position.addEventListener(
+  "change",
+  draw
+);
+
+size.addEventListener(
+  "input",
+  draw
+);
+
+opacity.addEventListener(
+  "input",
+  draw
+);
+
+textColor.addEventListener(
+  "input",
+  draw
+);
+
+
+downloadBtn.addEventListener(
+  "click",
+  function() {
 
     if (!imageLoaded) {
       return;
     }
 
+    canvas.toBlob(
+      function(blob) {
 
-    canvas.width =
-      image.naturalWidth;
+        if (!blob) {
 
-    canvas.height =
-      image.naturalHeight;
+          status.textContent =
+            "Could not create the watermarked image.";
 
+          return;
+        }
+
+        const url =
+          URL.createObjectURL(blob);
+
+        const link =
+          document.createElement("a");
+
+        link.href =
+          url;
+
+        link.download =
+          "watermarked-image.png";
+
+        document.body.appendChild(
+          link
+        );
+
+        link.click();
+
+        link.remove();
+
+        URL.revokeObjectURL(
+          url
+        );
+
+        status.textContent =
+          "✅ Watermarked image downloaded.";
+
+      },
+      "image/png"
+    );
+
+  }
+);
+
+
+resetBtn.addEventListener(
+  "click",
+  function() {
+
+    fileInput.value =
+      "";
+
+    imageLoaded =
+      false;
 
     ctx.clearRect(
       0,
@@ -392,273 +857,29 @@
       canvas.height
     );
 
+    downloadBtn.disabled =
+      true;
 
-    ctx.drawImage(
-      image,
-      0,
-      0
-    );
+    textInput.value =
+      "ImageTools";
 
+    position.value =
+      "bottom-right";
 
-    const text =
-      textInput.value.trim();
+    size.value =
+      "35";
 
+    opacity.value =
+      "65";
 
-    if (!text) {
-      return;
-    }
+    textColor.value =
+      "#ffffff";
 
-
-    const fontSize =
-      Math.max(
-        10,
-        Math.round(
-          canvas.width *
-          (Number(size.value) / 1000)
-        )
-      );
-
-
-    ctx.font =
-      "bold " +
-      fontSize +
-      "px Arial";
-
-
-    ctx.fillStyle =
-      textColor.value;
-
-
-    ctx.globalAlpha =
-      Number(opacity.value) / 100;
-
-
-    ctx.textBaseline =
-      "middle";
-
-
-    const padding =
-      fontSize;
-
-
-    const textWidth =
-      ctx.measureText(text).width;
-
-
-    let x;
-    let y;
-
-
-    if (position.value === "top-left") {
-
-      x =
-        padding;
-
-      y =
-        padding;
-
-      ctx.textAlign =
-        "left";
-
-    }
-
-    else if (position.value === "top-right") {
-
-      x =
-        canvas.width -
-        padding;
-
-      y =
-        padding;
-
-      ctx.textAlign =
-        "right";
-
-    }
-
-    else if (position.value === "bottom-left") {
-
-      x =
-        padding;
-
-      y =
-        canvas.height -
-        padding;
-
-      ctx.textAlign =
-        "left";
-
-    }
-
-    else if (position.value === "center") {
-
-      x =
-        canvas.width / 2;
-
-      y =
-        canvas.height / 2;
-
-      ctx.textAlign =
-        "center";
-
-    }
-
-    else {
-
-      x =
-        canvas.width -
-        padding;
-
-      y =
-        canvas.height -
-        padding;
-
-      ctx.textAlign =
-        "right";
-
-    }
-
-
-    ctx.fillText(
-      text,
-      x,
-      y
-    );
-
-
-    ctx.globalAlpha =
-      1;
+    status.textContent =
+      "Choose an image to start.";
 
   }
-
-
-  textInput.addEventListener(
-    "input",
-    draw
-  );
-
-
-  position.addEventListener(
-    "change",
-    draw
-  );
-
-
-  size.addEventListener(
-    "input",
-    draw
-  );
-
-
-  opacity.addEventListener(
-    "input",
-    draw
-  );
-
-
-  textColor.addEventListener(
-    "input",
-    draw
-  );
-
-
-  downloadBtn.addEventListener(
-    "click",
-    function() {
-
-      if (!imageLoaded) {
-        return;
-      }
-
-
-      canvas.toBlob(
-        function(blob) {
-
-          if (!blob) {
-            return;
-          }
-
-
-          const url =
-            URL.createObjectURL(blob);
-
-
-          const link =
-            document.createElement("a");
-
-
-          link.href =
-            url;
-
-          link.download =
-            "watermarked-image.png";
-
-
-          document.body.appendChild(
-            link
-          );
-
-          link.click();
-
-          link.remove();
-
-
-          URL.revokeObjectURL(
-            url
-          );
-
-
-          status.textContent =
-            "✅ Watermarked image downloaded.";
-
-        },
-        "image/png"
-      );
-
-    }
-  );
-
-
-  resetBtn.addEventListener(
-    "click",
-    function() {
-
-      fileInput.value = "";
-
-      imageLoaded =
-        false;
-
-      ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      downloadBtn.disabled =
-        true;
-
-      textInput.value =
-        "ImageTools";
-
-      position.value =
-        "bottom-right";
-
-      size.value =
-        "35";
-
-      opacity.value =
-        "65";
-
-      textColor.value =
-        "#ffffff";
-
-
-      status.textContent =
-        "Choose an image to start.";
-
-    }
-  );
+);
 
 </script>
 
