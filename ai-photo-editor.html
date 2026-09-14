@@ -4,9 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI Photo Editor - Free Online</title>
+<title>Free AI Photo Editor Online - Edit & Enhance Photos | ImageTools</title>
 
-<meta name="description" content="Edit and enhance your photos online for free with brightness, contrast, saturation, blur, grayscale and rotation tools.">
+<meta name="description" content="Free online AI photo editor for JPG, PNG and WebP images. Adjust brightness, contrast, saturation, blur and rotation directly in your browser.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://prakash1634.github.io/image-tools/ai-photo-editor.html">
+
+<meta property="og:title" content="Free AI Photo Editor Online | ImageTools">
+<meta property="og:description" content="Edit and enhance photos online for free with brightness, contrast, saturation, blur and rotation tools.">
+<meta property="og:url" content="https://prakash1634.github.io/image-tools/ai-photo-editor.html">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI Photo Editor",
+  "url": "https://prakash1634.github.io/image-tools/ai-photo-editor.html",
+  "description": "Free browser-based photo editor for adjusting brightness, contrast, saturation, blur and rotation of JPG, PNG and WebP images.",
+  "applicationCategory": "PhotoEditingApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 
 <style>
 * {
@@ -221,11 +247,10 @@ footer a {
 
 <div class="box">
 
-<h1>AI Photo Editor</h1>
+<h1>Free AI Photo Editor Online</h1>
 
 <p class="intro">
-Edit and enhance your photos online with powerful photo editing controls.
-Everything works directly in your browser.
+Edit and enhance your photos online with brightness, contrast, saturation, blur, rotation and auto enhancement tools. Everything works directly in your browser.
 </p>
 
 <div class="upload-area">
@@ -248,7 +273,7 @@ accept="image/jpeg,image/png,image/webp"
 
 <img
 id="preview"
-alt="Photo editor preview"
+alt="AI photo editor image preview"
 >
 
 <div class="editor" id="editor">
@@ -360,34 +385,58 @@ Edit Another Photo
 
 <section class="info">
 
-<h2>How to Edit a Photo</h2>
+<h2>How to Edit a Photo Online</h2>
 
 <p>
-1. Tap Choose Image and select your photo.
+1. Tap Choose Image and select your JPG, PNG or WebP photo.
 </p>
 
 <p>
-2. Adjust brightness, contrast, saturation and blur.
+2. Adjust brightness, contrast, saturation and blur using the editing controls.
 </p>
 
 <p>
-3. Use Auto Enhance for a quick improvement.
+3. Use Auto Enhance to quickly apply balanced brightness, contrast and saturation settings.
 </p>
 
 <p>
-4. Use Rotate if you want to change the photo direction.
+4. Use Rotate to turn your photo by 90 degrees.
 </p>
 
 <p>
-5. Tap Download Edited Photo to save your result.
+5. Tap Download Edited Photo to save the finished image.
 </p>
 
 <h2 style="margin-top:20px;">
-Is this photo editor free?
+What can this photo editor do?
 </h2>
 
 <p>
-Yes. This photo editor is free and processes your image directly in your browser.
+This free online photo editor provides simple tools for improving and editing images. You can change brightness, contrast and saturation, add blur, rotate photos and apply automatic enhancement settings.
+</p>
+
+<h2 style="margin-top:20px;">
+Is this AI photo editor free?
+</h2>
+
+<p>
+Yes. This photo editor is free to use. Image processing happens directly in your browser, so your selected image does not need to be uploaded to a server.
+</p>
+
+<h2 style="margin-top:20px;">
+Which image formats are supported?
+</h2>
+
+<p>
+You can edit JPG, JPEG, PNG and WebP images. The edited result is downloaded as a JPEG image.
+</p>
+
+<h2 style="margin-top:20px;">
+Is my photo uploaded?
+</h2>
+
+<p>
+No. The editing process runs locally in your browser. Your image is not required to be uploaded to an online server for editing.
 </p>
 
 </section>
@@ -401,9 +450,9 @@ Yes. This photo editor is free and processes your image directly in your browser
 <br>
 
 <a href="index.html">Home</a>
-<a href="#">Privacy Policy</a>
-<a href="#">Terms</a>
-<a href="#">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="terms.html">Terms</a>
+<a href="contact.html">Contact</a>
 
 </footer>
 
@@ -557,6 +606,9 @@ fileInput.addEventListener("change", function() {
                     resetBtn.style.display =
                         "inline-block";
 
+                    downloadBtn.style.display =
+                        "none";
+
                     rotation = 0;
 
                     updatePreview();
@@ -577,6 +629,10 @@ fileInput.addEventListener("change", function() {
 
 autoBtn.addEventListener("click", function() {
 
+    if (!selectedImage) {
+        return;
+    }
+
     brightness.value = 108;
     contrast.value = 112;
     saturation.value = 108;
@@ -595,6 +651,10 @@ autoBtn.addEventListener("click", function() {
 });
 
 rotateBtn.addEventListener("click", function() {
+
+    if (!selectedImage) {
+        return;
+    }
 
     rotation += 90;
 
@@ -616,6 +676,9 @@ downloadBtn.addEventListener("click", function(event) {
     }
 
     event.preventDefault();
+
+    status.textContent =
+        "Creating edited photo...";
 
     const canvas =
         document.createElement("canvas");
@@ -733,9 +796,12 @@ resetBtn.addEventListener("click", function() {
     saturationValue.textContent = "100%";
     blurValue.textContent = "0px";
 
+    preview.style.filter = "none";
+    preview.style.transform = "none";
+
 });
 
 </script>
 
 </body>
-</html>
+</html
