@@ -1,29 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rounded Image - ImageTools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Rounded Corner Image Online Free - ImageTools</title>
+
+<meta name="description" content="Create rounded corner images online for free. Upload an image, adjust the corner radius, preview the result, and download a transparent PNG with ImageTools.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://prakash1634.github.io/image-tools/image-rounded-corners.html">
+
+<meta property="og:title" content="Rounded Corner Image Online Free - ImageTools">
+<meta property="og:description" content="Create rounded corner images online for free. Adjust the corner radius and download your rounded PNG image.">
+<meta property="og:url" content="https://prakash1634.github.io/image-tools/image-rounded-corners.html">
+<meta property="og:type" content="website">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Rounded Corner Image",
+  "url": "https://prakash1634.github.io/image-tools/image-rounded-corners.html",
+  "description": "Free online tool for creating images with rounded corners and downloading them as PNG files.",
+  "applicationCategory": "PhotoEditingApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f5f7fb}header{background:#111827;color:white;text-align:center;padding:18px}
-.container{width:94%;max-width:850px;margin:20px auto}.card{background:white;padding:18px;border-radius:16px}
-.upload{display:block;border:2px dashed #999;padding:22px;text-align:center;border-radius:12px}#file{display:none}
-input[type=range]{width:100%;margin:15px 0}.preview{text-align:center}.preview canvas{max-width:100%;max-height:500px}
-button{width:100%;padding:13px;margin-top:15px;border:0;border-radius:9px;background:#16a34a;color:white;font-weight:bold}.status{margin-top:12px;padding:10px;background:#f3f4f6;font-size:12px}
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#111827
+}
+
+header{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:18px
+}
+
+header h1{
+  margin:0 0 6px
+}
+
+header p{
+  margin:0;
+  opacity:.9
+}
+
+.container{
+  width:94%;
+  max-width:850px;
+  margin:20px auto
+}
+
+.card{
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06)
+}
+
+.upload{
+  display:block;
+  border:2px dashed #999;
+  padding:22px;
+  text-align:center;
+  border-radius:12px;
+  cursor:pointer
+}
+
+#file{
+  display:none
+}
+
+input[type=range]{
+  width:100%;
+  margin:15px 0
+}
+
+.preview{
+  text-align:center;
+  margin:18px 0
+}
+
+.preview canvas{
+  max-width:100%;
+  max-height:500px
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:15px;
+  border:0;
+  border-radius:9px;
+  background:#16a34a;
+  color:white;
+  font-weight:bold;
+  cursor:pointer
+}
+
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed
+}
+
+.status{
+  margin-top:12px;
+  padding:10px;
+  background:#f3f4f6;
+  font-size:12px;
+  border-radius:8px
+}
+
+nav{
+  margin-top:18px;
+  text-align:center
+}
+
+nav a{
+  color:#111827;
+  text-decoration:none;
+  margin:0 8px;
+  font-size:14px
+}
+
+.info{
+  margin-top:24px;
+  line-height:1.6;
+  font-size:15px
+}
+
+.info h2{
+  font-size:21px;
+  margin-top:24px
+}
+
+.info h3{
+  font-size:17px;
+  margin-top:20px
+}
+
+footer{
+  text-align:center;
+  padding:25px 10px;
+  font-size:13px;
+  color:#666
+}
+
+footer a{
+  color:#111827;
+  text-decoration:none;
+  margin:0 6px
+}
 </style>
 </head>
+
 <body>
-<header><h1>Rounded Corner Image</h1><p>Create images with rounded corners</p></header>
-<div class="container"><div class="card">
-<label class="upload" for="file"><b>📷 Choose Image</b></label><input id="file" type="file" accept="image/*">
-<label>Corner Radius: <span id="val">30</span>px</label><input id="range" type="range" min="0" max="200" value="30">
-<div class="preview"><canvas id="canvas"></canvas></div>
-<button id="download" disabled>Download PNG</button><div class="status" id="status">Choose an image to start.</div>
-</div></div>
+
+<header>
+  <h1>Rounded Corner Image</h1>
+  <p>Create images with rounded corners</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <label class="upload" for="file">
+      <b>📷 Choose Image</b>
+    </label>
+
+    <input id="file" type="file" accept="image/*">
+
+    <label>
+      Corner Radius:
+      <span id="val">30</span>px
+    </label>
+
+    <input
+      id="range"
+      type="range"
+      min="0"
+      max="200"
+      value="30"
+    >
+
+    <div class="preview">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <button id="download" disabled>
+      Download PNG
+    </button>
+
+    <div class="status" id="status">
+      Choose an image to start.
+    </div>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="image-border.html">Image Border</a>
+      <a href="image-cropper.html">Image Cropper</a>
+      <a href="image-resizer.html">Image Resizer</a>
+    </nav>
+
+    <div class="info">
+
+      <h2>Rounded Corner Image Online Free</h2>
+
+      <p>
+        ImageTools Rounded Corner Image lets you create images with rounded
+        corners directly in your browser. Upload an image, adjust the corner
+        radius, preview the result, and download it as a PNG file.
+      </p>
+
+      <h2>How to Round Image Corners</h2>
+
+      <ol>
+        <li>Tap <b>Choose Image</b> and select your image.</li>
+        <li>Use the <b>Corner Radius</b> slider to adjust the corners.</li>
+        <li>Preview the rounded corner image.</li>
+        <li>Tap <b>Download PNG</b> to save the result.</li>
+      </ol>
+
+      <h2>Adjust the Corner Radius</h2>
+
+      <p>
+        Use the slider to control how rounded the image corners appear.
+        A smaller value creates slightly rounded corners, while a larger
+        value creates a more noticeable rounded effect.
+      </p>
+
+      <h2>Why Create Rounded Corner Images?</h2>
+
+      <p>
+        Rounded images can be useful for profile pictures, website graphics,
+        social media designs, thumbnails, presentations, cards, and other
+        creative projects.
+      </p>
+
+      <h2>PNG Output</h2>
+
+      <p>
+        The result is downloaded as a PNG image. The rounded areas outside
+        the image shape can remain transparent, making the PNG useful for
+        designs where the image needs to blend into another background.
+      </p>
+
+      <h2>Browser-Based Processing</h2>
+
+      <p>
+        The rounded corner effect is created directly in your browser using
+        HTML5 Canvas. No image-editing software installation is required.
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Can I control the roundness of the corners?</h3>
+
+      <p>
+        Yes. Use the Corner Radius slider to increase or decrease the
+        rounded-corner effect.
+      </p>
+
+      <h3>What format can I download?</h3>
+
+      <p>
+        The tool downloads the processed image as a PNG file.
+      </p>
+
+      <h3>Is the rounded image tool free?</h3>
+
+      <p>
+        Yes. The ImageTools Rounded Corner Image tool is available online
+        for free.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+
+  <p>© 2026 ImageTools. All rights reserved.</p>
+
+</footer>
+
 <script>
-const f=document.getElementById("file"),c=document.getElementById("canvas"),x=c.getContext("2d"),r=document.getElementById("range"),v=document.getElementById("val"),d=document.getElementById("download"),s=document.getElementById("status");let im=new Image(),ok=false;
-f.onchange=()=>{im.onload=()=>{ok=true;draw();d.disabled=false;s.textContent="✅ Image loaded."};im.src=URL.createObjectURL(f.files[0])};
-function draw(){if(!ok)return;let q=+r.value;c.width=im.naturalWidth;c.height=im.naturalHeight;x.clearRect(0,0,c.width,c.height);x.beginPath();x.roundRect(0,0,c.width,c.height,q);x.clip();x.drawImage(im,0,0);v.textContent=q}
-r.oninput=draw;d.onclick=()=>c.toBlob(b=>{let a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="rounded-image.png";a.click()},"image/png");
+const f = document.getElementById("file");
+const c = document.getElementById("canvas");
+const x = c.getContext("2d");
+const r = document.getElementById("range");
+const v = document.getElementById("val");
+const d = document.getElementById("download");
+const s = document.getElementById("status");
+
+let im = new Image();
+let ok = false;
+let objectURL = null;
+
+f.onchange = () => {
+
+  const selectedFile = f.files[0];
+
+  if(!selectedFile){
+    return;
+  }
+
+  if(objectURL){
+    URL.revokeObjectURL(objectURL);
+  }
+
+  objectURL = URL.createObjectURL(selectedFile);
+
+  im.onload = () => {
+
+    ok = true;
+
+    draw();
+
+    d.disabled = false;
+
+    s.textContent = "✅ Image loaded.";
+  };
+
+  im.src = objectURL;
+};
+
+function draw(){
+
+  if(!ok){
+    return;
+  }
+
+  let q = Number(r.value);
+
+  c.width = im.naturalWidth;
+  c.height = im.naturalHeight;
+
+  x.clearRect(
+    0,
+    0,
+    c.width,
+    c.height
+  );
+
+  x.beginPath();
+
+  x.roundRect(
+    0,
+    0,
+    c.width,
+    c.height,
+    q
+  );
+
+  x.clip();
+
+  x.drawImage(
+    im,
+    0,
+    0
+  );
+
+  v.textContent = q;
+}
+
+r.oninput = () => {
+  draw();
+};
+
+d.onclick = () => {
+
+  c.toBlob(
+    b => {
+
+      if(!b){
+        return;
+      }
+
+      const a = document.createElement("a");
+      const url = URL.createObjectURL(b);
+
+      a.href = url;
+      a.download = "rounded-image.png";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+
+    },
+    "image/png"
+  );
+
+};
 </script>
+
 </body>
 </html>
